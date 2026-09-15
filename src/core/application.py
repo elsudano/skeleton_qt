@@ -1,17 +1,14 @@
 from PySide6.QtWidgets import QApplication
-from src.controllers.home_controller import HomeController
-from src.controllers.settings_controller import SettingsController
+from src.core.feature_registry import FeatureRegistry
 from src.core.navigation import Navigation
-from src.models.home_model import HomeModel
-from src.models.settings_model import SettingsModel
 from src.views.main_window import MainWindow
-from src.views.home_view import HomeView
-from src.views.settings_view import SettingsView
+from src.core.feature_definitions import FEATURES
+from src.core.routes import Routes
 
 class Application:
     """Manage the application lifecycle and components."""
 
-    def __init__(self, qt_application):
+    def __init__(self, qt_application: QApplication):
         """Initialize the application.
 
         Parameters
@@ -22,58 +19,67 @@ class Application:
         self._qt_application = qt_application
         self._window = None
         self._navigation = None
-        self._views = {}
-        self._models = {}
-        self._controllers = {}
+        self._feature_registry = None
+        self._initialize_infrastructure()
+        self._register_features()
 
     def start(self):
         """Initialize and display the application."""
-        self._create_components()
-        self._configure_navigation()
         self._configure_window()
+        self._configure_menus()
+        self.navigate_to(Routes.HOME)
         self._window.show()
 
-    def _create_components(self):
-        """Create application components."""
-        self._create_main_window()
-        self._create_navigation()
-        self._create_home()
-        self._create_settings()
-
-    def _create_main_window(self):
-        """Create the main application window."""
+    def _initialize_infrastructure(self):
+        """Initialize the application infrastructure."""
         self._window = MainWindow()
-
-    def _create_navigation(self):
-        """Create the application navigation manager."""
         self._navigation = Navigation()
+        self._feature_registry = FeatureRegistry()
 
-    def _create_home(self):
-        """Create and store the home components."""
-        model = HomeModel()
-        view = HomeView()
-        controller = HomeController(view=view, model=model,)
-        self._models["home"] = model
-        self._views["home"] = view
-        self._controllers["home"] = controller
+    def navigate_to(self, name: str):
+        """Navigate to a registered feature.
 
-    def _create_settings(self):
-        """Create and store the settings components."""
-        model = SettingsModel()
-        view = SettingsView()
-        controller = SettingsController(view=view, model=model,)
-        self._models["settings"] = model
-        self._views["settings"] = view
-        self._controllers["settings"] = controller
+        The feature is created lazily the first time it is
+        requested.
 
-    def _configure_navigation(self):
-        """Configure application views and navigation events."""
-        for name, view in self._views.items():
-            self._navigation.add_view(name, view)
-        self._views["home"].settings_requested.connect(lambda: self._navigation.show_view("settings"))
-        self._views["settings"].home_requested.connect(lambda: self._navigation.show_view("home"))
-        self._navigation.show_view("home")
+        Parameters
+        ----------
+        name : str
+            Name of the requested feature.
+        """
+        feature = self._feature_registry.get(name)
+        self._connect_feature_navigation(feature)
+        if not self._navigation.has_view(name):
+            self._navigation.add_view(name=name,view=feature.view,)
+        self._navigation.show_view(name)
+
+    def _connect_feature_navigation(self, feature):
+        """Connect navigation signals for a feature.
+
+        Parameters
+        ----------
+        feature : FeatureInstance
+            Feature whose navigation signals must be connected.
+        """
+        if feature.navigation_connected:
+            return
+        feature.view.navigation_requested.connect(self.navigate_to)
+        feature.navigation_connected = True
+
+    def _register_features(self):
+        """Register all available application features."""
+        for feature in FEATURES:
+            self._feature_registry.register(
+                name=feature.name,
+                factory=feature.factory,
+        )
 
     def _configure_window(self):
         """Configure the main application window."""
         self._window.set_central_widget(self._navigation.widget())
+
+    def _configure_menus(self):
+        """Configure the application menus."""
+        self._window.add_action(menu_name="views", action_name=Routes.HOME, title=self._window.tr("Home"), callback=lambda: self.navigate_to(Routes.HOME),)
+        self._window.add_action(menu_name="views", action_name=Routes.SETTINGS, title=self._window.tr("Settings"), callback=lambda: self.navigate_to(Routes.SETTINGS),)
+        self._window.add_action(menu_name="file", action_name="exit", title=self._window.tr("Exit"), callback=self._qt_application.quit,)

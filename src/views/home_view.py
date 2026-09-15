@@ -1,12 +1,12 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (QLabel, QPushButton, QVBoxLayout,)
 from src.views.base_view import BaseView
+from src.core.routes import Routes
 
 class HomeView(BaseView):
     """Display the home application view."""
 
     welcome_requested = Signal()
-    settings_requested = Signal()
 
     def __init__(self, parent=None):
         """Initialize the home view.
@@ -39,10 +39,10 @@ class HomeView(BaseView):
         self.welcome_requested.emit()
 
     def _on_settings_clicked(self):
-        """Emit the signal requesting the settings view."""
-        self.settings_requested.emit()
+        """Request navigation to the settings feature."""
+        self.request_navigation(Routes.SETTINGS)
 
-    def set_message(self, message):
+    def set_message(self, message: str):
         """Display a message in the view.
 
         Parameters
