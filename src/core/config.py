@@ -6,7 +6,7 @@ RESOURCES_DIR = PROJECT_ROOT / "resources"
 TRANSLATIONS_DIR = RESOURCES_DIR / "translations"
 
 # Basic Configuration
-APP_NAME = "Skeleton Qt"
+WINDOW_TITLE = "Skeleton Qt"
 WINDOW_WIDTH = 240
 WINDOW_HEIGHT = 165
-DEFAULT_LANGUAGE = "es"
+DEFAULT_LANGUAGE = "es_ES"

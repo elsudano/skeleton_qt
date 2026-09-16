@@ -1,18 +1,15 @@
 from src.models.model import Model
 
+
 class HomeModel(Model):
-    """Provide the application logic for the home view."""
+    """Model for the home view."""
 
-    def __init__(self):
-        """Initialize the home model."""
-        super().__init__()
-
-    def get_welcome_message(self):
+    def get_welcome_message(self) -> str:
         """Return the welcome message.
 
         Returns
         -------
         str
-            Welcome message displayed by the home view.
+            Welcome message.
         """
-        return "Welcome to the Qt Skeleton"
+        return "Welcome to Skeleton Qt"

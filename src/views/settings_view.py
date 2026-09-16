@@ -1,9 +1,10 @@
-from PySide6.QtWidgets import (QLabel, QPushButton, QVBoxLayout,)
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton
 from src.views.base_view import BaseView
-from src.core.routes import Routes
+from src.views.views import Views
 
 class SettingsView(BaseView):
-    """Display the application settings view."""
+    """Settings view."""
+
     def __init__(self, parent=None):
         """Initialize the settings view.
 
@@ -13,25 +14,19 @@ class SettingsView(BaseView):
             Parent widget.
         """
         super().__init__(parent)
-        self._title_label = None
-        self._home_button = None
         self.setup_ui()
 
     def setup_ui(self):
-        """Build the graphical user interface."""
+        """Build the settings user interface."""
         layout = QVBoxLayout(self)
-        self._title_label = QLabel(self.tr("Settings"))
-        self._home_button = QPushButton(self.tr("Back to Home"))
+        self._title_label = QLabel(self.tr("View of Settings"))
+        self._back_button = QPushButton(self.tr("Back"))
         layout.addWidget(self._title_label)
-        layout.addWidget(self._home_button)
-        self._home_button.clicked.connect(self._on_home_clicked)
+        layout.addWidget(self._back_button)
+        self._back_button.clicked.connect(lambda: self.request_navigation(Views.HOME))
 
-    def _on_home_clicked(self):
-        """Request navigation to the home feature."""
-        self.request_navigation(Routes.HOME)
-
-    def set_title(self, title: str):
-        """Display the settings title.
+    def _set_title(self, title: str):
+        """Set the title displayed by the view.
 
         Parameters
         ----------
