@@ -7,7 +7,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         """Initialize the main window."""
         super().__init__()
-        self._menus = {}
+        self._menu_registry = {}
         self._setup_window()
 
     def _setup_window(self):
@@ -23,11 +23,11 @@ class MainWindow(QMainWindow):
         Parameters
         ----------
         menus : tuple of tuple
-            Menu definitions containing the internal name and visible title.
+            Menu definitions containing the internal name and translated title.
         """
         for name, title in menus:
-            menu = self.menuBar().addMenu(self.tr(title))
-            self._menus[name] = menu
+            menu = self.menuBar().addMenu(title)
+            self._menu_registry[name] = menu
 
     def add_action(self, menu_name: str, action):
         """Add an action to a registered menu.
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         KeyError
             If the menu does not exist.
         """
-        self._menus[menu_name].addAction(action)
+        self._menu_registry[menu_name].addAction(action)
 
     def add_separator(self, menu_name: str):
         """Add a separator to a registered menu.
@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
         KeyError
             If the menu does not exist.
         """
-        self._menus[menu_name].addSeparator()
+        self._menu_registry[menu_name].addSeparator()
 
     @property
     def navigation_container(self):

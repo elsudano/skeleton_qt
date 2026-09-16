@@ -44,11 +44,11 @@ class Controller(QObject):
         view_factory, model_factory = self._factories[name]
         view = view_factory()
         model = model_factory()
-        pair = (view, model)
-        self._cache[name] = pair
-        self._connect_view(view)
+        self._cache[name] = (view, model)
+        self._connect_view(view, model)
+        self._initialize_view(view, model)
         self._navigation_container.addWidget(view)
-        return pair
+        return view, model
 
     def _get_view_model(self, name: str):
         """Return a cached view and model tuple.
@@ -67,15 +67,34 @@ class Controller(QObject):
             return self._create_view_model(name)
         return self._cache[name]
 
-    def _connect_view(self, view):
+    def _connect_view(self, view, model):
         """Connect view signals to controller handlers.
 
         Parameters
         ----------
         view : BaseView
             View whose signals should be connected.
+        model : Model
+            Model associated with the view.
         """
         view.navigation_requested.connect(self.navigate)
+        if isinstance(view, HomeView):
+            view.welcome_requested.connect(
+                lambda: view._set_message(model.get_welcome_message())
+            )
+
+    def _initialize_view(self, view, model):
+        """Initialize view data from its model.
+
+        Parameters
+        ----------
+        view : BaseView
+            View to initialize.
+        model : Model
+            Model associated with the view.
+        """
+        if isinstance(view, SettingsView):
+            view._set_title(model.get_title())
 
     def navigate(self, name: str):
         """Navigate to a view.
