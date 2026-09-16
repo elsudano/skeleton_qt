@@ -1,3 +1,4 @@
+from PySide6.QtCore import QCoreApplication
 from src.models.model import Model
 
 
@@ -12,4 +13,4 @@ class HomeModel(Model):
         str
             Welcome message.
         """
-        return "Welcome to Skeleton Qt"
+        return QCoreApplication.translate("HomeModel", "Welcome to Skeleton Qt")

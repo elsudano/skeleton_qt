@@ -28,10 +28,17 @@ class Application:
 
     def _load_translation(self, language: str = None):
         """Load and install the configured translation, if available."""
-
-        translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{config.DEFAULT_LANGUAGE}.qm")
-        if self._translator.load(str(translation_file)):
-            self._qt_application.installTranslator(self._translator)
+        if language == None:
+            translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{config.DEFAULT_LANGUAGE}.qm")
+            if self._translator.load(str(translation_file)):
+                self._qt_application.installTranslator(self._translator)
+        else:
+            translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{language}.qm")
+            self._qt_application.removeTranslator(self._translator)
+            config.DEFAULT_LANGUAGE = language
+            self._translator = QTranslator()
+            if self._translator.load(str(translation_file)):
+                self._qt_application.installTranslator(self._translator)
 
     def _setup_menus(self):
         """Create menus and configure their actions."""

@@ -1,3 +1,4 @@
+from PySide6.QtCore import QCoreApplication
 from src.models.model import Model
 
 
@@ -10,6 +11,6 @@ class SettingsModel(Model):
         Returns
         -------
         str
-            Settings title.
+            Settings title. Model is a plain object
         """
-        return "Settings"
+        return QCoreApplication.translate("SettingsModel", "Settings")

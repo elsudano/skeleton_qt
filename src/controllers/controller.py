@@ -79,9 +79,7 @@ class Controller(QObject):
         """
         view.navigation_requested.connect(self.navigate)
         if isinstance(view, HomeView):
-            view.welcome_requested.connect(
-                lambda: view._set_message(model.get_welcome_message())
-            )
+            view.welcome_requested.connect(lambda: view._set_message(model.get_welcome_message()))
 
     def _initialize_view(self, view, model):
         """Initialize view data from its model.
