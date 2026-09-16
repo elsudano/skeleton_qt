@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         self._navigation_container = QStackedWidget()
         self.setCentralWidget(self._navigation_container)
 
-    def create_menus(self, menus):
+    def create_menu(self, menu):
         """Create and register application menus.
 
         Parameters
@@ -25,9 +25,9 @@ class MainWindow(QMainWindow):
         menus : tuple of tuple
             Menu definitions containing the internal name and translated title.
         """
-        for name, title in menus:
-            menu = self.menuBar().addMenu(title)
-            self._menu_registry[name] = menu
+
+        m = self.menuBar().addMenu(menu["title"])
+        self._menu_registry[menu["name"]] = m
 
     def add_action(self, menu_name: str, action):
         """Add an action to a registered menu.

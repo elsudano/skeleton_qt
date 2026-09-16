@@ -16,6 +16,10 @@
             <translation>&amp;Vistas</translation>
         </message>
         <message>
+            <source>&amp;Languages</source>
+            <translation>&amp;Idiomas</translation>
+        </message>
+        <message>
             <source>&amp;Exit</source>
             <translation>&amp;Salir</translation>
         </message>
@@ -26,6 +30,14 @@
         <message>
             <source>&amp;Settings</source>
             <translation>&amp;Configuración</translation>
+        </message>
+        <message>
+            <source>&amp;Spain</source>
+            <translation>&amp;Español</translation>
+        </message>
+        <message>
+            <source>&amp;English</source>
+            <translation>&amp;Ingles</translation>
         </message>
     </context>
     <context>

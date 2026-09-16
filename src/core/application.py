@@ -8,17 +8,6 @@ from src.views.views import Views
 class Application:
     """Compose and start the application."""
 
-    _MENU_DEFINITIONS = (
-        ("file", "&File"),
-        ("views", "&Views"),
-    )
-
-    _ACTION_DEFINITIONS = (
-        ("&Exit", "file", "exit"),
-        ("&Home", "views", "home"),
-        ("&Settings", "views", "settings"),
-    )
-
     def __init__(self, qt_application):
         """Initialize the application.
 
@@ -37,42 +26,38 @@ class Application:
         self._setup_menus()
         self._controller.navigate(Views.HOME)
 
-    def _load_translation(self):
+    def _load_translation(self, language: str = None):
         """Load and install the configured translation, if available."""
-        translation_file = (
-            config.TRANSLATIONS_DIR
-            / f"skeleton_{config.DEFAULT_LANGUAGE}.qm"
-        )
 
+        translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{config.DEFAULT_LANGUAGE}.qm")
         if self._translator.load(str(translation_file)):
             self._qt_application.installTranslator(self._translator)
 
     def _setup_menus(self):
         """Create menus and configure their actions."""
-        menus = (
-            ("file", self._main_window.tr("&File")),
-            ("views", self._main_window.tr("&Views")),
+
+        _menu_definitions = (
+            {"name":"file", "title":"&File"},
+            {"name":"views", "title":"&Views"},
+            {"name":"languages", "title":"&Languages"},
         )
-        self._main_window.create_menus(menus)
 
-        translated_titles = {
-            "&Exit": self._main_window.tr("&Exit"),
-            "&Home": self._main_window.tr("&Home"),
-            "&Settings": self._main_window.tr("&Settings"),
-        }
-        callbacks = {
-            "exit": self._qt_application.quit,
-            "home": lambda: self._controller.navigate(Views.HOME),
-            "settings": lambda: self._controller.navigate(Views.SETTINGS),
-        }
+        _action_definitions = (
+            {"title":"&Exit", "menu_name":"file", "callback": self._qt_application.quit},
+            {"title":"&Home", "menu_name":"views", "callback": lambda: self._controller.navigate(Views.HOME)},
+            {"title":"&Settings", "menu_name":"views", "callback": lambda: self._controller.navigate(Views.SETTINGS)},
+            {"title":"&Spain", "menu_name":"languages", "callback": lambda: self._load_translation("es_ES")},
+            {"title":"&English", "menu_name":"languages", "callback": lambda: self._load_translation("en_US")},
+        )
 
-        for title, menu_name, callback_name in self._ACTION_DEFINITIONS:
-            action = QAction(
-                translated_titles[title],
-                self._main_window,
-            )
-            action.triggered.connect(callbacks[callback_name])
-            self._main_window.add_action(menu_name, action)
+        for menu in _menu_definitions:
+            m = {"name":menu["name"], "title":self._main_window.tr(menu["title"])}
+            self._main_window.create_menu(m)
+
+        for menu_action in _action_definitions:
+            action = QAction(self._main_window.tr(menu_action["title"]), self._main_window,)
+            action.triggered.connect(menu_action["callback"])
+            self._main_window.add_action(menu_action["menu_name"], action)
 
     def start(self):
         """Show the application window."""
