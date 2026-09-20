@@ -1,4 +1,5 @@
 from PySide6.QtCore import QEvent
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
 from src.core import config
 from src.core.text_binder import TextBinder
@@ -16,6 +17,7 @@ class MainWindow(QMainWindow):
     def _setup_window(self):
         """Configure the main window."""
         self.bind_text(self, lambda: self.tr(config.WINDOW_TITLE), "setWindowTitle")
+        self.setWindowIcon(QIcon(str(config.ASSETS_DIR / f"icon.ico")))
         self.resize(config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
         self._navigation_container = QStackedWidget()
         self.setCentralWidget(self._navigation_container)
