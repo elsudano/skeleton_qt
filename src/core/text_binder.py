@@ -43,7 +43,6 @@ class TextBinder:
             try:
                 getattr(widget, setter)(text)
             except RuntimeError:
-                # The C++ object was destroyed: forget its binding.
                 del self._bindings[key]
 
     @staticmethod
