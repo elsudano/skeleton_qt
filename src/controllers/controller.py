@@ -78,6 +78,7 @@ class Controller(QObject):
             Model associated with the view.
         """
         view.navigation_requested.connect(self.navigate)
+        view.retranslated.connect(lambda: self._initialize_view(view, model))
         if isinstance(view, HomeView):
             view.welcome_requested.connect(lambda: view._set_message(model.get_welcome_message()))
 
@@ -93,6 +94,8 @@ class Controller(QObject):
         """
         if isinstance(view, SettingsView):
             view._set_title(model.get_title())
+        elif isinstance(view, HomeView) and view.has_message:
+            view._set_message(model.get_welcome_message())
 
     def navigate(self, name: str):
         """Navigate to a view.

@@ -25,6 +25,11 @@ class SettingsView(BaseView):
         layout.addWidget(self._back_button)
         self._back_button.clicked.connect(lambda: self.request_navigation(Views.HOME))
 
+    def retranslate_ui(self):
+        """Apply translatable texts."""
+        self._title_label.setText(self.tr("View of Settings"))
+        self._back_button.setText(self.tr("Back"))
+
     def _set_title(self, title: str):
         """Set the title displayed by the view.
 

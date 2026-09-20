@@ -66,4 +66,18 @@
             <translation>Volver</translation>
         </message>
     </context>
+    <context>
+        <name>HomeModel</name>
+        <message>
+            <source>Welcome to Skeleton Qt</source>
+            <translation>Bienvenido a Skeleton Qt</translation>
+        </message>
+    </context>
+    <context>
+        <name>SettingsModel</name>
+        <message>
+            <source>Settings</source>
+            <translation>Configuración</translation>
+        </message>
+    </context>
 </TS>

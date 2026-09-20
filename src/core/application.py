@@ -27,19 +27,16 @@ class Application:
         self._controller.navigate(Views.HOME)
 
     def _load_translation(self, language: str = None):
-        """Load and install the configured translation, if available."""
-        if language == None:
-            translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{config.DEFAULT_LANGUAGE}.qm")
-            if self._translator.load(str(translation_file)):
-                self._qt_application.installTranslator(self._translator)
-        else:
-            translation_file = (config.TRANSLATIONS_DIR/f"skeleton_{language}.qm")
-            self._qt_application.removeTranslator(self._translator)
-            config.DEFAULT_LANGUAGE = language
-            self._translator = QTranslator()
-            if self._translator.load(str(translation_file)):
-                self._qt_application.installTranslator(self._translator)
-
+        """Load and install a translation. Qt notifies every widget (LanguageChange)."""
+        language = language or config.DEFAULT_LANGUAGE
+        translator = QTranslator()
+        if not translator.load(str(config.TRANSLATIONS_DIR / f"skeleton_{language}.qm")):
+            return
+        self._qt_application.removeTranslator(self._translator)
+        self._qt_application.installTranslator(translator)
+        self._translator = translator
+        config.DEFAULT_LANGUAGE = language
+    
     def _setup_menus(self):
         """Create menus and configure their actions."""
 
@@ -58,11 +55,10 @@ class Application:
         )
 
         for menu in _menu_definitions:
-            m = {"name":menu["name"], "title":self._main_window.tr(menu["title"])}
-            self._main_window.create_menu(m)
+            self._main_window.create_menu(menu)
 
         for menu_action in _action_definitions:
-            action = QAction(self._main_window.tr(menu_action["title"]), self._main_window,)
+            action = QAction(menu_action["title"], self._main_window,)
             action.triggered.connect(menu_action["callback"])
             self._main_window.add_action(menu_action["menu_name"], action)
 
