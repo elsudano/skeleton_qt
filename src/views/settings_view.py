@@ -19,23 +19,19 @@ class SettingsView(BaseView):
     def setup_ui(self):
         """Build the settings user interface."""
         layout = QVBoxLayout(self)
-        self._title_label = QLabel(self.tr("View of Settings"))
-        self._back_button = QPushButton(self.tr("Back"))
+        self._title_label = self.bind_text(QLabel(), lambda: self.tr("View of Settings"))
+        self._back_button = self.bind_text(QPushButton(), lambda: self.tr("Back"))
         layout.addWidget(self._title_label)
         layout.addWidget(self._back_button)
         self._back_button.clicked.connect(lambda: self.request_navigation(Views.HOME))
 
-    def retranslate_ui(self):
-        """Apply translatable texts."""
-        self._title_label.setText(self.tr("View of Settings"))
-        self._back_button.setText(self.tr("Back"))
-
-    def _set_title(self, title: str):
+    def _set_title(self, title):
         """Set the title displayed by the view.
 
         Parameters
         ----------
-        title : str
-            Title to display.
+        title : callable or str
+            Callable returning the title (it follows the active language)
+            or a plain string.
         """
-        self._title_label.setText(title)
+        self.bind_text(self._title_label, title)

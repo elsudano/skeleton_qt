@@ -29,14 +29,15 @@ class Application:
     def _load_translation(self, language: str = None):
         """Load and install a translation. Qt notifies every widget (LanguageChange)."""
         language = language or config.DEFAULT_LANGUAGE
+        translation_file = config.TRANSLATIONS_DIR / f"skeleton_{language}.qm"
         translator = QTranslator()
-        if not translator.load(str(config.TRANSLATIONS_DIR / f"skeleton_{language}.qm")):
+        if not translator.load(str(translation_file)):
             return
         self._qt_application.removeTranslator(self._translator)
         self._qt_application.installTranslator(translator)
         self._translator = translator
         config.DEFAULT_LANGUAGE = language
-    
+
     def _setup_menus(self):
         """Create menus and configure their actions."""
 
