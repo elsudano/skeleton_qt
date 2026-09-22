@@ -1,3 +1,5 @@
+"""Global application controller."""
+
 from PySide6.QtCore import QObject
 from src.models.home_model import HomeModel
 from src.models.settings_model import SettingsModel
@@ -6,7 +8,11 @@ from src.views.settings_view import SettingsView
 from src.views.views import Views
 
 class Controller(QObject):
-    """Global application controller."""
+    """Global application controller.
+
+    Coordinates communication between Views and Models. Views are created
+    lazily on first navigation and cached for the lifetime of the controller.
+    """
 
     def __init__(self, navigation_container):
         """Initialize the controller.
@@ -79,7 +85,9 @@ class Controller(QObject):
         """
         view.navigation_requested.connect(self.navigate)
         if isinstance(view, HomeView):
-            view.welcome_requested.connect(lambda: view._set_message(model.get_welcome_message))
+            view.welcome_requested.connect(
+                lambda: view.set_message(model.get_welcome_message)
+            )
 
     def _initialize_view(self, view, model):
         """Initialize view data from its model.
@@ -92,7 +100,7 @@ class Controller(QObject):
             Model associated with the view.
         """
         if isinstance(view, SettingsView):
-            view._set_title(model.get_title)
+            view.set_title(model.get_title)
 
     def navigate(self, name: str):
         """Navigate to a view.

@@ -1,3 +1,4 @@
+"""Main application window."""
 from PySide6.QtCore import QEvent
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
@@ -16,8 +17,8 @@ class MainWindow(QMainWindow):
 
     def _setup_window(self):
         """Configure the main window."""
-        self.bind_text(self, lambda: self.tr(config.WINDOW_TITLE), "setWindowTitle")
-        self.setWindowIcon(QIcon(str(config.ASSETS_DIR / f"icon.ico")))
+        self.bind_text(self, lambda: self.tr("Skeleton Qt"), "setWindowTitle")
+        self.setWindowIcon(QIcon(str(config.ASSETS_DIR / "icon.ico")))
         self.resize(config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
         self._navigation_container = QStackedWidget()
         self.setCentralWidget(self._navigation_container)
@@ -42,20 +43,22 @@ class MainWindow(QMainWindow):
         """
         return self._texts.bind(widget, source, setter)
 
-    def create_menu(self, menu):
+    def create_menu(self, name: str, title_source):
         """Create and register an application menu.
 
         Parameters
         ----------
-        menu : dict
-            Menu definition: internal ``name`` and untranslated ``title``.
+        name : str
+            Internal menu name used with :meth:`add_action`.
+        title_source : callable or str
+            Callable returning the untranslated menu title
+            (``lambda: self.tr("&File")``) or a plain string.
         """
-        title = menu["title"]
-        m = self.menuBar().addMenu("")
-        self._menu_registry[menu["name"]] = m
-        self.bind_text(m, lambda: self.tr(title), "setTitle")
+        menu = self.menuBar().addMenu("")
+        self._menu_registry[name] = menu
+        self.bind_text(menu, title_source, "setTitle")
 
-    def add_action(self, menu_name: str, action):
+    def add_action(self, menu_name: str, action, text_source=None):
         """Add an action to a registered menu.
 
         Parameters
@@ -63,7 +66,10 @@ class MainWindow(QMainWindow):
         menu_name : str
             Internal menu name.
         action : QAction
-            Action to add, created with its untranslated text.
+            Action to add.
+        text_source : callable, optional
+            Callable returning the action text (``lambda: self.tr("&Exit")``).
+            When omitted, the action keeps the text it was created with.
 
         Raises
         ------
@@ -71,8 +77,8 @@ class MainWindow(QMainWindow):
             If the menu does not exist.
         """
         self._menu_registry[menu_name].addAction(action)
-        source_text = action.text()
-        self.bind_text(action, lambda: self.tr(source_text))
+        if text_source is not None:
+            self.bind_text(action, text_source)
 
     def add_separator(self, menu_name: str):
         """Add a separator to a registered menu.
@@ -90,14 +96,8 @@ class MainWindow(QMainWindow):
         self._menu_registry[menu_name].addSeparator()
 
     @property
-    def navigation_container(self):
-        """Return the navigation container.
-
-        Returns
-        -------
-        QStackedWidget
-            Navigation container.
-        """
+    def navigation_container(self) -> QStackedWidget:
+        """Return the navigation container."""
         return self._navigation_container
 
     def changeEvent(self, event):

@@ -293,7 +293,8 @@ pyinstaller --clean --noconfirm skeleton_qt.spec
 
 The generated application will be placed in the `dist/` directory.
 
-During development, the PyInstaller configuration keeps the console enabled to make debugging easier.
+The PyInstaller configuration builds a windowed application (`console=False`).
+UPX compression is disabled to avoid antivirus false positives.
 
 ## Localization
 
@@ -323,6 +324,32 @@ pyside6-lrelease
 ```
 
 Runtime language switching may be added later.
+
+## Testing
+
+Install the development dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+Run the test suite (a QApplication is provided automatically by pytest-qt):
+
+```bash
+pytest
+```
+
+On headless environments, use the offscreen Qt platform:
+
+```bash
+QT_QPA_PLATFORM=offscreen pytest
+```
+
+## Continuous integration
+
+The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`)
+that runs Ruff linting and the pytest suite on Linux and Windows with
+Python 3.10–3.12 on every push and pull request.
 
 ## Adding a new feature
 
@@ -437,7 +464,10 @@ The project is currently in its initial skeleton development stage.
 * [x] Initial Home MVC implementation.
 * [x] Centralized application lifecycle through `Application`.
 * [x] Initial localization structure.
+* [x] Runtime language switching.
 * [x] PyInstaller configuration.
+* [x] Automated tests (pytest + pytest-qt).
+* [x] CI pipeline (GitHub Actions + Ruff).
 
 ### Planned
 
@@ -459,4 +489,4 @@ The roadmap is intentionally incremental. New infrastructure should be introduce
 
 ## License
 
-This project is currently under development. check the [LICENSE](LICENSE) file
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file.

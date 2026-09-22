@@ -1,0 +1,1 @@
+"""Skeleton Qt application package."""

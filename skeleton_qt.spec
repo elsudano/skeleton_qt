@@ -2,6 +2,7 @@
 
 import sys
 
+
 APP_NAME = 'QtSkeleton'
 
 TRANSLATION_FILES = [
@@ -45,7 +46,9 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    # UPX compression is disabled: compressed binaries trigger antivirus
+    # false positives on Windows.
+    upx=False,
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,

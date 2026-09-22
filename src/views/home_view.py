@@ -1,5 +1,7 @@
+"""Home view."""
+
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton
+from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout
 from src.views.base_view import BaseView
 from src.views.views import Views
 
@@ -31,7 +33,7 @@ class HomeView(BaseView):
         self._welcome_button.clicked.connect(self.welcome_requested.emit)
         self._settings_button.clicked.connect(lambda: self.request_navigation(Views.SETTINGS))
 
-    def _set_message(self, message):
+    def set_message(self, message):
         """Set the message displayed by the view.
 
         Parameters

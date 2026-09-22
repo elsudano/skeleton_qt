@@ -1,6 +1,10 @@
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton
+"""Settings view."""
+
+from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout
+
 from src.views.base_view import BaseView
 from src.views.views import Views
+
 
 class SettingsView(BaseView):
     """Settings view."""
@@ -25,7 +29,7 @@ class SettingsView(BaseView):
         layout.addWidget(self._back_button)
         self._back_button.clicked.connect(lambda: self.request_navigation(Views.HOME))
 
-    def _set_title(self, title):
+    def set_title(self, title):
         """Set the title displayed by the view.
 
         Parameters
