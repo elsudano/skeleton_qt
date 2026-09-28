@@ -1,83 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="es_ES">
-    <context>
-        <name>MainWindow</name>
-        <message>
-            <source>Skeleton Qt</source>
-            <translation>Skeleton Qt</translation>
-        </message>
-        <message>
-            <source>&amp;File</source>
-            <translation>&amp;Archivo</translation>
-        </message>
-        <message>
-            <source>&amp;Views</source>
-            <translation>&amp;Vistas</translation>
-        </message>
-        <message>
-            <source>&amp;Languages</source>
-            <translation>&amp;Idiomas</translation>
-        </message>
-        <message>
-            <source>&amp;Exit</source>
-            <translation>&amp;Salir</translation>
-        </message>
-        <message>
-            <source>&amp;Home</source>
-            <translation>&amp;Inicio</translation>
-        </message>
-        <message>
-            <source>&amp;Settings</source>
-            <translation>&amp;Configuración</translation>
-        </message>
-        <message>
-            <source>&amp;Spain</source>
-            <translation>&amp;Español</translation>
-        </message>
-        <message>
-            <source>&amp;English</source>
-            <translation>&amp;Ingles</translation>
-        </message>
-    </context>
-    <context>
-        <name>HomeView</name>
-        <message>
-            <source>Press the button</source>
-            <translation>Pulsa el botón</translation>
-        </message>
-        <message>
-            <source>Show welcome message</source>
-            <translation>Mostrar mensaje de bienvenida</translation>
-        </message>
-        <message>
-            <source>Show Settings</source>
-            <translation>Mostrar configuración</translation>
-        </message>
-    </context>
-    <context>
-        <name>SettingsView</name>
-        <message>
-            <source>View of Settings</source>
-            <translation>Vista de configuración</translation>
-        </message>
-        <message>
-            <source>Back</source>
-            <translation>Volver</translation>
-        </message>
-    </context>
-    <context>
-        <name>HomeModel</name>
-        <message>
-            <source>Welcome to Skeleton Qt</source>
-            <translation>Bienvenido a Skeleton Qt</translation>
-        </message>
-    </context>
-    <context>
-        <name>SettingsModel</name>
-        <message>
-            <source>Settings</source>
-            <translation>Configuración</translation>
-        </message>
-    </context>
+<context>
+    <name>Application</name>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Archivo</translation>
+    </message>
+    <message>
+        <source>&amp;Home</source>
+        <translation>&amp;Inicio</translation>
+    </message>
+    <message>
+        <source>Application initialized</source>
+        <translation>Inicializando Aplicación</translation>
+    </message>
+    <message>
+        <source>The Language was changed</source>
+        <translation>El Idioma fue cambiado</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edición</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Herramientas</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation>&amp;Opciones</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>A&amp;yuda</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Salir</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Cor&amp;tar</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Copiar</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Pegar</translation>
+    </message>
+    <message>
+        <source>&amp;Video Uploader</source>
+        <translation>&amp;Cargador de Videos</translation>
+    </message>
+    <message>
+        <source>&amp;Route Designer</source>
+        <translation>Diseñador de &amp;Ruta</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Configuración</translation>
+    </message>
+    <message>
+        <source>&amp;Logs</source>
+        <translation>&amp;Logs</translation>
+    </message>
+    <message>
+        <source>&amp;Spain</source>
+        <translation>&amp;Español</translation>
+    </message>
+    <message>
+        <source>&amp;English</source>
+        <translation>&amp;Ingles</translation>
+    </message>
+    <message>
+        <source>&amp;Configuration</source>
+        <translation>&amp;Configuración</translation>
+    </message>
+    <message>
+        <source>&amp;About</source>
+        <translation>&amp;Sobre...</translation>
+    </message>
+</context>
+<context>
+    <name>BaseView</name>
+    <message>
+        <source>&amp;Back</source>
+        <translation>&amp;Atrás</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Salir</translation>
+    </message>
+</context>
+<context>
+    <name>HomeView</name>
+    <message>
+        <source>&amp;Video</source>
+        <translation>&amp;Video</translation>
+    </message>
+    <message>
+        <source>&amp;Route</source>
+        <translation>&amp;Ruta</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Configuración</translation>
+    </message>
+    <message>
+        <source>&amp;Empty1</source>
+        <translation>&amp;Vacío1</translation>
+    </message>
+    <message>
+        <source>&amp;Empty2</source>
+        <translation>&amp;Vacío2</translation>
+    </message>
+    <message>
+        <source>&amp;Logs</source>
+        <translation>&amp;Logs</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+</context>
+<context>
+    <name>LogsView</name>
+    <message>
+        <source>Clear logs</source>
+        <translation>Limpiar Logs</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <source>Skeleton Qt</source>
+        <translation>Skeleton Qt</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsView</name>
+    <message>
+        <source>GUI logging</source>
+        <translation>Logs en IU</translation>
+    </message>
+    <message>
+        <source>Enable GUI logging</source>
+        <translation>Habilitar Logs en la Interfaz Gráfica</translation>
+    </message>
+    <message>
+        <source>Logging categories</source>
+        <translation>Categorías de logs</translation>
+    </message>
+</context>
+<context>
+    <name>VideoUploaderView</name>
+    <message>
+        <source>Title</source>
+        <translation>Título</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Seleccionar</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Fichero</translation>
+    </message>
+    <message>
+        <source>Platform</source>
+        <translation>Plataforma</translation>
+    </message>
+    <message>
+        <source>Instagram</source>
+        <translation>Instagram</translation>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation>Descripción</translation>
+    </message>
+    <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
+        <source>Select video</source>
+        <translation>Seleccionar Video</translation>
+    </message>
+</context>
 </TS>
