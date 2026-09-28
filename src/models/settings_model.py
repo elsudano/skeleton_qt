@@ -1,16 +1,10 @@
-from PySide6.QtCore import QCoreApplication
+"""Model for the settings view."""
+
+from PySide6.QtCore import QLoggingCategory
 from src.models.model import Model
 
 
 class SettingsModel(Model):
-    """Model for the settings view."""
+    """Provide application data and behaviour used by the settings view."""
 
-    def get_title(self) -> str:
-        """Return the settings title.
-
-        Returns
-        -------
-        str
-            Settings title. Model is a plain object
-        """
-        return QCoreApplication.translate("SettingsModel", "Settings")
+    _log = QLoggingCategory("skeleton.model.settings")

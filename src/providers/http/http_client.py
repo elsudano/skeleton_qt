@@ -1,2 +1,5 @@
+"""HTTP client provider definitions."""
+
+
 class HttpClient:
-    """HTTP client placeholder."""
+    """Provide the HTTP client integration point for external requests."""

@@ -1,16 +1,10 @@
-from PySide6.QtCore import QCoreApplication
+"""Model for the home view."""
+
+from PySide6.QtCore import QLoggingCategory
 from src.models.model import Model
 
 
 class HomeModel(Model):
-    """Model for the home view."""
+    """Provide application data and behaviour used by the home view."""
 
-    def get_welcome_message(self) -> str:
-        """Return the welcome message.
-
-        Returns
-        -------
-        str
-            Welcome message.
-        """
-        return QCoreApplication.translate("HomeModel", "Welcome to Skeleton Qt")
+    _log = QLoggingCategory("skeleton.model.home")

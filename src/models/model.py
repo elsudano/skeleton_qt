@@ -1,2 +1,5 @@
+"""Base model definitions for application features."""
+
+
 class Model:
-    """Base model class."""
+    """Provide the base type for application models."""
