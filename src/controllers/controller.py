@@ -119,6 +119,7 @@ class Controller(QObject):
                 self._logging_manager.set_categories)
         if isinstance(view, LogsView):
             view.clear_requested.connect(view.clear)
+            view.clear_requested.connect(model.clear)
 
     def _initialize_view(self, view, model):
         """Initialize view data from its model.

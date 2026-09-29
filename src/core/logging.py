@@ -38,7 +38,6 @@ class LoggingManager(QObject):
         super().__init__(parent)
         self._lock = Lock()
         self._records = deque(maxlen=config.LOG_MAX_RECORDS)
-        self._file_handle = None
         self._previous_handler = None
         self._gui_enabled = (
             config.LOG_OUTPUT_GUI in config.LOG_OUTPUTS and config.LOG_GUI_ENABLED
@@ -50,13 +49,13 @@ class LoggingManager(QObject):
         self._previous_handler = qInstallMessageHandler(self._handle_message)
 
     def close(self):
-        """Release logging resources and restore Qt's previous message handler."""
+        """Restore Qt's previous message handler.
+
+        No persistent file handle needs releasing: the log file is opened,
+        written, and closed independently for every message (see
+        ``_handle_message``)."""
         qInstallMessageHandler(self._previous_handler)
         self._previous_handler = None
-        with self._lock:
-            if self._file_handle is not None:
-                self._file_handle.close()
-                self._file_handle = None
 
     def set_gui_enabled(self, enabled: bool):
         """Enable or disable delivery of messages to GUI consumers.
@@ -114,6 +113,17 @@ class LoggingManager(QObject):
             or record.category.startswith(f"{category_prefix}.")
         )
 
+    def clear(self):
+        """Clear the buffered records and truncate the persisted log file.
+
+        The GUI display is cleared separately by the log view itself
+        (``LogsView.clear``); this method only resets the data the view
+        would otherwise reload on the next application start."""
+        with self._lock:
+            self._records.clear()
+            if config.LOG_OUTPUT_FILE in config.LOG_OUTPUTS:
+                self.log_file_path().write_text("", encoding="utf-8")
+
     def _apply_filter_rules(self):
         """Apply category and severity rules through Qt's logging system."""
         rules = []
@@ -128,12 +138,15 @@ class LoggingManager(QObject):
         QLoggingCategory.setFilterRules("\n".join(rules))
 
     def _configure_file(self):
-        """Open the configured log file when file output is selected."""
+        """Ensure the log directory exists when file output is selected.
+
+        The log file itself is not opened here: it is opened, written to,
+        and closed independently for every message (see
+        ``_handle_message``), so it is recreated automatically if it is
+        deleted while the application is running."""
         if config.LOG_OUTPUT_FILE not in config.LOG_OUTPUTS:
             return
-        log_file = self.log_file_path()
-        log_file.parent.mkdir(parents=True, exist_ok=True)
-        self._file_handle = log_file.open("a", encoding="utf-8")
+        self.log_file_path().parent.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def log_file_path() -> Path:
@@ -171,9 +184,9 @@ class LoggingManager(QObject):
 
         with self._lock:
             self._records.append(record)
-            if self._file_handle is not None:
-                self._file_handle.write(formatted + "\n")
-                self._file_handle.flush()
+            if config.LOG_OUTPUT_FILE in config.LOG_OUTPUTS:
+                with self.log_file_path().open("a", encoding="utf-8") as file_handle:
+                    file_handle.write(formatted + "\n")
 
         if config.LOG_OUTPUT_CONSOLE in config.LOG_OUTPUTS:
             print(formatted, file=sys.stderr, flush=True)

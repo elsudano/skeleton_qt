@@ -26,6 +26,10 @@ class LogsModel(Model):
             Buffered log records in chronological order."""
         return self._logging_manager.records()
 
+    def clear(self):
+        """Clear the buffered log records and the persisted log file."""
+        self._logging_manager.clear()
+
     def file_lines(self) -> tuple[str, ...]:
         """Return the last persisted log lines when a log file exists.
 
