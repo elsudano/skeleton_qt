@@ -10,7 +10,11 @@ def test_logging_manager_captures_messages(qtbot, monkeypatch):
     received = []
     manager.message_logged.connect(lambda *args: received.append(args))
 
-    category = QLoggingCategory("skeleton.application")
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.core.application"
+    category = QLoggingCategory(_CATEGORY)
     qCInfo(category, "test message")
 
     assert any(message[2] == "test message" for message in received)

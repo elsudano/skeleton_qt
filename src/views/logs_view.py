@@ -8,7 +8,11 @@ from src.views.base_view import BaseView
 class LogsView(BaseView):
     """Display the complete application log history and incoming messages."""
 
-    _log = QLoggingCategory("skeleton.view.logs")
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.view.logs"
+    _log = QLoggingCategory(_CATEGORY)
     clear_requested = Signal()
 
     def __init__(self, parent=None):

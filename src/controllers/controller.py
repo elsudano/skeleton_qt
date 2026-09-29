@@ -16,6 +16,12 @@ from src.views.views import Views
 class Controller(QObject):
     """Coordinate view and model creation, caching, navigation, and signal-based communication."""
 
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.controller"
+    _log = QLoggingCategory(_CATEGORY)
+
     def __init__(self, navigation_container, logging_manager: LoggingManager):
         """Initialize the controller.
 
@@ -53,8 +59,7 @@ class Controller(QObject):
         -------
         Tuple[BaseView, Model]
             Newly created view and its associated model."""
-        qCInfo(QLoggingCategory("skeleton.controller"),
-               f"Creating view: {name}")
+        qCInfo(self._log, f"Creating view: {name}")
         view_factory, model_factory = self._factories[name]
         view = view_factory()
         model = model_factory()
@@ -149,7 +154,6 @@ class Controller(QObject):
         ----------
         name : str
             Identifier of the target view."""
-        qCInfo(QLoggingCategory("skeleton.controller"),
-               f"Navigating to view: {name}")
+        qCInfo(self._log, f"Navigating to view: {name}")
         view, _ = self._get_view_model(name)
         self._navigation_container.setCurrentWidget(view)

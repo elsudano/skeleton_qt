@@ -12,7 +12,11 @@ from src.views.views import Views
 class HomeView(BaseView):
     """Display the home view and handle its user interactions."""
 
-    _log = QLoggingCategory("skeleton.view.home")
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.view.home"
+    _log = QLoggingCategory(_CATEGORY)
     _buttons_per_row = 2
 
     def __init__(self, parent=None):
