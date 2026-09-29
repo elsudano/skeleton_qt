@@ -87,6 +87,10 @@
 <context>
     <name>BaseView</name>
     <message>
+        <source>Logs</source>
+        <translation>Logs</translation>
+    </message>
+    <message>
         <source>&amp;Back</source>
         <translation>&amp;Atrás</translation>
     </message>
@@ -98,12 +102,12 @@
 <context>
     <name>HomeView</name>
     <message>
-        <source>&amp;Video</source>
-        <translation>&amp;Video</translation>
+        <source>Video &amp;Uploader</source>
+        <translation>&amp;Cargador de Videos</translation>
     </message>
     <message>
-        <source>&amp;Route</source>
-        <translation>&amp;Ruta</translation>
+        <source>Route &amp;Designer</source>
+        <translation>Diseñador de &amp;Ruta</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -114,16 +118,8 @@
         <translation>&amp;Vacío1</translation>
     </message>
     <message>
-        <source>&amp;Empty2</source>
-        <translation>&amp;Vacío2</translation>
-    </message>
-    <message>
         <source>&amp;Logs</source>
         <translation>&amp;Logs</translation>
-    </message>
-    <message>
-        <source>Logs</source>
-        <translation>Logs</translation>
     </message>
 </context>
 <context>
@@ -184,10 +180,6 @@
     <message>
         <source>Description</source>
         <translation>Descripción</translation>
-    </message>
-    <message>
-        <source>Logs</source>
-        <translation>Logs</translation>
     </message>
     <message>
         <source>Select video</source>
