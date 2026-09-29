@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>The Language was changed</source>
-        <translation>El Idioma fue cambiado</translation>
+        <translation>El idioma ha cambiado</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
