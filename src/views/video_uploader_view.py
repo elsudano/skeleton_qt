@@ -66,7 +66,8 @@ class VideoUploaderView(BaseView):
         self._description_edit.setMinimumHeight(100)
         layout.addWidget(self.bind_text(QLabel(),lambda: self.tr("Description")))
         layout.addWidget(self._description_edit)
-        layout.addWidget(self.bind_text(QLabel(),lambda: self.tr("Logs")))
+        # We want the same Logs field in all the views, for that reason
+        # we have used the base_view to config the Logs field
         self.setup_log_panel(layout,("skeleton.view.video_uploader","skeleton.model.video_uploader"))
         # We want the same bottom buttons, for that reason
         # we have used the base_view to config the navigation buttons

@@ -52,8 +52,9 @@ class SettingsView(BaseView):
                 self._emit_categories)
             layout.addWidget(self._categories_label)
             layout.addWidget(self._categories)
-        self.setup_log_panel(
-            layout, ("skeleton.view.settings", "skeleton.model.settings"))
+        # We want the same Logs field in all the views, for that reason
+        # we have used the base_view to config the Logs field
+        self.setup_log_panel(layout, ("skeleton.view.settings", "skeleton.model.settings"))
         # We want the same bottom buttons, for that reason
         # we have used the base_view to config the navigation buttons
         self.setup_navigation_buttons(layout)

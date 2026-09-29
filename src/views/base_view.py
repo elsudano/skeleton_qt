@@ -1,8 +1,9 @@
 """Base classes and shared behavior for application views."""
 
 from PySide6.QtCore import QEvent, Signal, qCInfo
-from PySide6.QtWidgets import (QApplication, QPlainTextEdit, QVBoxLayout, QHBoxLayout, QPushButton, QWidget)
+from PySide6.QtWidgets import (QApplication, QLabel, QPlainTextEdit, QVBoxLayout, QHBoxLayout, QPushButton, QWidget)
 from src.core.text_binder import TextBinder
+from src.core.config import (BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE)
 from src.views.views import Views
 
 
@@ -35,6 +36,8 @@ class BaseView(QWidget):
         categories : Iterable[str]
             Logging categories that should be displayed by this view."""
         self._log_categories = categories
+        self._logs_label = self.bind_text(QLabel(), lambda: self.tr("Logs"),)
+        layout.addWidget(self._logs_label)
         self._log_panel = QPlainTextEdit()
         self._log_panel.setReadOnly(True)
         self._log_panel.setMaximumBlockCount(500)
@@ -44,12 +47,12 @@ class BaseView(QWidget):
         bottom_layout = QHBoxLayout()
         self._back_button = self.bind_text(
             QPushButton(), lambda: self.tr("&Back"),)
-        self._back_button.setMinimumHeight(50)
-        self._back_button.setMinimumWidth(100)
+        self._back_button.setMinimumHeight(BUTTON_MINIMUM_HEIGHT_SIZE)
+        self._back_button.setMinimumWidth(BUTTON_MINIMUM_WIDTH_SIZE)
         self._exit_button = self.bind_text(
             QPushButton(), lambda: self.tr("E&xit"),)
-        self._exit_button.setMinimumHeight(50)
-        self._exit_button.setMinimumWidth(100)
+        self._exit_button.setMinimumHeight(BUTTON_MINIMUM_HEIGHT_SIZE)
+        self._exit_button.setMinimumWidth(BUTTON_MINIMUM_WIDTH_SIZE)
         if self.__class__.__name__ != "HomeView":
             bottom_layout.addWidget(self._back_button)
         bottom_layout.addStretch()
