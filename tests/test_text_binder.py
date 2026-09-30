@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QApplication, QLabel
+import shiboken6
+from PySide6.QtWidgets import QLabel
 
 from src.core.text_binder import TextBinder
 
@@ -40,11 +41,16 @@ def test_bind_replaces_previous_source(qtbot):
     assert len(binder._bindings) == 1
 
 
-def test_dead_widget_is_unbound_on_refresh(qtbot):
+def test_refresh_drops_bindings_for_destroyed_widgets(qtbot):
+    # The widget is deliberately destroyed here (and not handed to qtbot,
+    # which would try to close it again during teardown) to reproduce the
+    # "already deleted" case that refresh() guards against.
     label = QLabel()
     binder = TextBinder()
-    binder.bind(label, "x")
-    label.deleteLater()
-    QApplication.processEvents()
+    binder.bind(label, "Hello")
+    assert len(binder._bindings) == 1
+
+    shiboken6.delete(label)
     binder.refresh()
+
     assert len(binder._bindings) == 0
