@@ -2,13 +2,20 @@
 
 from PySide6.QtCore import QLoggingCategory, Signal, qCInfo
 from PySide6.QtWidgets import (
-    QCheckBox, QComboBox, QFileDialog, QFrame, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QVBoxLayout,
+    QCheckBox,
+    QComboBox,
+    QFileDialog,
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QVBoxLayout,
 )
-from src.core import config
-from src.views.base_view import BaseView
+
 from src.views.custom_widgets.checkable_combobox import CheckableComboBox
-from src.views.views import Views
+from src.views.base_view import BaseView
+from src.core import config
 
 
 class SettingsView(BaseView):

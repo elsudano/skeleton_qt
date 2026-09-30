@@ -4,11 +4,10 @@ from __future__ import annotations
 
 import sys
 from collections import deque
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from threading import Lock
-from src.core import config
 
 from PySide6.QtCore import (
     QObject,
@@ -19,6 +18,7 @@ from PySide6.QtCore import (
     qInstallMessageHandler,
 )
 
+from src.core import config
 
 @dataclass(frozen=True)
 class LogRecord:

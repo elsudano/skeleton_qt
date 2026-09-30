@@ -2,10 +2,14 @@
 
 from PySide6.QtCore import QLoggingCategory, qCCritical, qCInfo
 from PySide6.QtWidgets import (
-    QHBoxLayout, QLabel, QPushButton, QSizePolicy, QVBoxLayout)
+    QHBoxLayout,
+    QPushButton,
+    QSizePolicy,
+    QVBoxLayout
+)
+
+from src.core.config import (BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE)
 from src.views.base_view import BaseView
-from src.core.config import (
-    BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE)
 from src.views.views import Views
 
 
@@ -40,11 +44,15 @@ class HomeView(BaseView):
 
         # We can create a new button in Home just adding a new one in this list
         buttons = (
-            ("_video_button", lambda: self.tr("Video &Uploader"), self._action_video_button),
-            ("_route_button", lambda: self.tr("Route &Designer"), self._action_route_button),
-            ("_settings_button", lambda: self.tr("&Settings"), self._action_settings_button),
+            ("_video_button", lambda: self.tr(
+                "Video &Uploader"), self._action_video_button),
+            ("_route_button", lambda: self.tr(
+                "Route &Designer"), self._action_route_button),
+            ("_settings_button", lambda: self.tr(
+                "&Settings"), self._action_settings_button),
             ("_logs_button", lambda: self.tr("&Logs"), self._action_logs_button),
-            ("_empty1_button", lambda: self.tr("&Empty1"), self._action_empty1_button),
+            ("_empty1_button", lambda: self.tr(
+                "&Empty1"), self._action_empty1_button),
         )
         for row_start in range(0, len(buttons), self._buttons_per_row):
             row_layout = QHBoxLayout()
@@ -64,7 +72,8 @@ class HomeView(BaseView):
             layout.addLayout(row_layout)
         # We want the same Logs field in all the views, for that reason
         # we have used the base_view to config the Logs field
-        self.setup_log_panel(layout,("skeleton.view.home", "skeleton.model.home",))
+        self.setup_log_panel(
+            layout, ("skeleton.view.home", "skeleton.model.home",))
         # We want the same bottom buttons, for that reason
         # we have used the base_view to config the navigation buttons
         self.setup_navigation_buttons(layout)

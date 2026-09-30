@@ -1,6 +1,7 @@
 """Model for the home view."""
 
 from PySide6.QtCore import QLoggingCategory
+
 from src.models.model import Model
 
 

@@ -1,7 +1,9 @@
 """Main application window and menu infrastructure."""
+
 from PySide6.QtCore import QEvent
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
+
 from src.core import config
 from src.core.text_binder import TextBinder
 

@@ -1,7 +1,16 @@
-from PySide6.QtWidgets import QWidget
-from PySide6.QtGui import QPainter, QPen, QColor, QFont, QPolygonF, QLinearGradient
-from PySide6.QtCore import Qt, QPointF
 import math
+
+from PySide6.QtGui import (
+    QPainter,
+    QPen,
+    QColor,
+    QFont,
+    QPolygonF,
+    QLinearGradient
+)
+from PySide6.QtCore import Qt, QPointF
+from PySide6.QtWidgets import QWidget
+
 
 class SpeedometerProgress(QWidget):
     def __init__(self, parent=None):
@@ -29,9 +38,11 @@ class SpeedometerProgress(QWidget):
         pen_bg = QPen(QColor("#2d3139"), 12)
         pen_bg.setCapStyle(Qt.PenCapStyle.RoundCap)
         painter.setPen(pen_bg)
-        painter.drawArc(center_x - radius, center_y - radius, size, size, start_angle, span_angle)
+        painter.drawArc(center_x - radius, center_y - radius,
+                        size, size, start_angle, span_angle)
         if self._value > 0:
-            gradient = QLinearGradient(center_x - radius, center_y, center_x + radius, center_y)
+            gradient = QLinearGradient(
+                center_x - radius, center_y, center_x + radius, center_y)
             gradient.setColorAt(0.0, QColor("#ef233c"))
             gradient.setColorAt(0.5, QColor("#ffb703"))
             gradient.setColorAt(1.0, QColor("#2a9d8f"))
@@ -39,26 +50,34 @@ class SpeedometerProgress(QWidget):
             pen_progress.setCapStyle(Qt.PenCapStyle.RoundCap)
             painter.setPen(pen_progress)
             progress_span = int((-180 * 16) * (self._value / 100.0))
-            painter.drawArc(center_x - radius, center_y - radius, size, size, start_angle, progress_span)
+            painter.drawArc(center_x - radius, center_y - radius,
+                            size, size, start_angle, progress_span)
         painter.setPen(QPen(QColor("#a0a5b0"), 2))
         font = QFont("Arial", 10, QFont.Weight.Bold)
         painter.setFont(font)
         for i in range(11):
             angle_rad = math.pi - (i * (math.pi / 10))
             cos_a, sin_a = math.cos(angle_rad), math.sin(angle_rad)
-            p1 = QPointF(center_x + (radius - 12) * cos_a, center_y - (radius - 12) * sin_a)
-            p2 = QPointF(center_x + (radius - 22) * cos_a, center_y - (radius - 22) * sin_a)
+            p1 = QPointF(center_x + (radius - 12) * cos_a,
+                         center_y - (radius - 12) * sin_a)
+            p2 = QPointF(center_x + (radius - 22) * cos_a,
+                         center_y - (radius - 22) * sin_a)
             painter.drawLine(p1, p2)
-            text_p = QPointF(center_x + (radius - 38) * cos_a - 10, center_y - (radius - 38) * sin_a + 5)
+            text_p = QPointF(center_x + (radius - 38) * cos_a -
+                             10, center_y - (radius - 38) * sin_a + 5)
             painter.drawText(text_p, str(i * 10))
         painter.setPen(QColor("#ffffff"))
         painter.setFont(QFont("Arial", 22, QFont.Weight.Bold))
-        painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignBottom, f"{self._value}%")
+        painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter |
+                         Qt.AlignmentFlag.AlignBottom, f"{self._value}%")
         needle_angle = math.pi - (self._value / 100.0 * math.pi)
         cos_n, sin_n = math.cos(needle_angle), math.sin(needle_angle)
-        tip = QPointF(center_x + (radius - 15) * cos_n, center_y - (radius - 15) * sin_n)
-        base_left = QPointF(center_x + 6 * math.cos(needle_angle + math.pi/2), center_y - 6 * math.sin(needle_angle + math.pi/2))
-        base_right = QPointF(center_x + 6 * math.cos(needle_angle - math.pi/2), center_y - 6 * math.sin(needle_angle - math.pi/2))
+        tip = QPointF(center_x + (radius - 15) * cos_n,
+                      center_y - (radius - 15) * sin_n)
+        base_left = QPointF(center_x + 6 * math.cos(needle_angle + math.pi/2),
+                            center_y - 6 * math.sin(needle_angle + math.pi/2))
+        base_right = QPointF(center_x + 6 * math.cos(needle_angle - math.pi/2),
+                             center_y - 6 * math.sin(needle_angle - math.pi/2))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QColor("#ffffff"))
         painter.drawPolygon(QPolygonF([tip, base_left, base_right]))

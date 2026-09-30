@@ -1,8 +1,20 @@
+"""Video Uploader view implementation."""
+
 from PySide6.QtCore import QLoggingCategory, qCInfo
 from PySide6.QtWidgets import (
-    QFileDialog, QFormLayout, QHBoxLayout, QLabel, QLineEdit, QPlainTextEdit, QPushButton, QCheckBox, QSizePolicy, QVBoxLayout)
+    QFileDialog,
+    QFormLayout, 
+    QHBoxLayout, 
+    QLabel, 
+    QLineEdit, 
+    QPlainTextEdit, 
+    QPushButton, 
+    QCheckBox, 
+    QSizePolicy, 
+    QVBoxLayout
+)
+
 from src.views.base_view import BaseView
-from src.views.views import Views
 
 
 class VideoUploaderView(BaseView):
