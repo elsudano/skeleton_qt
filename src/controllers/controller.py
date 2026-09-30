@@ -7,10 +7,12 @@ from src.models.home_model import HomeModel
 from src.models.logs_model import LogsModel
 from src.models.settings_model import SettingsModel
 from src.models.video_uploader_model import VideoUploaderModel
+from src.models.route_designer_model import RouteDesignerModel
 from src.views.home_view import HomeView
 from src.views.logs_view import LogsView
 from src.views.settings_view import SettingsView
 from src.views.video_uploader_view import VideoUploaderView
+from src.views.route_designer_view import RouteDesignerView
 from src.views.views import Views
 
 
@@ -44,6 +46,7 @@ class Controller(QObject):
         self._factories = {
             Views.HOME: (HomeView, HomeModel),
             Views.VIDEO_UPLOADER: (VideoUploaderView, VideoUploaderModel),
+            Views.ROUTE_DESIGNER: (RouteDesignerView, RouteDesignerModel),
             Views.SETTINGS: (SettingsView, SettingsModel),
             Views.LOGS: (LogsView, lambda: LogsModel(self._logging_manager)),
         }

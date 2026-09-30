@@ -1,6 +1,6 @@
 """Global log view implementation."""
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QLoggingCategory, Signal
 from PySide6.QtWidgets import QPlainTextEdit, QPushButton, QVBoxLayout
 
 from src.views.base_view import BaseView
@@ -8,6 +8,12 @@ from src.views.base_view import BaseView
 
 class LogsView(BaseView):
     """Display the complete application log history and incoming messages."""
+
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.view.logsview"
+    _log = QLoggingCategory(_CATEGORY)
 
     clear_requested = Signal()
 

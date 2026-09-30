@@ -81,7 +81,7 @@ class HomeView(BaseView):
     def _action_route_button(self):
         """This will be the actions that we can make when we press route_button"""
         qCInfo(self._log, "The route_button was clicked")
-        self.request_navigation(Views.ROUTE)
+        self.request_navigation(Views.ROUTE_DESIGNER)
 
     def _action_settings_button(self):
         """This will be the actions that we can make when we press settings_button"""

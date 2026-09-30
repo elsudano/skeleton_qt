@@ -35,6 +35,13 @@ class BaseView(QWidget):
         self._log_categories = ()
         self._log_panel = None
 
+    def setup_ui(self):
+        """The default view when we have created a new one"""
+        layout = QVBoxLayout(self)
+        # We want the same bottom buttons, for that reason
+        # we have used the base_view to config the navigation buttons
+        self.setup_navigation_buttons(layout)
+
     def setup_log_panel(self, layout: QVBoxLayout, categories: tuple[str, ...]):
         """Add the log panel for this view to the supplied layout.
 
