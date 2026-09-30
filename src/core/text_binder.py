@@ -1,11 +1,8 @@
-class TextBinder:
-    """Keep widget texts in sync with the active language.
+"""Utility for keeping widget text synchronized with the active language."""
 
-    Each text is registered once, next to the widget that shows it. Its source
-    is a callable returning the text, so it can be evaluated again whenever the
-    language changes. Widgets that are not bound (user input, table contents...)
-    are never touched.
-    """
+
+class TextBinder:
+    """Keep widget texts in sync with the active language."""
 
     def __init__(self):
         """Initialize an empty binder."""
@@ -19,24 +16,22 @@ class TextBinder:
         Parameters
         ----------
         widget : QObject
-            Widget, action or window that displays the text.
+            Widget, action, or window that displays the text.
         source : callable or str
-            Callable returning the text (``lambda: self.tr("Back")`` or a model
-            getter). A plain ``str`` is applied as-is and never re-translated.
+            Callable returning the text or a plain string applied as-is.
         setter : str, optional
             Name of the widget method that receives the text.
 
         Returns
         -------
         QObject
-            The same widget, so it can be created and bound in one line.
-        """
+            The same widget, so it can be created and bound in one line."""
         self._bindings[(widget, setter)] = source
         getattr(widget, setter)(self._text_of(source))
         return widget
 
     def refresh(self):
-        """Apply again every bound text (call it when the language changes)."""
+        """Apply again every bound text."""
         for key, source in list(self._bindings.items()):
             widget, setter = key
             text = self._text_of(source)
@@ -47,5 +42,15 @@ class TextBinder:
 
     @staticmethod
     def _text_of(source) -> str:
-        """Return the text produced by a source."""
+        """Return the text produced by a source.
+
+        Parameters
+        ----------
+        source : callable or str
+            Callable returning the current text or a plain string.
+
+        Returns
+        -------
+        str
+            Text produced by the source."""
         return source() if callable(source) else source
