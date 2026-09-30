@@ -1,14 +1,9 @@
 """Home view implementation."""
 
 from PySide6.QtCore import QLoggingCategory, qCCritical, qCInfo
-from PySide6.QtWidgets import (
-    QHBoxLayout,
-    QPushButton,
-    QSizePolicy,
-    QVBoxLayout
-)
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout
 
-from src.core.config import (BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE)
+from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
 from src.views.base_view import BaseView
 from src.views.views import Views
 

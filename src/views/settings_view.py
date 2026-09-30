@@ -13,9 +13,9 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
 )
 
-from src.views.custom_widgets.checkable_combobox import CheckableComboBox
-from src.views.base_view import BaseView
 from src.core import config
+from src.views.base_view import BaseView
+from src.views.custom_widgets.checkable_combobox import CheckableComboBox
 
 
 class SettingsView(BaseView):

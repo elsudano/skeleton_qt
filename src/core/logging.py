@@ -10,8 +10,8 @@ from pathlib import Path
 from threading import Lock
 
 from PySide6.QtCore import (
-    QObject,
     QLoggingCategory,
+    QObject,
     QStandardPaths,
     QtMsgType,
     Signal,
@@ -19,6 +19,7 @@ from PySide6.QtCore import (
 )
 
 from src.core import config
+
 
 @dataclass(frozen=True)
 class LogRecord:

@@ -3,15 +3,15 @@
 from PySide6.QtCore import QEvent, Signal, qCInfo
 from PySide6.QtWidgets import (
     QApplication,
+    QHBoxLayout,
     QLabel,
     QPlainTextEdit,
-    QVBoxLayout,
-    QHBoxLayout,
     QPushButton,
+    QVBoxLayout,
     QWidget
 )
 
-from src.core.config import (BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE)
+from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
 from src.core.text_binder import TextBinder
 from src.views.views import Views
 

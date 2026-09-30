@@ -1,14 +1,7 @@
 import math
 
-from PySide6.QtGui import (
-    QPainter,
-    QPen,
-    QColor,
-    QFont,
-    QPolygonF,
-    QLinearGradient
-)
-from PySide6.QtCore import Qt, QPointF
+from PySide6.QtCore import QPointF, Qt
+from PySide6.QtGui import QColor, QFont, QLinearGradient, QPainter, QPen, QPolygonF
 from PySide6.QtWidgets import QWidget
 
 

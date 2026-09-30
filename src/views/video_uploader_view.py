@@ -2,16 +2,16 @@
 
 from PySide6.QtCore import QLoggingCategory, qCInfo
 from PySide6.QtWidgets import (
+    QCheckBox,
     QFileDialog,
-    QFormLayout, 
-    QHBoxLayout, 
-    QLabel, 
-    QLineEdit, 
-    QPlainTextEdit, 
-    QPushButton, 
-    QCheckBox, 
-    QSizePolicy, 
-    QVBoxLayout
+    QFormLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPlainTextEdit,
+    QPushButton,
+    QSizePolicy,
+    QVBoxLayout,
 )
 
 from src.views.base_view import BaseView
@@ -80,15 +80,18 @@ class VideoUploaderView(BaseView):
         # Description Field box
         self._description_edit = QPlainTextEdit()
         self._description_edit.setMinimumHeight(100)
-        layout.addWidget(self.bind_text(QLabel(),lambda: self.tr("Description")))
+        layout.addWidget(self.bind_text(
+            QLabel(), lambda: self.tr("Description")))
         layout.addWidget(self._description_edit)
         # We want the same Logs field in all the views, for that reason
         # we have used the base_view to config the Logs field
-        self.setup_log_panel(layout,("skeleton.view.video_uploader","skeleton.model.video_uploader"))
+        self.setup_log_panel(
+            layout, ("skeleton.view.video_uploader", "skeleton.model.video_uploader"))
         # We want the same bottom buttons, for that reason
         # we have used the base_view to config the navigation buttons
         self.setup_navigation_buttons(layout)
-        self._select_file_button.clicked.connect(self._action_select_file_button)
+        self._select_file_button.clicked.connect(
+            self._action_select_file_button)
 
     def _action_select_file_button(self):
         """When we want to select the video to upload we need to select with this method"""

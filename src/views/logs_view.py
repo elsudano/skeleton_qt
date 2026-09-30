@@ -1,11 +1,7 @@
 """Global log view implementation."""
 
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import (
-    QPlainTextEdit,
-    QPushButton,
-    QVBoxLayout
-)
+from PySide6.QtWidgets import QPlainTextEdit, QPushButton, QVBoxLayout
 
 from src.views.base_view import BaseView
 
