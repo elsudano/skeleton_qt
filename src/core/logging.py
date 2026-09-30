@@ -3,14 +3,21 @@
 from __future__ import annotations
 
 import sys
-from PySide6.QtCore import (QObject, QLoggingCategory,
-                            QStandardPaths, QtMsgType, Signal, qInstallMessageHandler)
 from collections import deque
 from datetime import datetime
 from dataclasses import dataclass
 from pathlib import Path
 from threading import Lock
 from src.core import config
+
+from PySide6.QtCore import (
+    QObject,
+    QLoggingCategory,
+    QStandardPaths,
+    QtMsgType,
+    Signal,
+    qInstallMessageHandler,
+)
 
 
 @dataclass(frozen=True)

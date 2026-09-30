@@ -1,15 +1,16 @@
 """Global controller coordinating view and model lifecycle and communication."""
 
 from PySide6.QtCore import QLoggingCategory, QObject, qCInfo
+
 from src.core.logging import LoggingManager
 from src.models.home_model import HomeModel
-from src.models.video_uploader_model import VideoUploaderModel
 from src.models.logs_model import LogsModel
 from src.models.settings_model import SettingsModel
+from src.models.video_uploader_model import VideoUploaderModel
 from src.views.home_view import HomeView
-from src.views.video_uploader_view import VideoUploaderView
 from src.views.logs_view import LogsView
 from src.views.settings_view import SettingsView
+from src.views.video_uploader_view import VideoUploaderView
 from src.views.views import Views
 
 
