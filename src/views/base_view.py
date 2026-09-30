@@ -8,7 +8,7 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QPushButton,
     QVBoxLayout,
-    QWidget
+    QWidget,
 )
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
