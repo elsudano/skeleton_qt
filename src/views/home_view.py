@@ -1,6 +1,6 @@
 """Home view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCInfo
+from PySide6.QtCore import QLoggingCategory, qCCritical, qCInfo
 from PySide6.QtWidgets import (
     QHBoxLayout, QLabel, QPushButton, QSizePolicy, QVBoxLayout)
 from src.views.base_view import BaseView
@@ -85,9 +85,13 @@ class HomeView(BaseView):
         self.request_navigation(Views.SETTINGS)
 
     def _action_empty1_button(self):
-        """This will be the actions that we can make when we press empty1_button"""
+        """This will be the actions that we can make when we press empty1_button.
+
+        DEMO ONLY: also logs a CRITICAL message to prove every QtMsgType level
+        (DEBUG/INFO/WARNING/CRITICAL/FATAL) flows through the same logging
+        pipeline."""
         qCInfo(self._log, "The empty1_button was clicked")
-        pass
+        qCCritical(self._log, "Demo CRITICAL message: This message ")
 
     def _action_logs_button(self):
         """This will be the actions that we can make when we press logs_button"""
