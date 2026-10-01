@@ -3,7 +3,6 @@
 from PySide6.QtCore import QLoggingCategory, Signal, qCInfo
 from PySide6.QtWidgets import (
     QCheckBox,
-    QComboBox,
     QFileDialog,
     QFrame,
     QHBoxLayout,
@@ -51,23 +50,6 @@ class SettingsView(BaseView):
         left_column = QVBoxLayout()
         left_column.addWidget(self._section_header(
             lambda: self.tr("User interface")))
-
-        language_row = QHBoxLayout()
-        language_row.addWidget(self.bind_text(
-            QLabel(), lambda: self.tr("Language:")))
-        self._language_combo = QComboBox()
-        self._language_combo.addItems(
-            [self.tr("Spanish"), self.tr("English")])
-        language_row.addWidget(self._language_combo)
-        left_column.addLayout(language_row)
-
-        theme_row = QHBoxLayout()
-        theme_row.addWidget(self.bind_text(
-            QLabel(), lambda: self.tr("Theme:")))
-        self._theme_combo = QComboBox()
-        self._theme_combo.addItems([self.tr("Light"), self.tr("Dark")])
-        theme_row.addWidget(self._theme_combo)
-        left_column.addLayout(theme_row)
 
         left_column.addWidget(self._section_header(
             lambda: self.tr("Enabled platforms")))

@@ -1,0 +1,38 @@
+/* Global dark theme for Skeleton Qt. */
+QWidget {
+    background-color: #20242b; color: #e6eaf0;
+    selection-background-color: #355b91; selection-color: #ffffff;
+}
+QMainWindow, QDialog, QMenu, QMenuBar { background-color: #282d35; }
+QMenuBar::item { padding: 5px 9px; background: transparent; }
+QMenuBar::item:selected, QMenu::item:selected { background-color: #39485d; }
+QPushButton {
+    background-color: #353c47; border: 1px solid #515b6b;
+    border-radius: 4px; padding: 6px 10px;
+}
+QPushButton:hover { background-color: #414b5a; }
+QPushButton:pressed { background-color: #2e3948; }
+QPushButton:disabled { color: #7e8795; background-color: #2a2f37; }
+QLineEdit, QPlainTextEdit, QTextEdit, QComboBox, QListView,
+QListWidget, QTreeView, QTableView {
+    background-color: #191d23; color: #e6eaf0;
+    border: 1px solid #515b6b; border-radius: 3px; padding: 4px;
+}
+QComboBox QAbstractItemView {
+    background-color: #191d23; selection-background-color: #355b91;
+    selection-color: #ffffff;
+}
+QCheckBox { spacing: 6px; }
+QCheckBox::indicator { width: 14px; height: 14px; }
+QScrollBar:vertical { background: #282d35; width: 12px; margin: 0; }
+QScrollBar::handle:vertical {
+    background: #515b6b; min-height: 24px; border-radius: 5px;
+}
+QScrollBar:horizontal { background: #282d35; height: 12px; margin: 0; }
+QScrollBar::handle:horizontal {
+    background: #515b6b; min-width: 24px; border-radius: 5px;
+}
+QToolTip {
+    color: #e6eaf0; background-color: #34302a;
+    border: 1px solid #776b4e; padding: 3px;
+}

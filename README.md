@@ -16,6 +16,7 @@ The project is designed to provide a clean and maintainable foundation for appli
 * [Usage](#usage)
 * [Building the application](#building-the-application)
 * [Localization](#localization)
+* [Application themes](#application-themes)
 * [Adding a new feature](#adding-a-new-feature)
 * [External API integrations](#external-api-integrations)
 * [Project status / roadmap](#project-status--roadmap)
@@ -169,6 +170,9 @@ The core layer must remain generic and must not contain provider-specific busine
 ├── skeleton_qt.spec
 │
 ├── resources/
+│   ├── styles/
+│   │   ├── light.qss
+│   │   └── dark.qss
 │   └── translations/
 │       ├── skeleton_es.ts
 │       └── skeleton_en.ts
@@ -350,6 +354,25 @@ QT_QPA_PLATFORM=offscreen pytest
 The repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`)
 that runs Ruff linting and the pytest suite on Linux and Windows with
 Python 3.10–3.12 on every push and pull request.
+
+## Application themes
+
+The application uses global Qt Style Sheets (QSS), so the light and dark themes
+apply to existing and newly created views without per-view styling.
+
+Theme files are located in `resources/styles/`:
+
+- `light.qss`: default theme.
+- `dark.qss`: dark theme.
+
+`Application` loads and applies the selected stylesheet to `QApplication`.
+The Settings view can switch themes at runtime. The current selection is not
+persisted yet; persistence is planned for the later INI configuration task.
+When packaging with PyInstaller, both QSS files are included by
+`skeleton_qt.spec`.
+
+Add component-specific selectors only when a custom widget cannot be styled
+appropriately by the global stylesheet.
 
 ## Adding a new feature
 

@@ -139,16 +139,72 @@
 <context>
     <name>SettingsView</name>
     <message>
-        <source>GUI logging</source>
-        <translation>Logs en IU</translation>
+        <source>User interface</source>
+        <translation>Interfaz de Usuario</translation>
     </message>
     <message>
-        <source>Enable GUI logging</source>
-        <translation>Habilitar Logs en la Interfaz Gráfica</translation>
+        <source>Language:</source>
+        <translation>Idioma:</translation>
     </message>
     <message>
-        <source>Logging categories</source>
-        <translation>Categorías de logs</translation>
+        <source>Spanish</source>
+        <translation>Español</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Ingles</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Tema:</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Claro</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Oscuro</translation>
+    </message>
+    <message>
+        <source>Enabled platforms</source>
+        <translation>Plataformas por defecto</translation>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Instagram</source>
+        <translation>Instagram</translation>
+    </message>
+    <message>
+        <source>Logging system</source>
+        <translation>Systemas de Logs</translation>
+    </message>
+    <message>
+        <source>Enable logging</source>
+        <translation>Habilitar Logs</translation>
+    </message>
+    <message>
+        <source>Clear log file on exit</source>
+        <translation>Vaciar fichero de logs al salir</translation>
+    </message>
+    <message>
+        <source>Log Type:</source>
+        <translation>Tipo de Log</translation>
+    </message>
+    <message>
+        <source>Logs File:</source>
+        <translation>Fichero de Logs:</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Seleccionar</translation>
+    </message>
+    <message>
+        <source>Select log file</source>
+        <translation>Elegir el fichero de Logs</translation>
     </message>
 </context>
 <context>

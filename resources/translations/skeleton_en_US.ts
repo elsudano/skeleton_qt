@@ -139,16 +139,72 @@
 <context>
     <name>SettingsView</name>
     <message>
-        <source>GUI logging</source>
-        <translation>GUI logging</translation>
+        <source>User interface</source>
+        <translation>User interface</translation>
     </message>
     <message>
-        <source>Enable GUI logging</source>
-        <translation>Enable GUI logging</translation>
+        <source>Language:</source>
+        <translation>Language:</translation>
     </message>
     <message>
-        <source>Logging categories</source>
-        <translation>Logging categories</translation>
+        <source>Spanish</source>
+        <translation>Spanish</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>English</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Theme:</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation>Light</translation>
+    </message>
+    <message>
+        <source>Dark</source>
+        <translation>Dark</translation>
+    </message>
+    <message>
+        <source>Enabled platforms</source>
+        <translation>Enabled platforms</translation>
+    </message>
+    <message>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Instagram</source>
+        <translation>Instagram</translation>
+    </message>
+    <message>
+        <source>Logging system</source>
+        <translation>Logging system</translation>
+    </message>
+    <message>
+        <source>Enable logging</source>
+        <translation>Enable logging</translation>
+    </message>
+    <message>
+        <source>Clear log file on exit</source>
+        <translation>Clear log file on exit</translation>
+    </message>
+    <message>
+        <source>Log Type:</source>
+        <translation>Log Type:</translation>
+    </message>
+    <message>
+        <source>Logs File:</source>
+        <translation>Logs File:</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Select</translation>
+    </message>
+    <message>
+        <source>Select log file</source>
+        <translation>Select log file</translation>
     </message>
 </context>
 <context>

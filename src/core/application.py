@@ -1,7 +1,7 @@
 """Application composition, configuration, and startup."""
 
 from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCInfo
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QAction, QActionGroup
 
 from src.controllers.controller import Controller
 from src.core import config
@@ -30,6 +30,8 @@ class Application(QObject):
         self._qt_application = qt_application
         self._translator = None
         self._language = config.DEFAULT_LANGUAGE
+        self._theme = config.DEFAULT_THEME
+        self._apply_theme(self._theme)
         self._logging_manager = LoggingManager()
         self._qt_application.aboutToQuit.connect(self._logging_manager.close)
         self._main_window = MainWindow()
@@ -41,6 +43,60 @@ class Application(QObject):
         self._setup_menus()
         qCInfo(self._log, self.tr("Application initialized"))
         self._controller.navigate(Views.HOME)
+
+    @property
+    def theme(self) -> str:
+        """Return the currently active theme.
+
+        Returns
+        -------
+        str
+            Active theme identifier.
+        """
+        return self._theme
+
+    def set_theme(self, theme: str):
+        """Apply a theme to the entire Qt application.
+
+        Parameters
+        ----------
+        theme : str
+            Theme identifier, either ``"light"`` or ``"dark"``.
+
+        Raises
+        ------
+        ValueError
+            If the theme identifier is not supported.
+        FileNotFoundError
+            If the selected theme stylesheet cannot be found.
+        """
+        self._apply_theme(theme)
+        if hasattr(self, "_theme_actions"):
+            self._theme_actions[theme].setChecked(True)
+
+    def _apply_theme(self, theme: str):
+        """Load and apply a theme stylesheet globally.
+
+        Parameters
+        ----------
+        theme : str
+            Theme identifier, either ``"light"`` or ``"dark"``.
+
+        Raises
+        ------
+        ValueError
+            If the theme identifier is not supported.
+        FileNotFoundError
+            If the selected theme stylesheet cannot be found.
+        """
+        if theme not in ("light", "dark"):
+            raise ValueError(f"Unsupported application theme: {theme}")
+
+        stylesheet_path = config.STYLES_DIR / f"{theme}.qss"
+        stylesheet = stylesheet_path.read_text(encoding="utf-8")
+        self._qt_application.setStyleSheet(stylesheet)
+        self._theme = theme
+        qCInfo(self._log, f"Application theme applied: {theme}")
 
     @property
     def language(self) -> str:
@@ -84,35 +140,70 @@ class Application(QObject):
             self._main_window.create_menu(name, title)
 
         action_definitions = (
-            (lambda: self.tr("&Home"), "file",
+            ("home", lambda: self.tr("&Home"), "file",
              lambda: self._controller.navigate(Views.HOME)),
-            ("separator", "file", None),
-            (lambda: self.tr("E&xit"), "file",
-             self._qt_application.quit),
-            (lambda: self.tr("Cu&t"), "edit", lambda: None),
-            (lambda: self.tr("&Copy"), "edit", lambda: None),
-            (lambda: self.tr("&Paste"), "edit", lambda: None),
-            (lambda: self.tr("&Video Uploader"), "tools",
+            ("separator", None, "file", None),
+            ("exit", lambda: self.tr("E&xit"), "file", self._qt_application.quit),
+            ("cut", lambda: self.tr("Cu&t"), "edit", lambda: None),
+            ("copy", lambda: self.tr("&Copy"), "edit", lambda: None),
+            ("paste", lambda: self.tr("&Paste"), "edit", lambda: None),
+            ("video", lambda: self.tr("&Video Uploader"), "tools",
              lambda: self._controller.navigate(Views.VIDEO_UPLOADER)),
-            (lambda: self.tr("&Route Designer"), "tools",
+            ("route", lambda: self.tr("&Route Designer"), "tools",
              lambda: self._controller.navigate(Views.ROUTE_DESIGNER)),
-            (lambda: self.tr("&Settings"), "tools",
-             lambda: self._controller.navigate(Views.SETTINGS)),
-            (lambda: self.tr("&Logs"), "tools",
+            ("logs", lambda: self.tr("&Logs"), "tools",
              lambda: self._controller.navigate(Views.LOGS)),
-            (lambda: self.tr("&Spain"), "options",
+            ("language_header", None, "options", None),
+            ("es_ES", lambda: self.tr("&Spanish"), "options",
              lambda: self._load_translation("es_ES")),
-            (lambda: self.tr("&English"), "options",
+            ("en_US", lambda: self.tr("&English"), "options",
              lambda: self._load_translation("en_US")),
-            ("separator", "options", None),
-            (lambda: self.tr("&Configuration"), "options",
+            ("separator", None, "options", None),
+            ("themes_header", None, "options", None),
+            ("light", lambda: self.tr("&Light"), "options",
+             lambda checked=False: self.set_theme("light")),
+            ("dark", lambda: self.tr("&Dark"), "options",
+             lambda checked=False: self.set_theme("dark")),
+            ("separator", None, "options", None),
+            ("settings", lambda: self.tr("Set&tings"), "options",
              lambda: self._controller.navigate(Views.SETTINGS)),
-            (lambda: self.tr("&About"), "help",
+            ("about", lambda: self.tr("&About"), "help",
              lambda: self._controller.navigate(Views.HOME)),
         )
-        for title_source, menu_name, callback in action_definitions:
-            if title_source == "separator":
+        language_group = QActionGroup(self._main_window)
+        language_group.setExclusive(True)
+        self._language_actions = {}
+        theme_group = QActionGroup(self._main_window)
+        theme_group.setExclusive(True)
+        self._theme_actions = {}
+        for id, title_source, menu_name, callback in action_definitions:
+            if id == "separator":
                 self._main_window.add_separator(menu_name)
+            elif id == "language_header":
+                label_header = QLabel(self.tr("Language:"), self._main_window)
+                label_header.setFont(label_header.font().setBold(True))
+                self._main_window.add_action(menu_name, action, label_header)
+            elif id in ("es_ES", "en_US"):
+                action = QAction(title_source(), self._main_window)
+                action.setCheckable(True)
+                action.setChecked(id == self._language)
+                action.triggered.connect(callback)
+                language_group.addAction(action)
+                self._main_window.add_action(menu_name, action, title_source)
+                self._language_actions[id] = action
+            elif id == "themes_header":
+                text_source = lambda: self.tr("Theme:").rstrip(":").upper()
+                action = QAction(text_source(), self._main_window)
+                action.setEnabled(False)
+                self._main_window.add_action(menu_name, action, text_source)
+            elif id in ("light", "dark"):
+                action = QAction(title_source(), self._main_window)
+                action.setCheckable(True)
+                action.setChecked(id == self._theme)
+                action.triggered.connect(callback)
+                theme_group.addAction(action)
+                self._main_window.add_action(menu_name, action, title_source)
+                self._theme_actions[id] = action
             else:
                 action = QAction(title_source(), self._main_window)
                 action.triggered.connect(callback)
