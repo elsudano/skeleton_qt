@@ -60,24 +60,36 @@
         <translation>&amp;Route Designer</translation>
     </message>
     <message>
-        <source>&amp;Settings</source>
-        <translation>&amp;Settings</translation>
+        <source>&amp;Spanish</source>
+        <translation>&amp;Spanish</translation>
+    </message>
+    <message>
+        <source>&amp;Light</source>
+        <translation>&amp;Light</translation>
+    </message>
+    <message>
+        <source>&amp;Dark</source>
+        <translation>&amp;Dark</translation>
+    </message>
+    <message>
+        <source>Set&amp;tings</source>
+        <translation>Set&amp;tings</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Language:</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Theme:</translation>
     </message>
     <message>
         <source>&amp;Logs</source>
         <translation>&amp;Logs</translation>
     </message>
     <message>
-        <source>&amp;Spain</source>
-        <translation>&amp;Spain</translation>
-    </message>
-    <message>
         <source>&amp;English</source>
         <translation>&amp;English</translation>
-    </message>
-    <message>
-        <source>&amp;Configuration</source>
-        <translation>&amp;Configuration</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -141,30 +153,6 @@
     <message>
         <source>User interface</source>
         <translation>User interface</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>Language:</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Spanish</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>English</translation>
-    </message>
-    <message>
-        <source>Theme:</source>
-        <translation>Theme:</translation>
-    </message>
-    <message>
-        <source>Light</source>
-        <translation>Light</translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation>Dark</translation>
     </message>
     <message>
         <source>Enabled platforms</source>

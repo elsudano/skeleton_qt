@@ -60,24 +60,36 @@
         <translation>Diseñador de &amp;Ruta</translation>
     </message>
     <message>
-        <source>&amp;Settings</source>
-        <translation>&amp;Configuración</translation>
+        <source>&amp;Spanish</source>
+        <translation>Espa&amp;ñol</translation>
+    </message>
+    <message>
+        <source>&amp;Light</source>
+        <translation>C&amp;laro</translation>
+    </message>
+    <message>
+        <source>&amp;Dark</source>
+        <translation>Osc&amp;uro</translation>
+    </message>
+    <message>
+        <source>Set&amp;tings</source>
+        <translation>Con&amp;figuración</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Idioma:</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Tema:</translation>
     </message>
     <message>
         <source>&amp;Logs</source>
         <translation>&amp;Logs</translation>
     </message>
     <message>
-        <source>&amp;Spain</source>
-        <translation>&amp;Español</translation>
-    </message>
-    <message>
         <source>&amp;English</source>
         <translation>&amp;Ingles</translation>
-    </message>
-    <message>
-        <source>&amp;Configuration</source>
-        <translation>&amp;Configuración</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -141,30 +153,6 @@
     <message>
         <source>User interface</source>
         <translation>Interfaz de Usuario</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation>Idioma:</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Español</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Ingles</translation>
-    </message>
-    <message>
-        <source>Theme:</source>
-        <translation>Tema:</translation>
-    </message>
-    <message>
-        <source>Light</source>
-        <translation>Claro</translation>
-    </message>
-    <message>
-        <source>Dark</source>
-        <translation>Oscuro</translation>
     </message>
     <message>
         <source>Enabled platforms</source>

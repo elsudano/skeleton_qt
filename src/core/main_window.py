@@ -2,7 +2,7 @@
 
 from PySide6.QtCore import QEvent
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QMainWindow, QStackedWidget
+from PySide6.QtWidgets import QMainWindow, QStackedWidget, QLabel, QWidgetAction
 
 from src.core import config
 from src.core.text_binder import TextBinder
@@ -81,6 +81,26 @@ class MainWindow(QMainWindow):
         self._menu_registry[menu_name].addAction(action)
         if text_source is not None:
             self.bind_text(action, text_source)
+
+    def add_header(self, menu_name: str, text_source):
+        """Add a title header to a menu.
+
+        Parameters
+        ----------
+        menu_name : str
+            Internal menu name.
+        text_source : callable
+            Function returning the translated header text.
+        """
+        label_header = QLabel(text_source(), self)
+        font = label_header.font()
+        font.setBold(True)
+        label_header.setFont(font)
+        label_header.setObjectName("menuSectionHeader")
+        action = QWidgetAction(self)
+        action.setDefaultWidget(label_header)
+        self._menu_registry[menu_name].addAction(action)
+        self.bind_text(action, text_source())
 
     def add_separator(self, menu_name: str):
         """Add a separator to a registered menu.

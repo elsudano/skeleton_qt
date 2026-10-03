@@ -5,6 +5,9 @@ QWidget {
     selection-background-color: #c8ddff;
     selection-color: #172033;
 }
+QLabel#menuSectionHeader {
+    padding: 4px 7px;
+}
 QMainWindow, QDialog, QMenu, QMenuBar { background-color: #ffffff; }
 QMenuBar::item { padding: 5px 9px; background: transparent; }
 QMenuBar::item:selected, QMenu::item:selected { background-color: #e7efff; }

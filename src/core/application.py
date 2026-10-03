@@ -153,13 +153,13 @@ class Application(QObject):
              lambda: self._controller.navigate(Views.ROUTE_DESIGNER)),
             ("logs", lambda: self.tr("&Logs"), "tools",
              lambda: self._controller.navigate(Views.LOGS)),
-            ("language_header", None, "options", None),
+            ("language_header", lambda: self.tr("Language:"), "options", None),
             ("es_ES", lambda: self.tr("&Spanish"), "options",
              lambda: self._load_translation("es_ES")),
             ("en_US", lambda: self.tr("&English"), "options",
              lambda: self._load_translation("en_US")),
             ("separator", None, "options", None),
-            ("themes_header", None, "options", None),
+            ("themes_header", lambda: self.tr("Theme:"), "options", None),
             ("light", lambda: self.tr("&Light"), "options",
              lambda checked=False: self.set_theme("light")),
             ("dark", lambda: self.tr("&Dark"), "options",
@@ -179,10 +179,8 @@ class Application(QObject):
         for id, title_source, menu_name, callback in action_definitions:
             if id == "separator":
                 self._main_window.add_separator(menu_name)
-            elif id == "language_header":
-                label_header = QLabel(self.tr("Language:"), self._main_window)
-                label_header.setFont(label_header.font().setBold(True))
-                self._main_window.add_action(menu_name, action, label_header)
+            elif id == "language_header": 
+                self._main_window.add_header(menu_name, title_source)
             elif id in ("es_ES", "en_US"):
                 action = QAction(title_source(), self._main_window)
                 action.setCheckable(True)
@@ -192,10 +190,7 @@ class Application(QObject):
                 self._main_window.add_action(menu_name, action, title_source)
                 self._language_actions[id] = action
             elif id == "themes_header":
-                text_source = lambda: self.tr("Theme:").rstrip(":").upper()
-                action = QAction(text_source(), self._main_window)
-                action.setEnabled(False)
-                self._main_window.add_action(menu_name, action, text_source)
+                self._main_window.add_header(menu_name, title_source)
             elif id in ("light", "dark"):
                 action = QAction(title_source(), self._main_window)
                 action.setCheckable(True)
