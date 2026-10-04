@@ -52,7 +52,10 @@ class BaseView(QWidget):
         categories : Iterable[str]
             Logging categories that should be displayed by this view."""
         self._log_categories = categories
-        self._logs_label = self.bind_text(QLabel(), lambda: self.tr("Logs"),)
+        self._logs_label = self.bind_text(QLabel(), lambda: self.tr("Logs"))
+        font = self._logs_label.font()
+        font.setBold(True)
+        self._logs_label.setFont(font)
         layout.addWidget(self._logs_label)
         self._log_panel = QPlainTextEdit()
         self._log_panel.setReadOnly(True)
