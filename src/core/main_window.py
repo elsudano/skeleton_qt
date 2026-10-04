@@ -82,7 +82,7 @@ class MainWindow(QMainWindow):
         if text_source is not None:
             self.bind_text(action, text_source)
 
-    def add_header(self, menu_name: str, text_source):
+    def add_header(self, menu_name: str, text_source=None):
         """Add a title header to a menu.
 
         Parameters
@@ -100,7 +100,8 @@ class MainWindow(QMainWindow):
         action = QWidgetAction(self)
         action.setDefaultWidget(label_header)
         self._menu_registry[menu_name].addAction(action)
-        self.bind_text(action, text_source())
+        if text_source is not None:
+            self.bind_text(label_header, text_source)
 
     def add_separator(self, menu_name: str):
         """Add a separator to a registered menu.

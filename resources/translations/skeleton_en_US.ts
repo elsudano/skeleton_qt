@@ -89,7 +89,7 @@
     </message>
     <message>
         <source>&amp;English</source>
-        <translation>&amp;English</translation>
+        <translation>English</translation>
     </message>
     <message>
         <source>&amp;About</source>

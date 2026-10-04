@@ -1,6 +1,6 @@
 """Application composition, configuration, and startup."""
 
-from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCInfo
+from PySide6.QtCore import QCoreApplication, QLoggingCategory, QObject, QTranslator, qCInfo
 from PySide6.QtGui import QAction, QActionGroup
 
 from src.controllers.controller import Controller
@@ -25,7 +25,8 @@ class Application(QObject):
         Parameters
         ----------
         qt_application : QApplication
-            Qt application instance used by the application."""
+            Qt application instance used by the application.
+        """
         super().__init__()
         self._qt_application = qt_application
         self._translator = None
@@ -105,7 +106,8 @@ class Application(QObject):
         Returns
         -------
         str
-            Active language code."""
+            Active language code.
+        """
         return self._language
 
     def _load_translation(self, language: str = None):
@@ -114,7 +116,8 @@ class Application(QObject):
         Parameters
         ----------
         language : str
-            Language code used to locate the translation source."""
+            Language code used to locate the translation source.
+        """
         language = language or config.DEFAULT_LANGUAGE
         translation_file = config.TRANSLATIONS_DIR / f"skeleton_{language}.qm"
         translator = QTranslator()
@@ -176,10 +179,11 @@ class Application(QObject):
         theme_group = QActionGroup(self._main_window)
         theme_group.setExclusive(True)
         self._theme_actions = {}
+
         for id, title_source, menu_name, callback in action_definitions:
             if id == "separator":
                 self._main_window.add_separator(menu_name)
-            elif id == "language_header": 
+            elif id == "language_header":
                 self._main_window.add_header(menu_name, title_source)
             elif id in ("es_ES", "en_US"):
                 action = QAction(title_source(), self._main_window)

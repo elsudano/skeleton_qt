@@ -61,7 +61,7 @@
     </message>
     <message>
         <source>&amp;Spanish</source>
-        <translation>Espa&amp;ñol</translation>
+        <translation>Español</translation>
     </message>
     <message>
         <source>&amp;Light</source>
@@ -89,7 +89,7 @@
     </message>
     <message>
         <source>&amp;English</source>
-        <translation>&amp;Ingles</translation>
+        <translation>In&amp;gles</translation>
     </message>
     <message>
         <source>&amp;About</source>
