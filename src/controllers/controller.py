@@ -30,8 +30,8 @@ class Controller(QObject):
 
         Parameters
         ----------
-        main_window : MainWindow
-            Main application window used as the navigation host.
+        navigation_container : QStackedWidget
+            Container used as the navigation host.
         logging_manager : LoggingManager
             Central logging infrastructure used to distribute log messages."""
         super().__init__()
@@ -40,6 +40,7 @@ class Controller(QObject):
         self._cache = {}
         self._register_views()
         self._logging_manager.message_logged.connect(self._on_log_message)
+        qCInfo(self._log, f"The class Controller was created")
 
     def _register_views(self):
         """Register the available view factories."""
@@ -50,6 +51,8 @@ class Controller(QObject):
             Views.SETTINGS: (SettingsView, SettingsModel),
             Views.LOGS: (LogsView, lambda: LogsModel(self._logging_manager)),
         }
+        for item in self._factories:
+            qCInfo(self._log, f"We have created this View: {self._factories[item][0].__name__} and this Model: {self._factories[item][1].__name__} and registered together as {item}.")
 
     def _create_view_model(self, name: str):
         """Create and cache a view and model tuple.
@@ -69,7 +72,6 @@ class Controller(QObject):
         model = model_factory()
         self._cache[name] = (view, model)
         self._connect_view(view, model)
-        self._initialize_view(view, model)
         self._navigation_container.addWidget(view)
         if isinstance(view, LogsView):
             history = model.file_lines()
@@ -107,15 +109,12 @@ class Controller(QObject):
 
         Parameters
         ----------
-        name : str
-            Identifier of the view being connected.
         view : BaseView
             View whose signals should be connected.
         model : Model
             Model associated with the view."""
+        qCInfo(self._log, f"We are connected the View: {view.__class__.__name__} and the Model: {model.__class__.__name__} with Signals")
         view.navigation_requested.connect(self.navigate)
-        if isinstance(view, HomeView):
-            pass
         if isinstance(view, SettingsView):
             view.logging_gui_changed.connect(
                 self._logging_manager.set_gui_enabled)
@@ -124,17 +123,6 @@ class Controller(QObject):
         if isinstance(view, LogsView):
             view.clear_requested.connect(view.clear)
             view.clear_requested.connect(model.clear)
-
-    def _initialize_view(self, view, model):
-        """Initialize view data from its model.
-
-        Parameters
-        ----------
-        view : BaseView
-            View to initialize.
-        model : Model
-            Model associated with the view."""
-        pass
 
     def _on_log_message(self, category: str, level: str, message: str, formatted: str):
         """Forward a log message to every cached view that accepts it.
@@ -149,6 +137,7 @@ class Controller(QObject):
             Log message text.
         formatted : str
             Fully formatted message ready for display."""
+        # qCInfo(self._log, f"We are passing all the logs messages at the cached views")
         for view, _ in self._cache.values():
             view.append_log(category, level, message, formatted)
 

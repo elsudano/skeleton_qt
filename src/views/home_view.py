@@ -29,13 +29,11 @@ class HomeView(BaseView):
             Parent widget for the view."""
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, f"The class HomeView was created")
 
     def setup_ui(self):
         """Build the home user interface."""
-
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(10)
 
         # We can create a new button in Home just adding a new one in this list
         buttons = (
@@ -64,14 +62,8 @@ class HomeView(BaseView):
                     button.clicked.connect(callback)
                 setattr(self, attr_name, button)
                 row_layout.addWidget(button)
-            layout.addLayout(row_layout)
-        # We want the same Logs field in all the views, for that reason
-        # we have used the base_view to config the Logs field
-        self.setup_log_panel(
-            layout, ("skeleton.view.home", "skeleton.model.home",))
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
+            self._content_layout.addLayout(row_layout)
+        qCInfo(self._log, f"The class HomeView was configured")
 
     def _action_video_button(self):
         """This will be the actions that we can make when we press video_button"""

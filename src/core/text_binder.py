@@ -8,7 +8,7 @@ class TextBinder:
         """Initialize an empty binder."""
         self._bindings = {}
 
-    def bind(self, widget, source, setter: str = "setText"):
+    def bind(self, widget, source, setter=None):
         """Show a text now and remember how to obtain it again.
 
         Binding the same widget and setter again replaces the previous source.
@@ -19,15 +19,16 @@ class TextBinder:
             Widget, action, or window that displays the text.
         source : callable or str
             Callable returning the text or a plain string applied as-is.
-        setter : str, optional
-            Name of the widget method that receives the text.
+        setter : callable, optional
+            Callable that receives the text. If omitted, ``widget.setText`` is used.
 
         Returns
         -------
         QObject
             The same widget, so it can be created and bound in one line."""
+        setter = setter or widget.setText
         self._bindings[(widget, setter)] = source
-        getattr(widget, setter)(self._text_of(source))
+        setter(self._text_of(source))
         return widget
 
     def refresh(self):
@@ -36,7 +37,7 @@ class TextBinder:
             widget, setter = key
             text = self._text_of(source)
             try:
-                getattr(widget, setter)(text)
+                setter(text)
             except RuntimeError:
                 del self._bindings[key]
 

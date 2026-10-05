@@ -40,10 +40,11 @@ class SettingsView(BaseView):
             Parent widget for the view."""
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, f"The class SettingsView was created")
 
     def setup_ui(self):
         """Build the settings user interface."""
-        layout = QVBoxLayout(self)
         columns_layout = QHBoxLayout()
 
         # Left column: user interface preferences and enabled platforms.
@@ -125,15 +126,8 @@ class SettingsView(BaseView):
         columns_layout.addLayout(left_column, 1)
         columns_layout.addWidget(separator)
         columns_layout.addLayout(right_column, 1)
-        layout.addLayout(columns_layout)
-
-        # We want the same Logs field in all the views, for that reason
-        # we have used the base_view to config the Logs field
-        self.setup_log_panel(
-            layout, ("skeleton.view.settings", "skeleton.model.settings"))
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
+        self._content_layout.addLayout(columns_layout)
+        qCInfo(self._log, f"The class SettingsView was configured")
 
     def _section_header(self, text_source) -> QLabel:
         """Create a bold section header label bound to the active language.
@@ -151,6 +145,7 @@ class SettingsView(BaseView):
         font = label.font()
         font.setBold(True)
         label.setFont(font)
+        qCInfo(self._log, f"We have set the bold property in {text_source()} font header.")
         return label
 
     def _action_select_log_file_button(self):

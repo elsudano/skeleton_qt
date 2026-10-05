@@ -1,6 +1,7 @@
 """Route Designer view implementation."""
 
-from PySide6.QtCore import QLoggingCategory
+from PySide6.QtCore import QLoggingCategory, qCInfo
+from PySide6.QtWidgets import QVBoxLayout
 
 from src.views.base_view import BaseView
 
@@ -24,3 +25,10 @@ class RouteDesignerView(BaseView):
         """
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, f"The class RouteDesignerView was created")
+
+    def setup_ui(self):
+        """Build the route designer user interface."""
+        qCInfo(self._log, f"The class RouteDesignerView was configured")
+        pass
