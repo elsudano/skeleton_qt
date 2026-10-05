@@ -1,6 +1,6 @@
 """Main application window and menu infrastructure."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, qCDebug
+from PySide6.QtCore import QLoggingCategory, QEvent, qCInfo, qCDebug
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QStackedWidget, QLabel, QWidgetAction
 
@@ -29,6 +29,7 @@ class MainWindow(QMainWindow):
         self._navigation_container = QStackedWidget()
         self._texts = TextBinder()
         self._setup_window()
+        qCInfo(self._log, f"The class MainWindow was created")
         qCDebug(self._log, f"The class MainWindow was created")
 
     def _setup_window(self):

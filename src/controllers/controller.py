@@ -1,6 +1,6 @@
 """Global controller coordinating view and model lifecycle and communication."""
 
-from PySide6.QtCore import QLoggingCategory, QObject, qCDebug
+from PySide6.QtCore import QLoggingCategory, QObject, qCInfo, qCDebug
 
 from src.core.logging import LoggingManager
 from src.models.home_model import HomeModel
@@ -40,6 +40,7 @@ class Controller(QObject):
         self._cache = {}
         self._register_views()
         self._logging_manager.message_logged.connect(self._on_log_message)
+        qCInfo(self._log, f"The class Controller was created")
         qCDebug(self._log, f"The class Controller was created")
 
     def _register_views(self):

@@ -1,6 +1,6 @@
 """Global log view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCDebug
+from PySide6.QtCore import QLoggingCategory, Signal, qCInfo, qCDebug
 from PySide6.QtWidgets import QPlainTextEdit, QPushButton, QVBoxLayout
 
 from src.views.base_view import BaseView
@@ -27,6 +27,7 @@ class LogsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
+        qCInfo(self._log, f"The class LogsView was created")
         qCDebug(self._log, f"The class LogsView was created")
 
     def setup_ui(self):

@@ -1,6 +1,6 @@
 """Settings view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCDebug
+from PySide6.QtCore import QLoggingCategory, Signal, qCInfo, qCDebug
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -41,6 +41,7 @@ class SettingsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
+        qCInfo(self._log, f"The class SettingsView was created")
         qCDebug(self._log, f"The class SettingsView was created")
 
     def setup_ui(self):

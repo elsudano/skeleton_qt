@@ -1,6 +1,6 @@
 """Application composition, configuration, and startup."""
 
-from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCDebug
+from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCInfo, qCDebug
 from PySide6.QtGui import QAction, QActionGroup
 
 from src.controllers.controller import Controller
@@ -43,7 +43,8 @@ class Application(QObject):
         self._load_translation(self._language)
         self._setup_menus()
         self._controller.navigate(Views.HOME)
-        qCDebug(self._log, self.tr("Application initialized"))
+        qCInfo(self._log, f"Application initialized")
+        qCDebug(self._log, f"Application initialized")
 
     @property
     def theme(self) -> str:

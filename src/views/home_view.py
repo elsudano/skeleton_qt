@@ -1,6 +1,6 @@
 """Home view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCCritical, qCDebug
+from PySide6.QtCore import QLoggingCategory, qCInfo, qCDebug
 from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
@@ -30,6 +30,7 @@ class HomeView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
+        qCInfo(self._log, f"The class HomeView was created")
         qCDebug(self._log, f"The class HomeView was created")
 
     def setup_ui(self):
@@ -87,7 +88,6 @@ class HomeView(BaseView):
         (DEBUG/INFO/WARNING/CRITICAL/FATAL) flows through the same logging
         pipeline."""
         qCDebug(self._log, "The empty1_button was clicked")
-        qCCritical(self._log, "Demo CRITICAL message: This message ")
 
     def _action_logs_button(self):
         """This will be the actions that we can make when we press logs_button"""

@@ -1,6 +1,6 @@
 """Base classes and shared behavior for application views."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, Signal, qCDebug
+from PySide6.QtCore import QLoggingCategory, QEvent, Signal, qCInfo, qCDebug
 from PySide6.QtWidgets import (
     QApplication,
     QHBoxLayout,
@@ -40,6 +40,7 @@ class BaseView(QWidget):
         self._content_layout = QVBoxLayout(self)
         self._content_layout.setContentsMargins(10, 10, 10, 10)
         self._content_layout.setSpacing(10)
+        qCInfo(self._log, f"The class BaseView was created")
         qCDebug(self._log, f"The class BaseView was created")
 
     def setup_ui(self):
