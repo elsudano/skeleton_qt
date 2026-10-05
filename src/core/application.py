@@ -42,8 +42,8 @@ class Application(QObject):
         )
         self._load_translation(self._language)
         self._setup_menus()
-        qCInfo(self._log, self.tr("Application initialized"))
         self._controller.navigate(Views.HOME)
+        qCInfo(self._log, self.tr("Application initialized"))
 
     @property
     def theme(self) -> str:
@@ -207,6 +207,7 @@ class Application(QObject):
                 action = QAction(title_source(), self._main_window)
                 action.triggered.connect(callback)
                 self._main_window.add_action(menu_name, action, title_source)
+        qCInfo(self._log, self.tr("We have configured all the menus and the actions"))
 
     def start(self):
         """Show the application window and start the application lifecycle."""

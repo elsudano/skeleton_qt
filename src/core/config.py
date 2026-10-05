@@ -28,12 +28,18 @@ LOG_OUTPUTS = (LOG_OUTPUT_CONSOLE, LOG_OUTPUT_FILE, LOG_OUTPUT_GUI)
 LOG_GUI_ENABLED = True
 LOG_MAX_RECORDS = 1000
 LOG_CATEGORIES = (
-    "skeleton.controller",
+    "skeleton.controllers.controller",
     "skeleton.core.application",
     "skeleton.core.main_window",
-    "skeleton.core.translator",
+    "skeleton.core.text_binder",
+    "skeleton.view.base_view",
     "skeleton.view.home",
+    "skeleton.view.video_uploader",
+    "skeleton.view.route_designer",
     "skeleton.view.settings",
+    "skeleton.view.logs_view",
     "skeleton.model.home",
+    "skeleton.model.video_uploader",
+    "skeleton.model.route_designer",
     "skeleton.model.settings",
 )
