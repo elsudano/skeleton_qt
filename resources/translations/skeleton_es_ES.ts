@@ -12,10 +12,6 @@
         <translation>&amp;Inicio</translation>
     </message>
     <message>
-        <source>Application initialized</source>
-        <translation>Inicializando Aplicación</translation>
-    </message>
-    <message>
         <source>The Language was changed</source>
         <translation>El idioma ha cambiado</translation>
     </message>
@@ -224,6 +220,10 @@
     <message>
         <source>Description</source>
         <translation>Descripción</translation>
+    </message>
+    <message>
+        <source>Upload &amp;Video</source>
+        <translation>Su&amp;bir Video</translation>
     </message>
     <message>
         <source>Select video</source>

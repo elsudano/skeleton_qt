@@ -12,10 +12,6 @@
         <translation>&amp;Home</translation>
     </message>
     <message>
-        <source>Application initialized</source>
-        <translation>Application initialized</translation>
-    </message>
-    <message>
         <source>The Language was changed</source>
         <translation>The Language was changed</translation>
     </message>
@@ -224,6 +220,10 @@
     <message>
         <source>Description</source>
         <translation>Description</translation>
+    </message>
+    <message>
+        <source>Upload &amp;Video</source>
+        <translation>Upload &amp;Video</translation>
     </message>
     <message>
         <source>Select video</source>

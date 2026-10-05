@@ -208,7 +208,7 @@ class Application(QObject):
                 action = QAction(title_source(), self._main_window)
                 action.triggered.connect(callback)
                 self._main_window.add_action(menu_name, action, title_source)
-        qCDebug(self._log, self.tr("We have configured all the menus and the actions"))
+        qCDebug(self._log, f"We have configured all the menus and the actions")
 
     def start(self):
         """Show the application window and start the application lifecycle."""
