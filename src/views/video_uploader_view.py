@@ -1,6 +1,6 @@
 """Video Uploader view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCInfo
+from PySide6.QtCore import QLoggingCategory, qCDebug
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -37,7 +37,7 @@ class VideoUploaderView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class VideoUploaderView was created")
+        qCDebug(self._log, f"The class VideoUploaderView was created")
 
     def setup_ui(self):
         """Build the video uploader user interface."""
@@ -87,11 +87,11 @@ class VideoUploaderView(BaseView):
         self._content_layout.addWidget(self._upload_video_button)
         self._select_file_button.clicked.connect(self._action_select_file_button)
         self._upload_video_button.clicked.connect(self._action_upload_video_button)
-        qCInfo(self._log, f"The class VideoUploaderView was configured")
+        qCDebug(self._log, f"The class VideoUploaderView was configured")
 
     def _action_select_file_button(self):
         """When we want to select the video to upload we need to select with this method"""
-        qCInfo(self._log, "The select_file was clicked")
+        qCDebug(self._log, "The select_file was clicked")
         path, _ = QFileDialog.getOpenFileName(
             self, self.tr("Select video"), "",
             "Videos (*.mp4 *.mov *.mkv *.avi);;All files (*)")
@@ -100,5 +100,5 @@ class VideoUploaderView(BaseView):
 
     def _action_upload_video_button(self):
         """When we want to upload the video we need to click this button"""
-        qCInfo(self._log, "The upload_video was clicked")
+        qCDebug(self._log, "The upload_video was clicked")
         pass

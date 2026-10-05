@@ -1,6 +1,6 @@
 """Home view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCCritical, qCInfo
+from PySide6.QtCore import QLoggingCategory, qCCritical, qCDebug
 from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
@@ -30,7 +30,7 @@ class HomeView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class HomeView was created")
+        qCDebug(self._log, f"The class HomeView was created")
 
     def setup_ui(self):
         """Build the home user interface."""
@@ -63,21 +63,21 @@ class HomeView(BaseView):
                 setattr(self, attr_name, button)
                 row_layout.addWidget(button)
             self._content_layout.addLayout(row_layout)
-        qCInfo(self._log, f"The class HomeView was configured")
+        qCDebug(self._log, f"The class HomeView was configured")
 
     def _action_video_button(self):
         """This will be the actions that we can make when we press video_button"""
-        qCInfo(self._log, "The video_button was clicked")
+        qCDebug(self._log, "The video_button was clicked")
         self.request_navigation(Views.VIDEO_UPLOADER)
 
     def _action_route_button(self):
         """This will be the actions that we can make when we press route_button"""
-        qCInfo(self._log, "The route_button was clicked")
+        qCDebug(self._log, "The route_button was clicked")
         self.request_navigation(Views.ROUTE_DESIGNER)
 
     def _action_settings_button(self):
         """This will be the actions that we can make when we press settings_button"""
-        qCInfo(self._log, "The settings_button was clicked")
+        qCDebug(self._log, "The settings_button was clicked")
         self.request_navigation(Views.SETTINGS)
 
     def _action_empty1_button(self):
@@ -86,10 +86,10 @@ class HomeView(BaseView):
         DEMO ONLY: also logs a CRITICAL message to prove every QtMsgType level
         (DEBUG/INFO/WARNING/CRITICAL/FATAL) flows through the same logging
         pipeline."""
-        qCInfo(self._log, "The empty1_button was clicked")
+        qCDebug(self._log, "The empty1_button was clicked")
         qCCritical(self._log, "Demo CRITICAL message: This message ")
 
     def _action_logs_button(self):
         """This will be the actions that we can make when we press logs_button"""
-        qCInfo(self._log, "The logs_button was clicked")
+        qCDebug(self._log, "The logs_button was clicked")
         self.request_navigation(Views.LOGS)

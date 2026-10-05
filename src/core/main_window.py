@@ -1,6 +1,6 @@
 """Main application window and menu infrastructure."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, qCInfo
+from PySide6.QtCore import QLoggingCategory, QEvent, qCDebug
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMainWindow, QStackedWidget, QLabel, QWidgetAction
 
@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self._navigation_container = QStackedWidget()
         self._texts = TextBinder()
         self._setup_window()
-        qCInfo(self._log, f"The class MainWindow was created")
+        qCDebug(self._log, f"The class MainWindow was created")
 
     def _setup_window(self):
         """Configure the main window."""
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(str(config.ASSETS_DIR / "icon.ico")))
         self.resize(config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
         self.setCentralWidget(self._navigation_container)
-        qCInfo(self._log, f"We have configured the MainWindow")
+        qCDebug(self._log, f"We have configured the MainWindow")
 
     def bind_text(self, widget, source, setter=None):
         """Bind a translatable text source to a widget setter.
@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
         -------
         QObject
             The same widget, so it can be created and bound in one line."""
-        qCInfo(self._log, f"We have translated {source()}")
+        qCDebug(self._log, f"We have translated {source()}")
         return self._texts.bind(widget, source, setter)
 
     def create_menu(self, name: str, title_source):
@@ -74,7 +74,7 @@ class MainWindow(QMainWindow):
         menu = self.menuBar().addMenu("")
         self._menu_registry[name] = menu
         self.bind_text(menu, title_source, menu.setTitle)
-        qCInfo(self._log, f"We have created the {title_source()} menu.")
+        qCDebug(self._log, f"We have created the {title_source()} menu.")
 
     def add_action(self, menu_name: str, action, text_source=None):
         """Add an action to a registered menu.
@@ -95,7 +95,7 @@ class MainWindow(QMainWindow):
         self._menu_registry[menu_name].addAction(action)
         if text_source is not None:
             self.bind_text(action, text_source)
-        qCInfo(self._log, f"We have created the {text_source()} item in {menu_name} menu.")
+        qCDebug(self._log, f"We have created the {text_source()} item in {menu_name} menu.")
 
     def add_header(self, menu_name: str, text_source=None):
         """Add a title header to a registered menu.
@@ -122,7 +122,7 @@ class MainWindow(QMainWindow):
         self._menu_registry[menu_name].addAction(action)
         if text_source is not None:
             self.bind_text(label_header, text_source, label_header.setText)
-        qCInfo(self._log, f"We have created the {text_source()} header in {menu_name} menu.")
+        qCDebug(self._log, f"We have created the {text_source()} header in {menu_name} menu.")
 
     def add_separator(self, menu_name: str):
         """Add a separator to a registered menu.
@@ -137,7 +137,7 @@ class MainWindow(QMainWindow):
         KeyError
             If the menu does not exist."""
         self._menu_registry[menu_name].addSeparator()
-        qCInfo(self._log, f"We have added a separator in {menu_name} menu.")
+        qCDebug(self._log, f"We have added a separator in {menu_name} menu.")
 
     @property
     def navigation_container(self) -> QStackedWidget:

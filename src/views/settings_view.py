@@ -1,6 +1,6 @@
 """Settings view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCInfo
+from PySide6.QtCore import QLoggingCategory, Signal, qCDebug
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -41,7 +41,7 @@ class SettingsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class SettingsView was created")
+        qCDebug(self._log, f"The class SettingsView was created")
 
     def setup_ui(self):
         """Build the settings user interface."""
@@ -127,7 +127,7 @@ class SettingsView(BaseView):
         columns_layout.addWidget(separator)
         columns_layout.addLayout(right_column, 1)
         self._content_layout.addLayout(columns_layout)
-        qCInfo(self._log, f"The class SettingsView was configured")
+        qCDebug(self._log, f"The class SettingsView was configured")
 
     def _section_header(self, text_source) -> QLabel:
         """Create a bold section header label bound to the active language.
@@ -145,12 +145,12 @@ class SettingsView(BaseView):
         font = label.font()
         font.setBold(True)
         label.setFont(font)
-        qCInfo(self._log, f"We have set the bold property in {text_source()} font header.")
+        qCDebug(self._log, f"We have set the bold property in {text_source()} font header.")
         return label
 
     def _action_select_log_file_button(self):
         """Open a file dialog to pick the log file to display."""
-        qCInfo(self._log, "The select_log_file_button was clicked")
+        qCDebug(self._log, "The select_log_file_button was clicked")
         path, _ = QFileDialog.getOpenFileName(
             self, self.tr("Select log file"), "",
             "Log files (*.log);;All files (*)")
@@ -164,11 +164,11 @@ class SettingsView(BaseView):
         ----------
         enabled : bool
             Whether GUI log delivery should be enabled."""
-        qCInfo(self._log, f"GUI logging enabled: {enabled}")
+        qCDebug(self._log, f"GUI logging enabled: {enabled}")
         self.logging_gui_changed.emit(enabled)
 
     def _emit_categories(self):
         """Emit the currently selected logging categories."""
         selected = self._categories.checked_items()
-        qCInfo(self._log, f"The categories: {selected} were selected")
+        qCDebug(self._log, f"The categories: {selected} were selected")
         self.logging_categories_changed.emit(selected)
