@@ -1,6 +1,6 @@
 """Utility for keeping widget text synchronized with the active language."""
 
-from PySide6.QtCore import QLoggingCategory, qCInfo
+from PySide6.QtCore import QLoggingCategory, qCDebug
 
 
 class TextBinder:
@@ -37,7 +37,7 @@ class TextBinder:
         setter = setter or widget.setText
         self._bindings[(widget, setter)] = source
         setter(self._text_of(source))
-        qCInfo(self._log, f"We have bind the widget: {widget} with the text: {source} ")
+        qCDebug(self._log, f"We have bind the WIDGET with the text: {source()} ")
         return widget
 
     def refresh(self):
@@ -49,7 +49,7 @@ class TextBinder:
                 setter(text)
             except RuntimeError:
                 del self._bindings[key]
-        qCInfo(self._log, f"We have refresh all the texts that we have in the User Interface")
+        qCDebug(self._log, f"We have refresh all the texts that we have in the User Interface")
 
     @staticmethod
     def _text_of(source) -> str:

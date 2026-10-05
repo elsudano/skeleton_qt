@@ -1,6 +1,6 @@
 """Application composition, configuration, and startup."""
 
-from PySide6.QtCore import QCoreApplication, QLoggingCategory, QObject, QTranslator, qCInfo
+from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCDebug
 from PySide6.QtGui import QAction, QActionGroup
 
 from src.controllers.controller import Controller
@@ -43,7 +43,7 @@ class Application(QObject):
         self._load_translation(self._language)
         self._setup_menus()
         self._controller.navigate(Views.HOME)
-        qCInfo(self._log, self.tr("Application initialized"))
+        qCDebug(self._log, self.tr("Application initialized"))
 
     @property
     def theme(self) -> str:
@@ -97,7 +97,7 @@ class Application(QObject):
         stylesheet = stylesheet_path.read_text(encoding="utf-8")
         self._qt_application.setStyleSheet(stylesheet)
         self._theme = theme
-        qCInfo(self._log, f"Application theme applied: {theme}")
+        qCDebug(self._log, f"Application theme applied: {theme}")
 
     @property
     def language(self) -> str:
@@ -128,7 +128,7 @@ class Application(QObject):
         self._qt_application.installTranslator(translator)
         self._translator = translator
         self._language = language
-        qCInfo(self._log, self.tr("The Language was changed"))
+        qCDebug(self._log, self.tr("The Language was changed"))
 
     def _setup_menus(self):
         """Create application menus and actions."""
@@ -207,7 +207,7 @@ class Application(QObject):
                 action = QAction(title_source(), self._main_window)
                 action.triggered.connect(callback)
                 self._main_window.add_action(menu_name, action, title_source)
-        qCInfo(self._log, self.tr("We have configured all the menus and the actions"))
+        qCDebug(self._log, self.tr("We have configured all the menus and the actions"))
 
     def start(self):
         """Show the application window and start the application lifecycle."""
