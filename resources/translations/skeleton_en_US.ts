@@ -12,10 +12,6 @@
         <translation>&amp;Home</translation>
     </message>
     <message>
-        <source>Application initialized</source>
-        <translation>Application initialized</translation>
-    </message>
-    <message>
         <source>The Language was changed</source>
         <translation>The Language was changed</translation>
     </message>
@@ -60,24 +56,36 @@
         <translation>&amp;Route Designer</translation>
     </message>
     <message>
-        <source>&amp;Settings</source>
-        <translation>&amp;Settings</translation>
+        <source>&amp;Spanish</source>
+        <translation>&amp;Spanish</translation>
+    </message>
+    <message>
+        <source>&amp;Light</source>
+        <translation>&amp;Light</translation>
+    </message>
+    <message>
+        <source>&amp;Dark</source>
+        <translation>&amp;Dark</translation>
+    </message>
+    <message>
+        <source>Set&amp;tings</source>
+        <translation>Set&amp;tings</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Language:</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Theme:</translation>
     </message>
     <message>
         <source>&amp;Logs</source>
         <translation>&amp;Logs</translation>
     </message>
     <message>
-        <source>&amp;Spain</source>
-        <translation>&amp;Spain</translation>
-    </message>
-    <message>
         <source>&amp;English</source>
-        <translation>&amp;English</translation>
-    </message>
-    <message>
-        <source>&amp;Configuration</source>
-        <translation>&amp;Configuration</translation>
+        <translation>English</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -139,16 +147,48 @@
 <context>
     <name>SettingsView</name>
     <message>
-        <source>GUI logging</source>
-        <translation>GUI logging</translation>
+        <source>User interface</source>
+        <translation>User interface</translation>
     </message>
     <message>
-        <source>Enable GUI logging</source>
-        <translation>Enable GUI logging</translation>
+        <source>Enabled platforms</source>
+        <translation>Enabled platforms</translation>
     </message>
     <message>
-        <source>Logging categories</source>
-        <translation>Logging categories</translation>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Instagram</source>
+        <translation>Instagram</translation>
+    </message>
+    <message>
+        <source>Logging system</source>
+        <translation>Logging system</translation>
+    </message>
+    <message>
+        <source>Enable logging</source>
+        <translation>Enable logging</translation>
+    </message>
+    <message>
+        <source>Clear log file on exit</source>
+        <translation>Clear log file on exit</translation>
+    </message>
+    <message>
+        <source>Log Type:</source>
+        <translation>Log Type:</translation>
+    </message>
+    <message>
+        <source>Logs File:</source>
+        <translation>Logs File:</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Select</translation>
+    </message>
+    <message>
+        <source>Select log file</source>
+        <translation>Select log file</translation>
     </message>
 </context>
 <context>
@@ -180,6 +220,10 @@
     <message>
         <source>Description</source>
         <translation>Description</translation>
+    </message>
+    <message>
+        <source>Upload &amp;Video</source>
+        <translation>Upload &amp;Video</translation>
     </message>
     <message>
         <source>Select video</source>

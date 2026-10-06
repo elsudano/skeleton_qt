@@ -1,6 +1,6 @@
 """Video Uploader view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCInfo
+from PySide6.QtCore import QLoggingCategory, qCDebug, qCInfo
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -11,7 +11,6 @@ from PySide6.QtWidgets import (
     QPlainTextEdit,
     QPushButton,
     QSizePolicy,
-    QVBoxLayout,
 )
 
 from src.views.base_view import BaseView
@@ -36,12 +35,12 @@ class VideoUploaderView(BaseView):
         """
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, "The class VideoUploaderView was created")
+        qCDebug(self._log, "The class VideoUploaderView was created")
 
     def setup_ui(self):
         """Build the video uploader user interface."""
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(10)
         # Video Form
         form_layout = QFormLayout()
         form_layout.setHorizontalSpacing(10)
@@ -63,7 +62,7 @@ class VideoUploaderView(BaseView):
         file_layout.addWidget(self._select_file_button)
         form_layout.addRow(self.bind_text(
             QLabel(), lambda: self.tr("File")), file_layout)
-        layout.addLayout(form_layout)
+        self._content_layout.addLayout(form_layout)
         # Platform select box
         platform_layout = QHBoxLayout()
         platform_layout.setSpacing(10)
@@ -76,28 +75,30 @@ class VideoUploaderView(BaseView):
         platform_layout.addWidget(self._instagram_option)
         platform_layout.addWidget(self._youtube_option)
         platform_layout.addStretch()
-        layout.addLayout(platform_layout)
+        self._content_layout.addLayout(platform_layout)
         # Description Field box
         self._description_edit = QPlainTextEdit()
         self._description_edit.setMinimumHeight(100)
-        layout.addWidget(self.bind_text(
+        self._content_layout.addWidget(self.bind_text(
             QLabel(), lambda: self.tr("Description")))
-        layout.addWidget(self._description_edit)
-        # We want the same Logs field in all the views, for that reason
-        # we have used the base_view to config the Logs field
-        self.setup_log_panel(
-            layout, ("skeleton.view.video_uploader", "skeleton.model.video_uploader"))
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
-        self._select_file_button.clicked.connect(
-            self._action_select_file_button)
+        self._content_layout.addWidget(self._description_edit)
+        self._upload_video_button = self.bind_text(
+            QPushButton(), lambda: self.tr("Upload &Video"))
+        self._content_layout.addWidget(self._upload_video_button)
+        self._select_file_button.clicked.connect(self._action_select_file_button)
+        self._upload_video_button.clicked.connect(self._action_upload_video_button)
+        qCDebug(self._log, "The class VideoUploaderView was configured")
 
     def _action_select_file_button(self):
         """When we want to select the video to upload we need to select with this method"""
-        qCInfo(self._log, "The video_button was clicked")
+        qCDebug(self._log, "The select_file was clicked")
         path, _ = QFileDialog.getOpenFileName(
             self, self.tr("Select video"), "",
             "Videos (*.mp4 *.mov *.mkv *.avi);;All files (*)")
         if path:
             self._file_edit.setText(path)
+
+    def _action_upload_video_button(self):
+        """When we want to upload the video we need to click this button"""
+        qCDebug(self._log, "The upload_video was clicked")
+        pass

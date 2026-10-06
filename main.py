@@ -23,6 +23,5 @@ def main() -> int:
     application.start()
     return qt_application.exec()
 
-
 if __name__ == "__main__":
     raise SystemExit(main())

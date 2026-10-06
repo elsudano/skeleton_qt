@@ -1,7 +1,7 @@
 """Home view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCCritical, qCInfo
-from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout
+from PySide6.QtCore import QLoggingCategory, qCDebug, qCInfo
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
 from src.views.base_view import BaseView
@@ -29,13 +29,12 @@ class HomeView(BaseView):
             Parent widget for the view."""
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, "The class HomeView was created")
+        qCDebug(self._log, "The class HomeView was created")
 
     def setup_ui(self):
         """Build the home user interface."""
-
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(10, 10, 10, 10)
-        layout.setSpacing(10)
 
         # We can create a new button in Home just adding a new one in this list
         buttons = (
@@ -64,28 +63,22 @@ class HomeView(BaseView):
                     button.clicked.connect(callback)
                 setattr(self, attr_name, button)
                 row_layout.addWidget(button)
-            layout.addLayout(row_layout)
-        # We want the same Logs field in all the views, for that reason
-        # we have used the base_view to config the Logs field
-        self.setup_log_panel(
-            layout, ("skeleton.view.home", "skeleton.model.home",))
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
+            self._content_layout.addLayout(row_layout)
+        qCDebug(self._log, "The class HomeView was configured")
 
     def _action_video_button(self):
         """This will be the actions that we can make when we press video_button"""
-        qCInfo(self._log, "The video_button was clicked")
+        qCDebug(self._log, "The video_button was clicked")
         self.request_navigation(Views.VIDEO_UPLOADER)
 
     def _action_route_button(self):
         """This will be the actions that we can make when we press route_button"""
-        qCInfo(self._log, "The route_button was clicked")
-        self.request_navigation(Views.ROUTE)
+        qCDebug(self._log, "The route_button was clicked")
+        self.request_navigation(Views.ROUTE_DESIGNER)
 
     def _action_settings_button(self):
         """This will be the actions that we can make when we press settings_button"""
-        qCInfo(self._log, "The settings_button was clicked")
+        qCDebug(self._log, "The settings_button was clicked")
         self.request_navigation(Views.SETTINGS)
 
     def _action_empty1_button(self):
@@ -94,10 +87,9 @@ class HomeView(BaseView):
         DEMO ONLY: also logs a CRITICAL message to prove every QtMsgType level
         (DEBUG/INFO/WARNING/CRITICAL/FATAL) flows through the same logging
         pipeline."""
-        qCInfo(self._log, "The empty1_button was clicked")
-        qCCritical(self._log, "Demo CRITICAL message: This message ")
+        qCDebug(self._log, "The empty1_button was clicked")
 
     def _action_logs_button(self):
         """This will be the actions that we can make when we press logs_button"""
-        qCInfo(self._log, "The logs_button was clicked")
+        qCDebug(self._log, "The logs_button was clicked")
         self.request_navigation(Views.LOGS)

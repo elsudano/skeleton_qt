@@ -1,14 +1,22 @@
 """Utility for keeping widget text synchronized with the active language."""
 
+from PySide6.QtCore import QLoggingCategory, qCDebug
+
 
 class TextBinder:
     """Keep widget texts in sync with the active language."""
+
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.core.text_binder"
+    _log = QLoggingCategory(_CATEGORY)
 
     def __init__(self):
         """Initialize an empty binder."""
         self._bindings = {}
 
-    def bind(self, widget, source, setter: str = "setText"):
+    def bind(self, widget, source, setter=None):
         """Show a text now and remember how to obtain it again.
 
         Binding the same widget and setter again replaces the previous source.
@@ -19,15 +27,17 @@ class TextBinder:
             Widget, action, or window that displays the text.
         source : callable or str
             Callable returning the text or a plain string applied as-is.
-        setter : str, optional
-            Name of the widget method that receives the text.
+        setter : callable, optional
+            Callable that receives the text. If omitted, ``widget.setText`` is used.
 
         Returns
         -------
         QObject
             The same widget, so it can be created and bound in one line."""
+        setter = setter or widget.setText
         self._bindings[(widget, setter)] = source
-        getattr(widget, setter)(self._text_of(source))
+        setter(self._text_of(source))
+        qCDebug(self._log, f"We have bind the WIDGET with the text: {self._text_of(source)} ")
         return widget
 
     def refresh(self):
@@ -36,9 +46,10 @@ class TextBinder:
             widget, setter = key
             text = self._text_of(source)
             try:
-                getattr(widget, setter)(text)
+                setter(text)
             except RuntimeError:
                 del self._bindings[key]
+        qCDebug(self._log, "We have refresh all the texts that we have in the User Interface")
 
     @staticmethod
     def _text_of(source) -> str:

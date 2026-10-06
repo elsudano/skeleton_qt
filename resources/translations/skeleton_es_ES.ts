@@ -12,10 +12,6 @@
         <translation>&amp;Inicio</translation>
     </message>
     <message>
-        <source>Application initialized</source>
-        <translation>Inicializando Aplicación</translation>
-    </message>
-    <message>
         <source>The Language was changed</source>
         <translation>El idioma ha cambiado</translation>
     </message>
@@ -60,24 +56,36 @@
         <translation>Diseñador de &amp;Ruta</translation>
     </message>
     <message>
-        <source>&amp;Settings</source>
-        <translation>&amp;Configuración</translation>
+        <source>&amp;Spanish</source>
+        <translation>Español</translation>
+    </message>
+    <message>
+        <source>&amp;Light</source>
+        <translation>C&amp;laro</translation>
+    </message>
+    <message>
+        <source>&amp;Dark</source>
+        <translation>Osc&amp;uro</translation>
+    </message>
+    <message>
+        <source>Set&amp;tings</source>
+        <translation>Con&amp;figuración</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Idioma:</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Tema:</translation>
     </message>
     <message>
         <source>&amp;Logs</source>
         <translation>&amp;Logs</translation>
     </message>
     <message>
-        <source>&amp;Spain</source>
-        <translation>&amp;Español</translation>
-    </message>
-    <message>
         <source>&amp;English</source>
-        <translation>&amp;Ingles</translation>
-    </message>
-    <message>
-        <source>&amp;Configuration</source>
-        <translation>&amp;Configuración</translation>
+        <translation>In&amp;gles</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -139,16 +147,48 @@
 <context>
     <name>SettingsView</name>
     <message>
-        <source>GUI logging</source>
-        <translation>Logs en IU</translation>
+        <source>User interface</source>
+        <translation>Interfaz de Usuario</translation>
     </message>
     <message>
-        <source>Enable GUI logging</source>
-        <translation>Habilitar Logs en la Interfaz Gráfica</translation>
+        <source>Enabled platforms</source>
+        <translation>Plataformas por defecto</translation>
     </message>
     <message>
-        <source>Logging categories</source>
-        <translation>Categorías de logs</translation>
+        <source>YouTube</source>
+        <translation>YouTube</translation>
+    </message>
+    <message>
+        <source>Instagram</source>
+        <translation>Instagram</translation>
+    </message>
+    <message>
+        <source>Logging system</source>
+        <translation>Systemas de Logs</translation>
+    </message>
+    <message>
+        <source>Enable logging</source>
+        <translation>Habilitar Logs</translation>
+    </message>
+    <message>
+        <source>Clear log file on exit</source>
+        <translation>Vaciar fichero de logs al salir</translation>
+    </message>
+    <message>
+        <source>Log Type:</source>
+        <translation>Tipo de Log</translation>
+    </message>
+    <message>
+        <source>Logs File:</source>
+        <translation>Fichero de Logs:</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Seleccionar</translation>
+    </message>
+    <message>
+        <source>Select log file</source>
+        <translation>Elegir el fichero de Logs</translation>
     </message>
 </context>
 <context>
@@ -180,6 +220,10 @@
     <message>
         <source>Description</source>
         <translation>Descripción</translation>
+    </message>
+    <message>
+        <source>Upload &amp;Video</source>
+        <translation>Su&amp;bir Video</translation>
     </message>
     <message>
         <source>Select video</source>

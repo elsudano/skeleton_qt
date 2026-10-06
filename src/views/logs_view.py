@@ -1,13 +1,19 @@
 """Global log view implementation."""
 
-from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QPlainTextEdit, QPushButton, QVBoxLayout
+from PySide6.QtCore import QLoggingCategory, Signal, qCDebug, qCInfo
+from PySide6.QtWidgets import QPlainTextEdit, QPushButton
 
 from src.views.base_view import BaseView
 
 
 class LogsView(BaseView):
     """Display the complete application log history and incoming messages."""
+
+    # We need to declare this in this way just to handle the known issue: use-after-free
+    # in python, in this case PySide6 when you create a category, PySide6 is creating a buffer
+    # and this buffet pointing a different memory directions, for that reason fail.
+    _CATEGORY = "skeleton.view.logs_view"
+    _log = QLoggingCategory(_CATEGORY)
 
     clear_requested = Signal()
 
@@ -16,28 +22,26 @@ class LogsView(BaseView):
 
         Parameters
         ----------
-        controller : Controller
-            Global application controller.
         parent : QWidget, optional
             Parent widget for the view."""
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, "The class LogsView was created")
+        qCDebug(self._log, "The class LogsView was created")
 
     def setup_ui(self):
         """Build the log viewer interface."""
-        layout = QVBoxLayout(self)
         self._log_text = QPlainTextEdit()
         self._log_text.setReadOnly(True)
         self._log_text.setMaximumBlockCount(2000)
         self._clear_button = self.bind_text(
             QPushButton(), lambda: self.tr("Clear logs")
         )
-        layout.addWidget(self._log_text)
-        layout.addWidget(self._clear_button)
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
+        self._content_layout.addWidget(self._log_text)
+        self._content_layout.addWidget(self._clear_button)
         self._clear_button.clicked.connect(self.clear_requested.emit)
+        qCDebug(self._log, "The class LogsView was configured")
 
     def load_history(self, lines):
         """Load persisted log lines into the viewer.
@@ -47,6 +51,7 @@ class LogsView(BaseView):
         lines : Iterable[str]
             Log lines to display."""
         self._log_text.setPlainText("\n".join(lines))
+        qCDebug(self._log, "The Logs history was loaded")
 
     def append_log(self, category: str, level: str, message: str, formatted: str):
         """Append a log message to the global log viewer.
@@ -65,4 +70,5 @@ class LogsView(BaseView):
 
     def clear(self):
         """Clear displayed log messages."""
+        qCDebug(self._log, "The Logs history was cleaned")
         self._log_text.clear()

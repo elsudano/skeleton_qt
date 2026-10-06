@@ -1,9 +1,8 @@
 """Settings view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCInfo
+from PySide6.QtCore import QLoggingCategory, Signal, qCDebug, qCInfo
 from PySide6.QtWidgets import (
     QCheckBox,
-    QComboBox,
     QFileDialog,
     QFrame,
     QHBoxLayout,
@@ -41,33 +40,18 @@ class SettingsView(BaseView):
             Parent widget for the view."""
         super().__init__(parent)
         self.setup_ui()
+        super().setup_ui()
+        qCInfo(self._log, "The class SettingsView was created")
+        qCDebug(self._log, "The class SettingsView was created")
 
     def setup_ui(self):
         """Build the settings user interface."""
-        layout = QVBoxLayout(self)
         columns_layout = QHBoxLayout()
 
         # Left column: user interface preferences and enabled platforms.
         left_column = QVBoxLayout()
         left_column.addWidget(self._section_header(
             lambda: self.tr("User interface")))
-
-        language_row = QHBoxLayout()
-        language_row.addWidget(self.bind_text(
-            QLabel(), lambda: self.tr("Language:")))
-        self._language_combo = QComboBox()
-        self._language_combo.addItems(
-            [self.tr("Spanish"), self.tr("English")])
-        language_row.addWidget(self._language_combo)
-        left_column.addLayout(language_row)
-
-        theme_row = QHBoxLayout()
-        theme_row.addWidget(self.bind_text(
-            QLabel(), lambda: self.tr("Theme:")))
-        self._theme_combo = QComboBox()
-        self._theme_combo.addItems([self.tr("Light"), self.tr("Dark")])
-        theme_row.addWidget(self._theme_combo)
-        left_column.addLayout(theme_row)
 
         left_column.addWidget(self._section_header(
             lambda: self.tr("Enabled platforms")))
@@ -143,15 +127,8 @@ class SettingsView(BaseView):
         columns_layout.addLayout(left_column, 1)
         columns_layout.addWidget(separator)
         columns_layout.addLayout(right_column, 1)
-        layout.addLayout(columns_layout)
-
-        # We want the same Logs field in all the views, for that reason
-        # we have used the base_view to config the Logs field
-        self.setup_log_panel(
-            layout, ("skeleton.view.settings", "skeleton.model.settings"))
-        # We want the same bottom buttons, for that reason
-        # we have used the base_view to config the navigation buttons
-        self.setup_navigation_buttons(layout)
+        self._content_layout.addLayout(columns_layout)
+        qCDebug(self._log, "The class SettingsView was configured")
 
     def _section_header(self, text_source) -> QLabel:
         """Create a bold section header label bound to the active language.
@@ -169,11 +146,12 @@ class SettingsView(BaseView):
         font = label.font()
         font.setBold(True)
         label.setFont(font)
+        qCDebug(self._log, f"We have set the bold property in {text_source()} font header.")
         return label
 
     def _action_select_log_file_button(self):
         """Open a file dialog to pick the log file to display."""
-        qCInfo(self._log, "The select_log_file_button was clicked")
+        qCDebug(self._log, "The select_log_file_button was clicked")
         path, _ = QFileDialog.getOpenFileName(
             self, self.tr("Select log file"), "",
             "Log files (*.log);;All files (*)")
@@ -187,11 +165,11 @@ class SettingsView(BaseView):
         ----------
         enabled : bool
             Whether GUI log delivery should be enabled."""
-        qCInfo(self._log, f"GUI logging enabled: {enabled}")
+        qCDebug(self._log, f"GUI logging enabled: {enabled}")
         self.logging_gui_changed.emit(enabled)
 
     def _emit_categories(self):
         """Emit the currently selected logging categories."""
         selected = self._categories.checked_items()
-        qCInfo(self._log, f"The categories: {selected} were selected")
+        qCDebug(self._log, f"The categories: {selected} were selected")
         self.logging_categories_changed.emit(selected)

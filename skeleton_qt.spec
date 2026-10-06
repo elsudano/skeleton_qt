@@ -10,11 +10,16 @@ TRANSLATION_FILES = [
     ('resources/translations/skeleton_en_US.qm', 'resources/translations'),
 ]
 
+STYLE_FILES = [
+    ('resources/styles/light.qss', 'resources/styles'),
+    ('resources/styles/dark.qss', 'resources/styles'),
+]
+
 ASSET_FILES = [
     ('resources/assets/icon.ico', 'resources/assets'),
 ]
 
-datas = TRANSLATION_FILES + ASSET_FILES
+datas = TRANSLATION_FILES + ASSET_FILES + STYLE_FILES
 
 # ICO is appropriate for Windows. Linux does not require an executable icon
 # for the PyInstaller build.
