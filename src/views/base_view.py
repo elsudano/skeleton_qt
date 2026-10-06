@@ -1,6 +1,6 @@
 """Base classes and shared behavior for application views."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, Signal, qCInfo, qCDebug
+from PySide6.QtCore import QLoggingCategory, QEvent, Signal, qCDebug, qCInfo
 from PySide6.QtWidgets import (
     QApplication,
     QHBoxLayout,
@@ -40,8 +40,8 @@ class BaseView(QWidget):
         self._content_layout = QVBoxLayout(self)
         self._content_layout.setContentsMargins(10, 10, 10, 10)
         self._content_layout.setSpacing(10)
-        qCInfo(self._log, f"The class BaseView was created")
-        qCDebug(self._log, f"The class BaseView was created")
+        qCInfo(self._log, "The class BaseView was created")
+        qCDebug(self._log, "The class BaseView was created")
 
     def setup_ui(self):
         """Build the common view interface.
@@ -54,10 +54,10 @@ class BaseView(QWidget):
         categories = (category,) if category else ()
         if category and ".view." in category:
             categories += (category.replace(".view.", ".model.", 1),)
-        if self.__class__.__name__ is not "LogsView":
+        if self.__class__.__name__ != "LogsView":
             self.setup_log_panel(self._content_layout, categories)
         self.setup_navigation_buttons(self._content_layout)
-        qCDebug(self._log, f"The class BaseView was configured")
+        qCDebug(self._log, "The class BaseView was configured")
 
     def setup_log_panel(self, layout: QVBoxLayout, categories: tuple[str, ...]):
         """Add the log panel for this view to the supplied layout.
@@ -78,7 +78,7 @@ class BaseView(QWidget):
         self._log_panel.setReadOnly(True)
         self._log_panel.setMaximumBlockCount(500)
         layout.addWidget(self._log_panel)
-        qCDebug(self._log, f"The Log Panel was created")
+        qCDebug(self._log, "The Log Panel was created")
 
     def setup_navigation_buttons(self, layout: QVBoxLayout):
         bottom_layout = QHBoxLayout()
@@ -97,7 +97,7 @@ class BaseView(QWidget):
         self._back_button.clicked.connect(self._action_back_button)
         self._exit_button.clicked.connect(self._action_exit_button)
         layout.addLayout(bottom_layout)
-        qCDebug(self._log, f"We have added the default buttons Back/Exit")
+        qCDebug(self._log, "We have added the default buttons Back/Exit")
 
     def _action_back_button(self):
         """This will be the actions that we can make when we press back_button"""

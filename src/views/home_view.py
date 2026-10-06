@@ -1,7 +1,7 @@
 """Home view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, qCInfo, qCDebug
-from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy, QVBoxLayout
+from PySide6.QtCore import QLoggingCategory, qCDebug, qCInfo
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
 from src.views.base_view import BaseView
@@ -30,8 +30,8 @@ class HomeView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class HomeView was created")
-        qCDebug(self._log, f"The class HomeView was created")
+        qCInfo(self._log, "The class HomeView was created")
+        qCDebug(self._log, "The class HomeView was created")
 
     def setup_ui(self):
         """Build the home user interface."""
@@ -64,7 +64,7 @@ class HomeView(BaseView):
                 setattr(self, attr_name, button)
                 row_layout.addWidget(button)
             self._content_layout.addLayout(row_layout)
-        qCDebug(self._log, f"The class HomeView was configured")
+        qCDebug(self._log, "The class HomeView was configured")
 
     def _action_video_button(self):
         """This will be the actions that we can make when we press video_button"""

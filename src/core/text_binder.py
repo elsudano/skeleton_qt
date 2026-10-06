@@ -49,7 +49,7 @@ class TextBinder:
                 setter(text)
             except RuntimeError:
                 del self._bindings[key]
-        qCDebug(self._log, f"We have refresh all the texts that we have in the User Interface")
+        qCDebug(self._log, "We have refresh all the texts that we have in the User Interface")
 
     @staticmethod
     def _text_of(source) -> str:

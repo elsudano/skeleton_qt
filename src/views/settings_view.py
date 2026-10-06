@@ -1,6 +1,6 @@
 """Settings view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCInfo, qCDebug
+from PySide6.QtCore import QLoggingCategory, Signal, qCDebug, qCInfo
 from PySide6.QtWidgets import (
     QCheckBox,
     QFileDialog,
@@ -41,8 +41,8 @@ class SettingsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class SettingsView was created")
-        qCDebug(self._log, f"The class SettingsView was created")
+        qCInfo(self._log, "The class SettingsView was created")
+        qCDebug(self._log, "The class SettingsView was created")
 
     def setup_ui(self):
         """Build the settings user interface."""
@@ -128,7 +128,7 @@ class SettingsView(BaseView):
         columns_layout.addWidget(separator)
         columns_layout.addLayout(right_column, 1)
         self._content_layout.addLayout(columns_layout)
-        qCDebug(self._log, f"The class SettingsView was configured")
+        qCDebug(self._log, "The class SettingsView was configured")
 
     def _section_header(self, text_source) -> QLabel:
         """Create a bold section header label bound to the active language.

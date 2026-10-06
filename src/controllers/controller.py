@@ -1,18 +1,18 @@
 """Global controller coordinating view and model lifecycle and communication."""
 
-from PySide6.QtCore import QLoggingCategory, QObject, qCInfo, qCDebug
+from PySide6.QtCore import QLoggingCategory, QObject, qCDebug, qCInfo
 
 from src.core.logging import LoggingManager
 from src.models.home_model import HomeModel
 from src.models.logs_model import LogsModel
+from src.models.route_designer_model import RouteDesignerModel
 from src.models.settings_model import SettingsModel
 from src.models.video_uploader_model import VideoUploaderModel
-from src.models.route_designer_model import RouteDesignerModel
 from src.views.home_view import HomeView
 from src.views.logs_view import LogsView
+from src.views.route_designer_view import RouteDesignerView
 from src.views.settings_view import SettingsView
 from src.views.video_uploader_view import VideoUploaderView
-from src.views.route_designer_view import RouteDesignerView
 from src.views.views import Views
 
 
@@ -40,8 +40,8 @@ class Controller(QObject):
         self._cache = {}
         self._register_views()
         self._logging_manager.message_logged.connect(self._on_log_message)
-        qCInfo(self._log, f"The class Controller was created")
-        qCDebug(self._log, f"The class Controller was created")
+        qCInfo(self._log, "The class Controller was created")
+        qCDebug(self._log, "The class Controller was created")
 
     def _register_views(self):
         """Register the available view factories."""

@@ -1,8 +1,8 @@
 """Main application window and menu infrastructure."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, qCInfo, qCDebug
+from PySide6.QtCore import QLoggingCategory, QEvent, qCDebug, qCInfo
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QMainWindow, QStackedWidget, QLabel, QWidgetAction
+from PySide6.QtWidgets import QLabel, QMainWindow, QStackedWidget, QWidgetAction
 
 from src.core import config
 from src.core.text_binder import TextBinder
@@ -29,8 +29,8 @@ class MainWindow(QMainWindow):
         self._navigation_container = QStackedWidget()
         self._texts = TextBinder()
         self._setup_window()
-        qCInfo(self._log, f"The class MainWindow was created")
-        qCDebug(self._log, f"The class MainWindow was created")
+        qCInfo(self._log, "The class MainWindow was created")
+        qCDebug(self._log, "The class MainWindow was created")
 
     def _setup_window(self):
         """Configure the main window."""
@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon(str(config.ASSETS_DIR / "icon.ico")))
         self.resize(config.WINDOW_WIDTH, config.WINDOW_HEIGHT)
         self.setCentralWidget(self._navigation_container)
-        qCDebug(self._log, f"We have configured the MainWindow")
+        qCDebug(self._log, "We have configured the MainWindow")
 
     def bind_text(self, widget, source, setter=None):
         """Bind a translatable text source to a widget setter.

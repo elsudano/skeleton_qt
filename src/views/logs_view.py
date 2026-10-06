@@ -1,7 +1,7 @@
 """Global log view implementation."""
 
-from PySide6.QtCore import QLoggingCategory, Signal, qCInfo, qCDebug
-from PySide6.QtWidgets import QPlainTextEdit, QPushButton, QVBoxLayout
+from PySide6.QtCore import QLoggingCategory, Signal, qCDebug, qCInfo
+from PySide6.QtWidgets import QPlainTextEdit, QPushButton
 
 from src.views.base_view import BaseView
 
@@ -27,8 +27,8 @@ class LogsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, f"The class LogsView was created")
-        qCDebug(self._log, f"The class LogsView was created")
+        qCInfo(self._log, "The class LogsView was created")
+        qCDebug(self._log, "The class LogsView was created")
 
     def setup_ui(self):
         """Build the log viewer interface."""
@@ -41,7 +41,7 @@ class LogsView(BaseView):
         self._content_layout.addWidget(self._log_text)
         self._content_layout.addWidget(self._clear_button)
         self._clear_button.clicked.connect(self.clear_requested.emit)
-        qCDebug(self._log, f"The class LogsView was configured")
+        qCDebug(self._log, "The class LogsView was configured")
 
     def load_history(self, lines):
         """Load persisted log lines into the viewer.
@@ -51,7 +51,7 @@ class LogsView(BaseView):
         lines : Iterable[str]
             Log lines to display."""
         self._log_text.setPlainText("\n".join(lines))
-        qCDebug(self._log, f"The Logs history was loaded")
+        qCDebug(self._log, "The Logs history was loaded")
 
     def append_log(self, category: str, level: str, message: str, formatted: str):
         """Append a log message to the global log viewer.
@@ -70,5 +70,5 @@ class LogsView(BaseView):
 
     def clear(self):
         """Clear displayed log messages."""
-        qCDebug(self._log, f"The Logs history was cleaned")
+        qCDebug(self._log, "The Logs history was cleaned")
         self._log_text.clear()
