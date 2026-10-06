@@ -1,6 +1,6 @@
 """Base classes and shared behavior for application views."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, Signal, qCDebug, qCInfo
+from PySide6.QtCore import QEvent, QLoggingCategory, Signal, qCDebug, qCInfo
 from PySide6.QtWidgets import (
     QApplication,
     QHBoxLayout,

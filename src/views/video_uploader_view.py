@@ -10,7 +10,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QPlainTextEdit,
     QPushButton,
-    QSizePolicy
+    QSizePolicy,
 )
 
 from src.views.base_view import BaseView

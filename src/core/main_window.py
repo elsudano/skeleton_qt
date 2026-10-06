@@ -1,6 +1,6 @@
 """Main application window and menu infrastructure."""
 
-from PySide6.QtCore import QLoggingCategory, QEvent, qCDebug, qCInfo
+from PySide6.QtCore import QEvent, QLoggingCategory, qCDebug, qCInfo
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QLabel, QMainWindow, QStackedWidget, QWidgetAction
 
