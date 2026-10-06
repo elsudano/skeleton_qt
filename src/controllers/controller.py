@@ -138,7 +138,7 @@ class Controller(QObject):
             Log message text.
         formatted : str
             Fully formatted message ready for display."""
-        # qCDebug(self._log, f"We are passing all the logs messages at the cached views")
+        # qCDebug(self._log, f"The Logs system will put this message: {message} with this level: {level} for this category: {category}")
         for view, _ in self._cache.values():
             view.append_log(category, level, message, formatted)
 

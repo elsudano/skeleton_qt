@@ -67,7 +67,6 @@ class LogsView(BaseView):
         formatted : str
             Fully formatted message ready for display."""
         self._log_text.appendPlainText(formatted)
-        qCDebug(self._log, f"We have added the logs in the history")
 
     def clear(self):
         """Clear displayed log messages."""
