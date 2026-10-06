@@ -165,12 +165,7 @@ class LoggingManager(QObject):
         Path
             Path of the configured persistent log file."""
         if getattr(sys, "frozen", False):
-            base_dir = Path(
-                QStandardPaths.writableLocation(
-                    QStandardPaths.StandardLocation.AppLocalDataLocation
-                )
-            )
-            return base_dir / "logs" / config.LOG_FILE_NAME
+            return config.PROJECT_ROOT / "logs" / config.LOG_FILE_NAME
         return config.LOGS_DIR / config.LOG_FILE_NAME
 
     def _handle_message(self, message_type, context, message):

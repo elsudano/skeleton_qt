@@ -3,7 +3,7 @@
 import sys
 
 
-APP_NAME = 'QtSkeleton'
+APP_NAME = 'SkeletonQt'
 
 TRANSLATION_FILES = [
     ('resources/translations/skeleton_es_ES.qm', 'resources/translations'),

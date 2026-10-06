@@ -1,6 +1,6 @@
 """Application composition, configuration, and startup."""
 
-from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCDebug, qCInfo
+from PySide6.QtCore import QLoggingCategory, QObject, QTranslator, qCCritical, qCDebug, qCInfo
 from PySide6.QtGui import QAction, QActionGroup
 
 from src.controllers.controller import Controller
@@ -123,6 +123,7 @@ class Application(QObject):
         translation_file = config.TRANSLATIONS_DIR / f"skeleton_{language}.qm"
         translator = QTranslator()
         if not translator.load(str(translation_file)):
+            qCCritical(self._log, f"The {translation_file} Language file not found")
             return
         if self._translator is not None:
             self._qt_application.removeTranslator(self._translator)
