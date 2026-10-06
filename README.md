@@ -19,6 +19,9 @@ The project is designed to provide a clean and maintainable foundation for appli
 * [Application themes](#application-themes)
 * [Adding a new feature](#adding-a-new-feature)
 * [External API integrations](#external-api-integrations)
+* [Testing](#testing)
+* [Continuous integration](#continuous-integration)
+* [Design principles](#design-principles)
 * [Project status / roadmap](#project-status--roadmap)
 * [License](#license)
 
@@ -29,15 +32,16 @@ The purpose of this project is to provide a reusable starting point for developi
 The skeleton provides:
 
 * A structured **MVC architecture**.
-* A permanent main application window.
+* A permanent main application window with navigation controls.
 * Internal navigation using `QStackedWidget`.
 * Centralized application lifecycle management.
-* Independent Models, Views and Controllers for each feature.
-* A generic core layer for infrastructure shared by the application.
-* A provider layer for external service integrations.
+* Independent Models, Views and Controllers for each feature (`Home`, `Logs`, `Settings`, `Route Designer`, `Video Uploader`).
+* Custom Qt widgets (`CheckableComboBox`, `SpeedometerProgress`).
+* A generic core layer for infrastructure shared by the application (logging, configuration, text binding, main window).
+* A provider layer for external service integrations with a generic HTTP client (`HttpClient`).
 * Qt-based HTTP communication through `QNetworkAccessManager`.
-* Localization support using Qt `.ts` and `.qm` translation files.
-* PyInstaller support for creating distributable applications.
+* Localization support using Qt `.ts` and `.qm` translation files (`en_US`, `es_ES`).
+* Cross-platform build scripts (`build.sh`, `build.ps1`) and PyInstaller support for creating distributable applications.
 * A predictable structure for adding new features.
 
 The skeleton itself is intentionally kept independent from any particular business domain.
@@ -85,7 +89,7 @@ It is responsible for:
 
 * Window configuration.
 * The central application widget.
-* Hosting the application's navigation container.
+* Hosting the application's navigation container and sidebar/toolbar.
 
 The main window remains alive while the user navigates between different features.
 
@@ -95,7 +99,7 @@ Views contain the graphical user interface.
 
 A View is responsible for:
 
-* Creating Qt widgets.
+* Creating Qt widgets and custom widgets (e.g., `CheckableComboBox`, `SpeedometerProgress`).
 * Displaying information.
 * Emitting UI events.
 * Updating its own visual state.
@@ -122,7 +126,7 @@ Models contain application and business logic.
 A Model is responsible for:
 
 * Application logic.
-* Data processing.
+* Data processing and logging.
 * Calculations.
 * Validation.
 * Communication with providers when appropriate.
@@ -137,12 +141,12 @@ For example:
 
 ```text
 providers/
-├── youtube/
-├── instagram/
-└── tiktok/
+└── http/
+    └── http_client.py
+
 ```
 
-Each provider contains the implementation required to communicate with its corresponding external service.
+Each provider contains the implementation required to communicate with its corresponding external service or HTTP infrastructure.
 
 Provider-specific logic must not leak into the generic application infrastructure.
 
@@ -152,12 +156,11 @@ The `core` package contains infrastructure shared by the application.
 
 Examples include:
 
-* Application lifecycle.
-* Configuration.
-* HTTP infrastructure.
-* Logging.
-* Error handling.
-* Shared application services.
+* Application lifecycle (`application.py`).
+* Configuration management (`config.py`).
+* Logging infrastructure (`logging.py`).
+* Main window and navigation (`main_window.py`).
+* Text binding utilities (`text_binder.py`).
 
 The core layer must remain generic and must not contain provider-specific business logic.
 
@@ -166,49 +169,84 @@ The core layer must remain generic and must not contain provider-specific busine
 ```text
 .
 ├── main.py
+├── pyproject.toml
 ├── requirements.txt
+├── requirements-dev.txt
 ├── skeleton_qt.spec
+├── build.sh
+├── build.ps1
 │
 ├── resources/
+│   ├── assets/
+│   │   └── icon.ico
 │   ├── styles/
 │   │   ├── light.qss
 │   │   └── dark.qss
 │   └── translations/
-│       ├── skeleton_es.ts
-│       └── skeleton_en.ts
+│       ├── skeleton_en_US.qm
+│       ├── skeleton_en_US.ts
+│       ├── skeleton_es_ES.qm
+│       └── skeleton_es_ES.ts
 │
-└── src/
+├── src/
+│   ├── __init__.py
+│   │
+│   ├── controllers/
+│   │   ├── __init__.py
+│   │   └── controller.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── application.py
+│   │   ├── config.py
+│   │   ├── logging.py
+│   │   ├── main_window.py
+│   │   └── text_binder.py
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── home_model.py
+│   │   ├── logs_model.py
+│   │   ├── model.py
+│   │   ├── route_designer_model.py
+│   │   ├── settings_model.py
+│   │   └── video_uploader_model.py
+│   │
+│   ├── providers/
+│   │   ├── __init__.py
+│   │   └── http/
+│   │       ├── __init__.py
+│   │       └── http_client.py
+│   │
+│   └── views/
+│       ├── __init__.py
+│       ├── base_view.py
+│       ├── custom_widgets/
+│       │   ├── __init__.py
+│       │   ├── checkable_combobox.py
+│       │   └── speedometer_progress.py
+│       ├── home_view.py
+│       ├── logs_view.py
+│       ├── route_designer_view.py
+│       ├── settings_view.py
+│       ├── video_uploader_view.py
+│       └── views.py
+│
+└── tests/
     ├── __init__.py
-    │
-    ├── core/
-    │   ├── application.py
-    │   ├── config.py
-    │   └── ...
-    │
-    ├── models/
-    │   ├── model.py
-    │   └── ...
-    │
-    ├── controllers/
-    │   ├── controller.py
-    │   └── ...
-    │
-    ├── views/
-    │   ├── base_view.py
-    │   ├── main_window.py
-    │   └── ...
-    │
-    └── providers/
-        ├── youtube/
-        ├── instagram/
-        └── tiktok/
+    ├── conftest.py
+    ├── test_controller.py
+    ├── test_logging.py
+    ├── test_models.py
+    ├── test_text_binder.py
+    └── test_theme.py
 ```
 
 ## Technologies
 
 ### Python
 
-The application is developed using Python.
+The application is developed using Python 3.10+.
 
 ### PySide6
 
@@ -218,17 +256,17 @@ PySide6 provides the Qt bindings used for:
 * Signals and slots.
 * Application lifecycle.
 * Networking.
-* Future platform-specific Qt functionality.
+* Custom widgets and layouts.
 
 ### Qt Networking
 
-External REST APIs are intended to be accessed using Qt's networking infrastructure, primarily `QNetworkAccessManager`.
+External REST APIs are accessed using Qt's networking infrastructure via `QNetworkAccessManager` implemented inside `src/providers/http/http_client.py`.
 
 The project intentionally avoids coupling the application to provider-specific Python SDKs.
 
 ### PyInstaller
 
-PyInstaller is used to package the application into distributable executables.
+PyInstaller is used to package the application into distributable executables using `skeleton_qt.spec` and automated build scripts (`build.sh`, `build.ps1`).
 
 ## Requirements
 
@@ -283,15 +321,20 @@ The application starts the main Qt window and loads the initial application view
 
 ## Building the application
 
-The project includes a PyInstaller specification file:
+The project includes build scripts and a PyInstaller specification file:
 
-```text
-skeleton_qt.spec
-```
+* `skeleton_qt.spec`
+* `build.sh` (Linux / macOS)
+* `build.ps1` (Windows PowerShell)
 
 Build the application with:
 
 ```bash
+# Using build scripts
+./build.sh        # Linux / macOS
+.\build.ps1       # Windows
+
+# Or directly with PyInstaller
 pyinstaller --clean --noconfirm skeleton_qt.spec
 ```
 
@@ -304,15 +347,15 @@ UPX compression is disabled to avoid antivirus false positives.
 
 The application is designed to use Qt's translation system.
 
-Translation source files use the `.ts` format:
+Translation source files use the `.ts` and compiled `.qm` formats:
 
 ```text
 resources/translations/
-├── skeleton_es.ts
-└── skeleton_en.ts
+├── skeleton_en_US.ts
+├── skeleton_en_US.qm
+├── skeleton_es_ES.ts
+└── skeleton_es_ES.qm
 ```
-
-Compiled translation files use the `.qm` format.
 
 User-visible strings should use Qt's translation mechanism:
 
@@ -326,8 +369,6 @@ The translation workflow is based on Qt tools such as:
 pyside6-lupdate
 pyside6-lrelease
 ```
-
-Runtime language switching may be added later.
 
 ## Testing
 
@@ -362,65 +403,57 @@ apply to existing and newly created views without per-view styling.
 
 Theme files are located in `resources/styles/`:
 
-- `light.qss`: default theme.
-- `dark.qss`: dark theme.
+* `light.qss`: default theme.
+* `dark.qss`: dark theme.
 
 `Application` loads and applies the selected stylesheet to `QApplication`.
-The Settings view can switch themes at runtime. The current selection is not
-persisted yet; persistence is planned for the later INI configuration task.
-When packaging with PyInstaller, both QSS files are included by
-`skeleton_qt.spec`.
-
-Add component-specific selectors only when a custom widget cannot be styled
-appropriately by the global stylesheet.
+The Settings view can switch themes at runtime. When packaging with PyInstaller, both QSS files are included by `skeleton_qt.spec`.
 
 ## Adding a new feature
 
 New application features should follow the MVC structure.
 
-For example, a feature called `settings` would normally contain:
+For example, a feature called `testing` contains:
 
 ```text
 src/
 ├── models/
-│   └── settings_model.py
+│   └── testing_model.py
 │
 ├── controllers/
-│   └── settings_controller.py
+│   └── controller.py
 │
 └── views/
-    └── settings_view.py
+    └── testing_view.py
 ```
 
 ### 1. Model
 
-Create a model derived from the base `Model` class.
+Create a model derived from the base `Model` class (`src/models/model.py`).
 
 The model contains the application's logic for the feature.
 
 ### 2. View
 
-Create a view derived from `BaseView`.
+Create a view derived from `BaseView` (`src/views/base_view.py`).
 
-The view contains the graphical interface and emits signals for user actions.
+The view contains the graphical interface and emits signals for user actions. Custom widgets can be added under `src/views/custom_widgets/`.
 
 ### 3. Controller
 
-Create a controller derived from `Controller`.
+The controller `Controller` (`src/controllers/controller.py`) is created and ready to manage the behavior of the new flow when you add the flow in the `_factories` array.
 
 The controller connects View events with Model operations and updates the View with the results.
 
 ### 4. Application registration
 
-The new MVC components are composed by `Application`.
+The new MVC components are composed by `Application` in `src/core/application.py`.
 
 The application is responsible for keeping the required component references alive.
 
 ### 5. Navigation
 
-The feature is added to the application's navigation system.
-
-Views are not required to be created all at application startup. As the navigation system evolves, views can be created on demand when appropriate.
+The feature is added to the application's navigation system inside `MainWindow` (`src/core/main_window.py`).
 
 ## External API integrations
 
@@ -432,33 +465,16 @@ The intended architecture is:
 Model
   │
   ▼
-Provider
+Provider (HttpClient)
   │
   ▼
-HTTP infrastructure
+QNetworkAccessManager
   │
   ▼
 External REST API
 ```
 
-For example:
-
-```text
-UploadModel
-    │
-    ▼
-YouTubeProvider
-    │
-    ▼
-QNetworkAccessManager
-    │
-    ▼
-YouTube REST API
-```
-
-Provider implementations should contain the service-specific API knowledge.
-
-The generic HTTP infrastructure must remain independent from YouTube, Instagram, TikTok or any other specific provider.
+`HttpClient` (`src/providers/http/http_client.py`) provides asynchronous HTTP requests using Qt's networking stack.
 
 ## Design principles
 
@@ -472,43 +488,33 @@ The project follows several principles:
 * **Incremental architecture** — The architecture should evolve with the real needs of the application.
 * **Testability** — Business logic should remain testable independently from the graphical interface.
 
-Patterns and abstractions should only be introduced when they provide a concrete benefit to the project.
-
 ## Project status / roadmap
 
-The project is currently in its initial skeleton development stage.
+The project is currently in an active skeleton stage with key base features implemented.
 
 ### Completed
 
 * [x] PySide6 application base.
-* [x] Main application window.
+* [x] Main application window with navigation container (`MainWindow`).
 * [x] `QStackedWidget` navigation container.
-* [x] MVC base classes.
-* [x] Initial Home MVC implementation.
+* [x] MVC base classes (`Model`, `BaseView`, `Controller`).
+* [x] Feature views implemented (`Home`, `Logs`, `Settings`, `Route Designer`, `Video Uploader`).
+* [x] Custom widgets (`CheckableComboBox`, `SpeedometerProgress`).
 * [x] Centralized application lifecycle through `Application`.
-* [x] Initial localization structure.
-* [x] Runtime language switching.
-* [x] PyInstaller configuration.
-* [x] Automated tests (pytest + pytest-qt).
-* [x] CI pipeline (GitHub Actions + Ruff).
+* [x] Logging infrastructure (`src/core/logging.py`).
+* [x] Configuration management (`src/core/config.py`).
+* [x] Generic HTTP client infrastructure (`src/providers/http/http_client.py`).
+* [x] Text binding utilities (`src/core/text_binder.py`).
+* [x] Localization structure (`skeleton_en_US`, `skeleton_es_ES`).
+* [x] PyInstaller configuration & cross-platform build scripts (`build.sh`, `build.ps1`).
+* [x] Automated tests (pytest + pytest-qt test suite in `tests/`).
+* [x] CI pipeline configuration.
 
 ### Planned
 
-* [ ] Improve the application navigation system.
-* [ ] Lazy creation of application views.
-* [ ] Generic HTTP infrastructure.
-* [ ] Error handling infrastructure.
-* [ ] Logging infrastructure.
-* [ ] Configuration management.
-* [ ] Automated tests.
-* [ ] YouTube provider.
-* [ ] Instagram provider.
-* [ ] TikTok provider.
-* [ ] Complete localization workflow.
-* [ ] Packaging and distribution improvements.
-* [ ] Evaluate Android support.
-
-The roadmap is intentionally incremental. New infrastructure should be introduced when it is required by an actual application feature.
+* [ ] Concrete external API provider integrations (YouTube, Instagram, TikTok).
+* [ ] Expanded settings persistence.
+* [ ] Packaging and distribution installer improvements.
 
 ## License
 
