@@ -37,7 +37,7 @@ class TextBinder:
         setter = setter or widget.setText
         self._bindings[(widget, setter)] = source
         setter(self._text_of(source))
-        qCDebug(self._log, f"We have bind the WIDGET with the text: {source()} ")
+        qCDebug(self._log, f"We have bind the WIDGET with the text: {self._text_of(source)} ")
         return widget
 
     def refresh(self):

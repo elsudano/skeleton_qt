@@ -71,5 +71,5 @@ class LogsView(BaseView):
 
     def clear(self):
         """Clear displayed log messages."""
-        self._log_text.clear()
         qCDebug(self._log, f"The Logs history was cleaned")
+        self._log_text.clear()
