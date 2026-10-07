@@ -119,8 +119,6 @@ class Controller(QObject):
         if isinstance(view, SettingsView):
             view.logging_gui_changed.connect(
                 self._logging_manager.set_gui_enabled)
-            view.logging_categories_changed.connect(
-                self._logging_manager.set_categories)
         if isinstance(view, LogsView):
             view.clear_requested.connect(view.clear)
             view.clear_requested.connect(model.clear)

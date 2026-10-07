@@ -19,6 +19,7 @@ from PySide6.QtCore import (
 )
 
 from src.core import config
+from src.core.category_discovery import CategoryDiscovery
 
 
 @dataclass(frozen=True)
@@ -50,7 +51,8 @@ class LoggingManager(QObject):
         self._gui_enabled = (
             config.LOG_OUTPUT_GUI in config.LOG_OUTPUTS and config.LOG_GUI_ENABLED
         )
-        self._categories = set(config.LOG_CATEGORIES)
+        # Discover categories automatically from source code only
+        self._discovered_categories = set(CategoryDiscovery.discover_from_source())
 
         self._apply_filter_rules()
         self._configure_file()
@@ -84,16 +86,6 @@ class LoggingManager(QObject):
             ``True`` when GUI delivery is enabled; otherwise ``False``."""
         return self._gui_enabled
 
-    def set_categories(self, categories: set[str]):
-        """Enable the configured logging categories.
-
-        Parameters
-        ----------
-        categories : Iterable[str]
-            Category names whose configured message levels are enabled."""
-        self._categories = set(categories)
-        self._apply_filter_rules()
-
     def categories(self) -> tuple[str, ...]:
         """Return the known application logging categories.
 
@@ -101,7 +93,8 @@ class LoggingManager(QObject):
         -------
         tuple[str, ...]
             Registered application logging category names."""
-        return tuple(config.LOG_CATEGORIES)
+        # Return only discovered categories (no manual configuration)
+        return tuple(self._discovered_categories)
 
     def records(self, category_prefix: str | None = None) -> tuple[LogRecord, ...]:
         """Return buffered messages, optionally restricted to a category prefix.
@@ -135,14 +128,12 @@ class LoggingManager(QObject):
     def _apply_filter_rules(self):
         """Apply category and severity rules through Qt's logging system."""
         rules = []
-        for category in config.LOG_CATEGORIES:
-            enabled = category in self._categories
+        for category in self._discovered_categories:
+            enabled = category in self._discovered_categories
             rules.append(f"{category}.debug={'true' if enabled else 'false'}")
             rules.append(f"{category}.info={'true' if enabled else 'false'}")
-            rules.append(
-                f"{category}.warning={'true' if enabled else 'false'}")
-            rules.append(
-                f"{category}.critical={'true' if enabled else 'false'}")
+            rules.append(f"{category}.warning={'true' if enabled else 'false'}")
+            rules.append(f"{category}.critical={'true' if enabled else 'false'}")
         QLoggingCategory.setFilterRules("\n".join(rules))
 
     def _configure_file(self):

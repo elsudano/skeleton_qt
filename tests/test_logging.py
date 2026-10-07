@@ -68,17 +68,6 @@ def test_log_file_is_recreated_after_being_deleted_while_running(
     assert "second line" in log_file.read_text(encoding="utf-8")
 
 
-def test_set_categories_filters_future_messages(qtbot, logging_manager):
-    logging_manager.set_categories({"skeleton.controller"})
-
-    qCInfo(QLoggingCategory("skeleton.core.application"), "should be filtered out")
-    qCInfo(QLoggingCategory("skeleton.controller"), "should pass through")
-
-    messages = [record.message for record in logging_manager.records()]
-    assert "should be filtered out" not in messages
-    assert "should pass through" in messages
-
-
 def test_set_gui_enabled_gates_the_message_signal(qtbot, logging_manager):
     received = []
     logging_manager.message_logged.connect(lambda *args: received.append(args))

@@ -14,7 +14,6 @@ from PySide6.QtWidgets import (
 
 from src.core import config
 from src.views.base_view import BaseView
-from src.views.custom_widgets.checkable_combobox import CheckableComboBox
 
 
 class SettingsView(BaseView):
@@ -27,7 +26,6 @@ class SettingsView(BaseView):
     _log = QLoggingCategory(_CATEGORY)
 
     logging_gui_changed = Signal(bool)
-    logging_categories_changed = Signal(object)
 
     def __init__(self, parent=None):
         """Initialize the settings view.
@@ -86,12 +84,6 @@ class SettingsView(BaseView):
                 self._on_gui_logging_toggled)
             logging_toggles_row.addWidget(self._logging_output)
 
-            self._categories = CheckableComboBox()
-            for category in config.LOG_CATEGORIES:
-                self._categories.add_item(category, checked=True)
-            self._categories.selection_changed.connect(
-                self._emit_categories)
-
         self._clear_file_on_exit_option = self.bind_text(
             QCheckBox(), lambda: self.tr("Clear log file on exit"))
         self._clear_file_on_exit_option.setChecked(True)
@@ -105,7 +97,6 @@ class SettingsView(BaseView):
             log_type_row = QHBoxLayout()
             log_type_row.addWidget(self.bind_text(
                 QLabel(), lambda: self.tr("Log Type:")))
-            log_type_row.addWidget(self._categories)
             right_column.addLayout(log_type_row)
 
         file_row = QHBoxLayout()
@@ -167,9 +158,3 @@ class SettingsView(BaseView):
             Whether GUI log delivery should be enabled."""
         qCDebug(self._log, f"GUI logging enabled: {enabled}")
         self.logging_gui_changed.emit(enabled)
-
-    def _emit_categories(self):
-        """Emit the currently selected logging categories."""
-        selected = self._categories.checked_items()
-        qCDebug(self._log, f"The categories: {selected} were selected")
-        self.logging_categories_changed.emit(selected)
