@@ -54,3 +54,51 @@ def test_refresh_drops_bindings_for_destroyed_widgets(qtbot):
     binder.refresh()
 
     assert len(binder._bindings) == 0
+
+
+def test_bind_with_callable_source(qtbot):
+    """Test binding with a callable source."""
+    label = QLabel()
+    qtbot.addWidget(label)
+    binder = TextBinder()
+    
+    def get_text():
+        return "Callable text"
+    
+    binder.bind(label, get_text)
+    assert label.text() == "Callable text"
+
+
+def test_bind_with_string_source(qtbot):
+    """Test binding with a direct string source."""
+    label = QLabel()
+    qtbot.addWidget(label)
+    binder = TextBinder()
+    
+    binder.bind(label, "Direct text")
+    assert label.text() == "Direct text"
+
+
+def test_bind_with_explicit_setter(qtbot):
+    """Test binding with an explicit setter function."""
+    label = QLabel()
+    qtbot.addWidget(label)
+    binder = TextBinder()
+    
+    # Using a custom setter that sets the object's property instead of setText
+    def custom_setter(text):
+        label.custom_text = text
+    
+    binder.bind(label, "Custom setter test", custom_setter)
+    assert hasattr(label, 'custom_text')
+    assert label.custom_text == "Custom setter test"
+
+
+def test_bind_with_default_setter(qtbot):
+    """Test binding with default setter (should use setText)."""
+    label = QLabel()
+    qtbot.addWidget(label)
+    binder = TextBinder()
+    
+    binder.bind(label, "Default setter test")
+    assert label.text() == "Default setter test"
