@@ -2,14 +2,13 @@
 
 import ast
 from pathlib import Path
-from typing import List
 
 
 class CategoryDiscovery:
     """Discover logging categories automatically from Python source files."""
     
     @staticmethod
-    def discover_from_source(src_path: str = "src") -> List[str]:
+    def discover_from_source(src_path: str = "src") -> list[str]:
         """
         Discover automatically all the categories in the source code.
         
@@ -30,7 +29,7 @@ class CategoryDiscovery:
             if py_file.is_file() and "_CATEGORY" in py_file.read_text():
                 try:
                     # Usar AST para análisis más seguro que regex
-                    with open(py_file, 'r', encoding='utf-8') as f:
+                    with open(py_file, encoding='utf-8') as f:
                         content = f.read()
                         
                     tree = ast.parse(content)

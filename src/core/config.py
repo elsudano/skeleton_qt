@@ -1,6 +1,51 @@
-"""Application configuration constants."""
-import os, sys
+"""Application configuration constants.
 
+  Attributes
+  ----------
+  PROJECT_ROOT : Path
+      The root directory of the project.
+  RESOURCES_DIR : Path
+      The directory containing all application resources.
+  ASSETS_DIR : Path
+      The directory for images and icons.
+  TRANSLATIONS_DIR : Path
+      The directory for translation files.
+  STYLES_DIR : Path
+      The directory for Qt Style Sheets (.qss).
+  LOGS_DIR : Path
+      The directory where log files are stored.
+  LOG_FILE_NAME : str
+      The name of the log file.
+  WINDOW_WIDTH : int
+      The default width of the main window.
+  WINDOW_HEIGHT : int
+      The default height of the main window.
+  DEFAULT_LANGUAGE : str
+      The default language code (e.g., 'es_ES').
+  DEFAULT_THEME : str
+      The default theme name (e.g., 'light').
+  BUTTON_MINIMUM_HEIGHT_SIZE : int
+      The minimum height for buttons in pixels.
+  BUTTON_MINIMUM_WIDTH_SIZE : int
+      The minimum width for buttons in pixels.
+  LOG_OUTPUT_CONSOLE : str
+      Identifier for console output.
+  LOG_OUTPUT_FILE : str
+      Identifier for file output.
+  LOG_OUTPUT_GUI : str
+      Identifier for GUI output.
+  LOG_OUTPUTS : tuple[str, ...]
+      Tuple of all enabled output identifiers.
+  LOG_GUI_ENABLED : bool
+      Flag to enable/disable GUI logging.
+  LOG_MAX_RECORDS : int
+      Maximum number of log records to keep in memory.
+  LOG_CATEGORIES : tuple[str, ...]
+      List of registered logging categories.
+  """
+
+import os
+import sys
 from pathlib import Path
 
 PROJECT_ROOT = ""
@@ -36,19 +81,4 @@ LOG_OUTPUT_GUI = "gui"
 LOG_OUTPUTS = (LOG_OUTPUT_CONSOLE, LOG_OUTPUT_FILE, LOG_OUTPUT_GUI)
 LOG_GUI_ENABLED = True
 LOG_MAX_RECORDS = 1000
-LOG_CATEGORIES = (
-    "skeleton.controllers.controller",
-    "skeleton.core.application",
-    "skeleton.core.main_window",
-    "skeleton.core.text_binder",
-    "skeleton.view.base_view",
-    "skeleton.view.home",
-    "skeleton.view.video_uploader",
-    "skeleton.view.route_designer",
-    "skeleton.view.settings",
-    "skeleton.view.logs_view",
-    "skeleton.model.home",
-    "skeleton.model.video_uploader",
-    "skeleton.model.route_designer",
-    "skeleton.model.settings",
-)
+

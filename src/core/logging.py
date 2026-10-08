@@ -12,7 +12,6 @@ from threading import Lock
 from PySide6.QtCore import (
     QLoggingCategory,
     QObject,
-    QStandardPaths,
     QtMsgType,
     Signal,
     qInstallMessageHandler,

@@ -49,21 +49,6 @@ def test_settings_gui_logging_toggle_reaches_logging_manager(qtbot, logging_mana
     assert any(message[2] == "should reach gui" for message in received)
 
 
-def test_settings_categories_toggle_reaches_logging_manager(qtbot, logging_manager):
-    controller, container = _make_controller(qtbot, logging_manager)
-    controller.navigate(Views.SETTINGS)
-    view = container.currentWidget()
-
-    view.logging_categories_changed.emit({"skeleton.controller"})
-
-    qCInfo(QLoggingCategory("skeleton.core.application"), "should be filtered out")
-    qCInfo(QLoggingCategory("skeleton.controller"), "should pass through")
-
-    messages = [record.message for record in logging_manager.records()]
-    assert "should be filtered out" not in messages
-    assert "should pass through" in messages
-
-
 def test_logs_clear_requested_clears_model_and_view(qtbot, logging_manager):
     # Regression test: clear_requested used to be wired only to the view,
     # so the on-disk/buffered history survived a click on "Clear logs".

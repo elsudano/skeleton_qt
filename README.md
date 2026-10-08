@@ -501,19 +501,29 @@ The project is currently in an active skeleton stage with key base features impl
 * [x] Feature views implemented (`Home`, `Logs`, `Settings`, `Route Designer`, `Video Uploader`).
 * [x] Custom widgets (`CheckableComboBox`, `SpeedometerProgress`).
 * [x] Centralized application lifecycle through `Application`.
-* [x] Logging infrastructure (`src/core/logging.py`).
+* [x] Logging infrastructure (`src/core/logging.py`) with buffered and persistent output.
 * [x] Configuration management (`src/core/config.py`).
 * [x] Generic HTTP client infrastructure (`src/providers/http/http_client.py`).
 * [x] Text binding utilities (`src/core/text_binder.py`).
+* [x] Category discovery from source code (`src/core/category_discovery.py`).
 * [x] Localization structure (`skeleton_en_US`, `skeleton_es_ES`).
 * [x] PyInstaller configuration & cross-platform build scripts (`build.sh`, `build.ps1`).
 * [x] Automated tests (pytest + pytest-qt test suite in `tests/`).
-* [x] CI pipeline configuration.
+* [x] CI pipeline configuration (GitHub Actions).
 
-### Planned
+### In Progress 🚧
+
+* [ ] Logging output configuration (Console, File, GUI checkboxes) - **T23-T27**
+* [ ] Logging category filtering UI in LogsView - **T04**
+* [ ] Dynamic theme discovery from `resources/styles/` - **T64-T68**
+* [ ] Settings persistence layer
+
+### Planned 📋
 
 * [ ] Concrete external API provider integrations (YouTube, Instagram, TikTok).
-* [ ] Expanded settings persistence.
+* [ ] Expanded settings persistence with INI file support.
+* [ ] Clear log file on exit option.
+* [ ] Platform-specific settings (YouTube, Instagram, TikTok toggles).
 * [ ] Packaging and distribution installer improvements.
 
 ## License

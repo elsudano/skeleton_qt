@@ -1,6 +1,5 @@
 """Tests for automatic category discovery functionality."""
 
-import pytest
 
 from src.core.category_discovery import CategoryDiscovery
 
