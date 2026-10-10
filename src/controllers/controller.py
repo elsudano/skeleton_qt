@@ -122,6 +122,7 @@ class Controller(QObject):
         if isinstance(view, Logs_View):
             view.clear_requested.connect(view.clear)
             view.clear_requested.connect(model.clear)
+            view.category_filter_changed.connect(view._refresh_logs)
 
     def _on_log_message(self, category: str, level: str, message: str, formatted: str):
         """Forward a log message to every cached view that accepts it.
