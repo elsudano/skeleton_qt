@@ -4,11 +4,11 @@ from PySide6.QtCore import QLoggingCategory, qCDebug, qCInfo
 from PySide6.QtWidgets import QHBoxLayout, QPushButton, QSizePolicy
 
 from src.core.config import BUTTON_MINIMUM_HEIGHT_SIZE, BUTTON_MINIMUM_WIDTH_SIZE
-from src.views.base_view import BaseView
+from src.views.base_view import Base_View
 from src.views.views import Views
 
 
-class HomeView(BaseView):
+class Home_View(Base_View):
     """Display the home view and handle its user interactions."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free
@@ -30,8 +30,8 @@ class HomeView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, "The class HomeView was created")
-        qCDebug(self._log, "The class HomeView was created")
+        qCInfo(self._log, "The class Home_View was created")
+        qCDebug(self._log, "The class Home_View was created")
 
     def setup_ui(self):
         """Build the home user interface."""
@@ -64,7 +64,7 @@ class HomeView(BaseView):
                 setattr(self, attr_name, button)
                 row_layout.addWidget(button)
             self._content_layout.addLayout(row_layout)
-        qCDebug(self._log, "The class HomeView was configured")
+        qCDebug(self._log, "The class Home_View was configured")
 
     def _action_video_button(self):
         """This will be the actions that we can make when we press video_button"""

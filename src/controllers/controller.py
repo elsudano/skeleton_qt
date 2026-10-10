@@ -3,16 +3,16 @@
 from PySide6.QtCore import QLoggingCategory, QObject, qCDebug, qCInfo
 
 from src.core.logging import LoggingManager
-from src.models.home_model import HomeModel
-from src.models.logs_model import LogsModel
-from src.models.route_designer_model import RouteDesignerModel
-from src.models.settings_model import SettingsModel
-from src.models.video_uploader_model import VideoUploaderModel
-from src.views.home_view import HomeView
-from src.views.logs_view import LogsView
-from src.views.route_designer_view import RouteDesignerView
-from src.views.settings_view import SettingsView
-from src.views.video_uploader_view import VideoUploaderView
+from src.models.home_model import Home_Model
+from src.models.logs_model import Logs_Model
+from src.models.route_designer_model import RouteDesigner_Model
+from src.models.settings_model import Settings_Model
+from src.models.video_uploader_model import VideoUploader_Model
+from src.views.home_view import Home_View
+from src.views.logs_view import Logs_View
+from src.views.route_designer_view import RouteDesigner_View
+from src.views.settings_view import Settings_View
+from src.views.video_uploader_view import VideoUploader_View
 from src.views.views import Views
 
 
@@ -46,11 +46,11 @@ class Controller(QObject):
     def _register_views(self):
         """Register the available view factories."""
         self._factories = {
-            Views.HOME: (HomeView, HomeModel),
-            Views.VIDEO_UPLOADER: (VideoUploaderView, VideoUploaderModel),
-            Views.ROUTE_DESIGNER: (RouteDesignerView, RouteDesignerModel),
-            Views.SETTINGS: (SettingsView, SettingsModel),
-            Views.LOGS: (LogsView, lambda: LogsModel(self._logging_manager)),
+            Views.HOME: (Home_View, Home_Model),
+            Views.VIDEO_UPLOADER: (VideoUploader_View, VideoUploader_Model),
+            Views.ROUTE_DESIGNER: (RouteDesigner_View, RouteDesigner_Model),
+            Views.SETTINGS: (Settings_View, Settings_Model),
+            Views.LOGS: (Logs_View, lambda: Logs_Model(self._logging_manager)),
         }
         for item in self._factories:
             qCDebug(self._log, f"We have created this View: {self._factories[item][0].__name__} and this Model: {self._factories[item][1].__name__} and registered together as {item}.")
@@ -74,7 +74,7 @@ class Controller(QObject):
         self._cache[name] = (view, model)
         self._connect_view(view, model)
         self._navigation_container.addWidget(view)
-        if isinstance(view, LogsView):
+        if isinstance(view, Logs_View):
             history = model.file_lines()
             view.load_history(history)
             if not history:
@@ -110,16 +110,16 @@ class Controller(QObject):
 
         Parameters
         ----------
-        view : BaseView
+        view : Base_View
             View whose signals should be connected.
         model : Model
             Model associated with the view."""
         qCDebug(self._log, f"We are connected the View: {view.__class__.__name__} and the Model: {model.__class__.__name__} with Signals")
         view.navigation_requested.connect(self.navigate)
-        if isinstance(view, SettingsView):
+        if isinstance(view, Settings_View):
             view.logging_gui_changed.connect(
                 self._logging_manager.set_gui_enabled)
-        if isinstance(view, LogsView):
+        if isinstance(view, Logs_View):
             view.clear_requested.connect(view.clear)
             view.clear_requested.connect(model.clear)
 

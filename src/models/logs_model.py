@@ -5,7 +5,7 @@ from src.core.logging import LoggingManager, LogRecord
 from src.models.model import Model
 
 
-class LogsModel(Model):
+class Logs_Model(Model):
     """Provide buffered and persisted log records to the global log view."""
 
     def __init__(self, logging_manager: LoggingManager):

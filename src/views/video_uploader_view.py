@@ -13,10 +13,10 @@ from PySide6.QtWidgets import (
     QSizePolicy,
 )
 
-from src.views.base_view import BaseView
+from src.views.base_view import Base_View
 
 
-class VideoUploaderView(BaseView):
+class VideoUploader_View(Base_View):
     """Display the video uploader interface."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free
@@ -36,8 +36,8 @@ class VideoUploaderView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, "The class VideoUploaderView was created")
-        qCDebug(self._log, "The class VideoUploaderView was created")
+        qCInfo(self._log, "The class VideoUploader_View was created")
+        qCDebug(self._log, "The class VideoUploader_View was created")
 
     def setup_ui(self):
         """Build the video uploader user interface."""
@@ -87,7 +87,7 @@ class VideoUploaderView(BaseView):
         self._content_layout.addWidget(self._upload_video_button)
         self._select_file_button.clicked.connect(self._action_select_file_button)
         self._upload_video_button.clicked.connect(self._action_upload_video_button)
-        qCDebug(self._log, "The class VideoUploaderView was configured")
+        qCDebug(self._log, "The class VideoUploader_View was configured")
 
     def _action_select_file_button(self):
         """When we want to select the video to upload we need to select with this method"""

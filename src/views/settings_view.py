@@ -13,10 +13,10 @@ from PySide6.QtWidgets import (
 )
 
 from src.core import config
-from src.views.base_view import BaseView
+from src.views.base_view import Base_View
 
 
-class SettingsView(BaseView):
+class Settings_View(Base_View):
     """Display application settings and runtime logging controls."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free
@@ -39,8 +39,8 @@ class SettingsView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, "The class SettingsView was created")
-        qCDebug(self._log, "The class SettingsView was created")
+        qCInfo(self._log, "The class Settings_View was created")
+        qCDebug(self._log, "The class Settings_View was created")
 
     def setup_ui(self):
         """Build the settings user interface."""
@@ -119,7 +119,7 @@ class SettingsView(BaseView):
         columns_layout.addWidget(separator)
         columns_layout.addLayout(right_column, 1)
         self._content_layout.addLayout(columns_layout)
-        qCDebug(self._log, "The class SettingsView was configured")
+        qCDebug(self._log, "The class Settings_View was configured")
 
     def _section_header(self, text_source) -> QLabel:
         """Create a bold section header label bound to the active language.

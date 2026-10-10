@@ -5,7 +5,7 @@ from PySide6.QtCore import QLoggingCategory
 from src.models.model import Model
 
 
-class SettingsModel(Model):
+class Settings_Model(Model):
     """Provide application data and behaviour used by the settings view."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free

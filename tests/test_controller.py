@@ -2,9 +2,9 @@ from PySide6.QtCore import QLoggingCategory, qCInfo
 from PySide6.QtWidgets import QStackedWidget
 
 from src.controllers.controller import Controller
-from src.views.home_view import HomeView
-from src.views.logs_view import LogsView
-from src.views.settings_view import SettingsView
+from src.views.home_view import Home_View
+from src.views.logs_view import Logs_View
+from src.views.settings_view import Settings_View
 from src.views.views import Views
 
 
@@ -19,7 +19,7 @@ def test_navigate_creates_views_lazily(qtbot, logging_manager):
     assert container.count() == 0
     controller.navigate(Views.HOME)
     assert container.count() == 1
-    assert isinstance(container.currentWidget(), HomeView)
+    assert isinstance(container.currentWidget(), Home_View)
 
 
 def test_navigate_reuses_cached_views(qtbot, logging_manager):
@@ -27,7 +27,7 @@ def test_navigate_reuses_cached_views(qtbot, logging_manager):
     controller.navigate(Views.HOME)
     home = container.currentWidget()
     controller.navigate(Views.SETTINGS)
-    assert isinstance(container.currentWidget(), SettingsView)
+    assert isinstance(container.currentWidget(), Settings_View)
     assert container.count() == 2
     controller.navigate(Views.HOME)
     assert container.currentWidget() is home
@@ -55,7 +55,7 @@ def test_logs_clear_requested_clears_model_and_view(qtbot, logging_manager):
     controller, container = _make_controller(qtbot, logging_manager)
     controller.navigate(Views.LOGS)
     view = container.currentWidget()
-    assert isinstance(view, LogsView)
+    assert isinstance(view, Logs_View)
 
     qCInfo(QLoggingCategory("skeleton.core.application"), "line to clear")
     assert logging_manager.records()

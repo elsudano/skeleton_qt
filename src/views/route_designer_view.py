@@ -2,10 +2,10 @@
 
 from PySide6.QtCore import QLoggingCategory, qCDebug, qCInfo
 
-from src.views.base_view import BaseView
+from src.views.base_view import Base_View
 
 
-class RouteDesignerView(BaseView):
+class RouteDesigner_View(Base_View):
     """Display the route designer interface."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free
@@ -25,10 +25,10 @@ class RouteDesignerView(BaseView):
         super().__init__(parent)
         self.setup_ui()
         super().setup_ui()
-        qCInfo(self._log, "The class RouteDesignerView was created")
-        qCDebug(self._log, "The class RouteDesignerView was created")
+        qCInfo(self._log, "The class RouteDesigner_View was created")
+        qCDebug(self._log, "The class RouteDesigner_View was created")
 
     def setup_ui(self):
         """Build the route designer user interface."""
-        qCDebug(self._log, "The class RouteDesignerView was configured")
+        qCDebug(self._log, "The class RouteDesigner_View was configured")
         pass

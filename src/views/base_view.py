@@ -16,7 +16,7 @@ from src.core.text_binder import TextBinder
 from src.views.views import Views
 
 
-class BaseView(QWidget):
+class Base_View(QWidget):
     """Provide common behavior shared by application views, including logging and translation bindings."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free
@@ -40,8 +40,8 @@ class BaseView(QWidget):
         self._content_layout = QVBoxLayout(self)
         self._content_layout.setContentsMargins(10, 10, 10, 10)
         self._content_layout.setSpacing(10)
-        qCInfo(self._log, "The class BaseView was created")
-        qCDebug(self._log, "The class BaseView was created")
+        qCInfo(self._log, "The class Base_View was created")
+        qCDebug(self._log, "The class Base_View was created")
 
     def setup_ui(self):
         """Build the common view interface.
@@ -54,10 +54,10 @@ class BaseView(QWidget):
         categories = (category,) if category else ()
         if category and ".view." in category:
             categories += (category.replace(".view.", ".model.", 1),)
-        if self.__class__.__name__ != "LogsView":
+        if self.__class__.__name__ != "Logs_View":
             self.setup_log_panel(self._content_layout, categories)
         self.setup_navigation_buttons(self._content_layout)
-        qCDebug(self._log, "The class BaseView was configured")
+        qCDebug(self._log, "The class Base_View was configured")
 
     def setup_log_panel(self, layout: QVBoxLayout, categories: tuple[str, ...]):
         """Add the log panel for this view to the supplied layout.
@@ -90,7 +90,7 @@ class BaseView(QWidget):
             QPushButton(), lambda: self.tr("E&xit"),)
         self._exit_button.setMinimumHeight(BUTTON_MINIMUM_HEIGHT_SIZE)
         self._exit_button.setMinimumWidth(BUTTON_MINIMUM_WIDTH_SIZE)
-        if self.__class__.__name__ != "HomeView":
+        if self.__class__.__name__ != "Home_View":
             bottom_layout.addWidget(self._back_button)
         bottom_layout.addStretch()
         bottom_layout.addWidget(self._exit_button)

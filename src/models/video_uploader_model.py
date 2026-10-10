@@ -5,7 +5,7 @@ from PySide6.QtCore import QLoggingCategory
 from src.models.model import Model
 
 
-class VideoUploaderModel(Model):
+class VideoUploader_Model(Model):
     """Provide application data and behavior used by the Video Uploader view."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free

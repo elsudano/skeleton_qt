@@ -19,8 +19,8 @@ Lista unificada de tareas pendientes del proyecto `skeleton_qt`.
 | ✅ | T01 | **Prioridad:** Alta | Adaptar `MainWindow.bind_text()` al contrato de `TextBinder`. Actualizar `MainWindow.bind_text()` para utilizar correctamente el contrato corregido de `TextBinder`.|
 | ✅ | T02 | **Prioridad:** Alta | Adaptar `BaseView.bind_text()` al contrato de `TextBinder`. Actualizar `BaseView.bind_text()` para utilizar correctamente el contrato corregido de `TextBinder`.|
 | ✅ | T03 | **Prioridad:** Alta | Añadir pruebas para `TextBinder` con callable y texto directo. Cubrir con tests los casos válidos de source callable, texto directo, setter explícito y setter por defecto.|
-| ⏳ | T04 | **Prioridad:** Alta | Añadir desplegable de categorías en `LogsView`. Crear un desplegable seleccionable, utilizando el custom widget `CheckableComboBox`, para que el usuario pueda elegir qué categorías de logging se muestran en el panel de logs de la vista de logs.|
-| ⏳ | T05 | **Prioridad:** Alta | Homogeneizar convención de nombres para componentes MVC. Alinear naming de Model, View y Controller con patrón consistente (`X_Model`, `X_View`, `X_Controller`) sin variaciones entre features.|
+| ✅ | T04 | **Prioridad:** Alta | Añadir desplegable de categorías en `LogsView`. Crear un desplegable seleccionable, utilizando el custom widget `CheckableComboBox`, para que el usuario pueda elegir qué categorías de logging se muestran en el panel de logs de la vista de logs.|
+| ✅ | T05 | **Prioridad:** Alta | Homogeneizar convención de nombres para componentes MVC. Alinear naming de Model, View y Controller con patrón consistente (`X_Model`, `X_View`, `X_Controller`) sin variaciones entre features.|
 | ⏳ | T06 | **Prioridad:** Alta | Establecer guías de estilo para docstrings en Python. Definir formato estándar para parámetros, tipos de retorno, descripciones y casos especiales (exceptions, side effects).|
 | ⏳ | T07 | **Prioridad:** Alta | Revisar README contra implementación actual. Actualizar descripción de arquitectura, estructura y componentes para reflejar fielmente el código existente.|
 | ⏳ | T08 | **Prioridad:** Alta | Documentar flujos de error comunes y su manejo. Crear documentación interna sobre errores esperados en HTTP clients, providers externos y operaciones asíncronas.|
@@ -37,7 +37,7 @@ Lista unificada de tareas pendientes del proyecto `skeleton_qt`.
 | ⏳ | T19 | **Prioridad:** Media | Revisar acciones placeholder de Edit. Determinar el comportamiento correcto de `Cut`, `Copy` y `Paste`: implementación, deshabilitación o mantenimiento como acciones educativas.|
 | ⏳ | T20 | **Prioridad:** Baja | Revisar modelos vacíos y logging compartido. Determinar si los modelos vacíos actuales necesitan una estructura común para logging o si deben mantenerse como puntos de extensión mínimos.|
 | ⏳ | T21 | **Prioridad:** Baja | Revisar naming de handlers `_action_X_button`. Evaluar y normalizar la nomenclatura de los handlers de botones sin modificarla si no aporta una mejora real.|
-| ⏳ | T22 | **Prioridad:** Baja | Corregir comparación de strings en `BaseView.setup_ui()`. Sustituir comparaciones `is not` aplicadas a strings por `!=` para eliminar la dependencia accidental de interning.|
+| ✅ | T22 | **Prioridad:** Baja | Corregir comparación de strings en `BaseView.setup_ui()`. Sustituir comparaciones `is not` a strings por `!=` para seguir las mejores prácticas.|
 | ⏳ | T23 | **Prioridad:** Alta | Separar configuración de logging por salida. Definir el estado configurable de las salidas `Console`, `File` y `GUI`, sustituyendo el modelo actual que trata la salida GUI de forma independiente.|
 | ⏳ | T24 | **Prioridad:** Alta | Añadir checkbox de salida Console en Settings. Añadir el control visual para activar/desactivar la salida de consola.|
 | ⏳ | T25 | **Prioridad:** Alta | Añadir checkbox de salida File en Settings. Añadir el control visual para activar/desactivar la salida a fichero.|

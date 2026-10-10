@@ -5,7 +5,7 @@ from PySide6.QtCore import QLoggingCategory
 from src.models.model import Model
 
 
-class RouteDesignerModel(Model):
+class RouteDesigner_Model(Model):
     """Provide application data and behavior used by the Route Designer view."""
 
     # We need to declare this in this way just to handle the known issue: use-after-free

@@ -117,7 +117,7 @@ class LoggingManager(QObject):
         """Clear the buffered records and truncate the persisted log file.
 
         The GUI display is cleared separately by the log view itself
-        (``LogsView.clear``); this method only resets the data the view
+        (``Logs_View.clear``); this method only resets the data the view
         would otherwise reload on the next application start."""
         with self._lock:
             self._records.clear()
