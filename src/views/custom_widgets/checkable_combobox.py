@@ -81,6 +81,19 @@ class CheckableComboBox(QComboBox):
         self._refresh_display_text()
         self.selection_changed.emit()
 
+    def clear(self):
+        """Clear all checked states without removing items.
+
+        Unlike QComboBox.clear(), this method only unchecks all items
+        while keeping them in the dropdown.
+        """
+        model = self.model()
+        for row in range(model.rowCount()):
+            item = model.item(row)
+            item.setCheckState(Qt.CheckState.Unchecked)
+        self._refresh_display_text()
+        self.selection_changed.emit()
+
     def _refresh_display_text(self):
         """Show the checked entries as the collapsed text of the combo box."""
         self.lineEdit().setText(", ".join(sorted(self.checked_items())))
