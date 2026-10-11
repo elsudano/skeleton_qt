@@ -85,12 +85,12 @@ class VideoUploader_View(Base_View):
         self._upload_video_button = self.bind_text(
             QPushButton(), lambda: self.tr("Upload &Video"))
         self._content_layout.addWidget(self._upload_video_button)
-        self._select_file_button.clicked.connect(self._action_select_file_button)
-        self._upload_video_button.clicked.connect(self._action_upload_video_button)
+        self._select_file_button.clicked.connect(self._on_select_file_button_clicked)
+        self._upload_video_button.clicked.connect(self._on_upload_video_button_clicked)
         qCDebug(self._log, "The class VideoUploader_View was configured")
 
-    def _action_select_file_button(self):
-        """When we want to select the video to upload we need to select with this method"""
+    def _on_select_file_button_clicked(self):
+        """Handle the select file button click action."""
         qCDebug(self._log, "The select_file was clicked")
         path, _ = QFileDialog.getOpenFileName(
             self, self.tr("Select video"), "",
@@ -98,7 +98,7 @@ class VideoUploader_View(Base_View):
         if path:
             self._file_edit.setText(path)
 
-    def _action_upload_video_button(self):
-        """When we want to upload the video we need to click this button"""
+    def _on_upload_video_button_clicked(self):
+        """Handle the upload video button click action."""
         qCDebug(self._log, "The upload_video was clicked")
         pass

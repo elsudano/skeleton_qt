@@ -39,14 +39,14 @@ class Home_View(Base_View):
         # We can create a new button in Home just adding a new one in this list
         buttons = (
             ("_video_button", lambda: self.tr(
-                "Video &Uploader"), self._action_video_button),
+                "Video &Uploader"), self._on_video_button_clicked),
             ("_route_button", lambda: self.tr(
-                "Route &Designer"), self._action_route_button),
+                "Route &Designer"), self._on_route_button_clicked),
             ("_settings_button", lambda: self.tr(
-                "&Settings"), self._action_settings_button),
-            ("_logs_button", lambda: self.tr("&Logs"), self._action_logs_button),
+                "&Settings"), self._on_settings_button_clicked),
+            ("_logs_button", lambda: self.tr("&Logs"), self._on_logs_button_clicked),
             ("_empty1_button", lambda: self.tr(
-                "&Empty1"), self._action_empty1_button),
+                "&Empty1"), self._on_empty1_button_clicked),
         )
         for row_start in range(0, len(buttons), self._buttons_per_row):
             row_layout = QHBoxLayout()
@@ -66,30 +66,30 @@ class Home_View(Base_View):
             self._content_layout.addLayout(row_layout)
         qCDebug(self._log, "The class Home_View was configured")
 
-    def _action_video_button(self):
-        """This will be the actions that we can make when we press video_button"""
+    def _on_video_button_clicked(self):
+        """Handle the video button click action."""
         qCDebug(self._log, "The video_button was clicked")
         self.request_navigation(Views.VIDEO_UPLOADER)
 
-    def _action_route_button(self):
-        """This will be the actions that we can make when we press route_button"""
+    def _on_route_button_clicked(self):
+        """Handle the route button click action."""
         qCDebug(self._log, "The route_button was clicked")
         self.request_navigation(Views.ROUTE_DESIGNER)
 
-    def _action_settings_button(self):
-        """This will be the actions that we can make when we press settings_button"""
+    def _on_settings_button_clicked(self):
+        """Handle the settings button click action."""
         qCDebug(self._log, "The settings_button was clicked")
         self.request_navigation(Views.SETTINGS)
 
-    def _action_empty1_button(self):
-        """This will be the actions that we can make when we press empty1_button.
+    def _on_empty1_button_clicked(self):
+        """Handle the empty1 button click action.
 
         DEMO ONLY: also logs a CRITICAL message to prove every QtMsgType level
         (DEBUG/INFO/WARNING/CRITICAL/FATAL) flows through the same logging
         pipeline."""
         qCDebug(self._log, "The empty1_button was clicked")
 
-    def _action_logs_button(self):
-        """This will be the actions that we can make when we press logs_button"""
+    def _on_logs_button_clicked(self):
+        """Handle the logs button click action."""
         qCDebug(self._log, "The logs_button was clicked")
         self.request_navigation(Views.LOGS)

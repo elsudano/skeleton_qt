@@ -94,21 +94,21 @@ class Base_View(QWidget):
             bottom_layout.addWidget(self._back_button)
         bottom_layout.addStretch()
         bottom_layout.addWidget(self._exit_button)
-        self._back_button.clicked.connect(self._action_back_button)
-        self._exit_button.clicked.connect(self._action_exit_button)
+        self._back_button.clicked.connect(self._on_back_button_clicked)
+        self._exit_button.clicked.connect(self._on_exit_button_clicked)
         layout.addLayout(bottom_layout)
         qCDebug(self._log, "We have added the default buttons Back/Exit")
 
-    def _action_back_button(self):
-        """This will be the actions that we can make when we press back_button"""
+    def _on_back_button_clicked(self):
+        """Handle the back button click action."""
         qCDebug(self._log, "The back_button was clicked")
         self.request_navigation(Views.HOME)
         # raise NotImplementedError(
         #     f"{self.__class__.__name__} debe implementar setup_navigation_buttons()"
         # )
 
-    def _action_exit_button(self):
-        """This will be the actions that we can make when we press exit_button"""
+    def _on_exit_button_clicked(self):
+        """Handle the exit button click action."""
         qCDebug(self._log, "The exit_button was clicked")
         QApplication.instance().quit()
 

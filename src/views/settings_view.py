@@ -107,7 +107,7 @@ class Settings_View(Base_View):
         self._select_log_file_button = self.bind_text(
             QPushButton(), lambda: self.tr("&Select"))
         self._select_log_file_button.clicked.connect(
-            self._action_select_log_file_button)
+            self._on_select_log_file_button_clicked)
         file_row.addWidget(self._log_file_edit)
         file_row.addWidget(self._select_log_file_button)
         right_column.addLayout(file_row)
@@ -140,7 +140,7 @@ class Settings_View(Base_View):
         qCDebug(self._log, f"We have set the bold property in {text_source()} font header.")
         return label
 
-    def _action_select_log_file_button(self):
+    def _on_select_log_file_button_clicked(self):
         """Open a file dialog to pick the log file to display."""
         qCDebug(self._log, "The select_log_file_button was clicked")
         path, _ = QFileDialog.getOpenFileName(

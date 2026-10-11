@@ -36,7 +36,7 @@ Lista unificada de tareas pendientes del proyecto `skeleton_qt`.
 | ⏳ | T18 | **Prioridad:** Media | Implementar la base de `HttpClient`. Implementar el cliente HTTP genérico definido en T17, manteniéndolo independiente de YouTube, Instagram y TikTok.|
 | ⏳ | T19 | **Prioridad:** Media | Revisar acciones placeholder de Edit. Determinar el comportamiento correcto de `Cut`, `Copy` y `Paste`: implementación, deshabilitación o mantenimiento como acciones educativas.|
 | ⏳ | T20 | **Prioridad:** Baja | Revisar modelos vacíos y logging compartido. Determinar si los modelos vacíos actuales necesitan una estructura común para logging o si deben mantenerse como puntos de extensión mínimos.|
-| ⏳ | T21 | **Prioridad:** Baja | Revisar naming de handlers `_action_X_button`. Evaluar y normalizar la nomenclatura de los handlers de botones sin modificarla si no aporta una mejora real.|
+| ✅ | T21 | **Prioridad:** Baja | Revisar naming de handlers `_action_X_button`. Evaluar y normalizar la nomenclatura de los handlers de botones sin modificarla si no aporta una mejora real.|
 | ✅ | T22 | **Prioridad:** Baja | Corregir comparación de strings en `BaseView.setup_ui()`. Sustituir comparaciones `is not` a strings por `!=` para seguir las mejores prácticas.|
 | ⏳ | T23 | **Prioridad:** Alta | Separar configuración de logging por salida. Definir el estado configurable de las salidas `Console`, `File` y `GUI`, sustituyendo el modelo actual que trata la salida GUI de forma independiente.|
 | ⏳ | T24 | **Prioridad:** Alta | Añadir checkbox de salida Console en Settings. Añadir el control visual para activar/desactivar la salida de consola.|
